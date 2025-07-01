@@ -151,6 +151,14 @@ const config: Config = {
               label: 'SCINT 北臺灣資訊學生社群',
               href: 'https://scint.org/',
             },
+             {
+              label: '景美電資32nd',
+              href: 'https://www.instagram.com/cmioc_32nd/',
+            },
+            {
+              label: '北一女中資訊研習社第39屆',
+              href: 'https://www.instagram.com/fgisc39th/',
+            },
           ],
         },
       ],
