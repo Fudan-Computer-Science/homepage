@@ -4,19 +4,19 @@ title : "目次"
 hide_table_of_contents: true
 ---
 
-#### <font face="Quattrocento Sans">Chapter 1 ----- Welcome to C++ </font>
+### <span class="table_font">Chapter 1 ----- Welcome to C++</span> 
 
-#### <font face="Quattrocento Sans">Chapter 2 ----- Variables and Data Types</font>
+### <span class="table_font">Chapter 2 ----- Variables and Data Types</span>
 
-#### <font face="Quattrocento Sans">Chapter 3 ----- Operators and Conditional Statements</font>
+### <span class="table_font">Chapter 3 ----- Operators and Conditional Statements</span>
 
-#### <font face="Quattrocento Sans">Chapter 4 ----- Loops</font>
+### <span class="table_font">Chapter 4 ----- Loops</span>  
 
-#### <font face="Quattrocento Sans">Chapter 6 ----- Functions</font>
+### <span class="table_font">Chapter 6 ----- Functions</span>  
 
-#### <font face="Quattrocento Sans">Chapter 5 ----- Array and String</font>
+### <span class="table_font">Chapter 5 ----- Array and String</span>  
 
-#### <font face="Quattrocento Sans">Chapter 7 ----- Useful Tools</font>
+### <span class="table_font">Chapter 7 ----- Useful Tools</span>  
 
 ###### 舊版連結 https://drive.google.com/file/d/16Di_TsV1gDvJ63pJVB_XAk5B9lYfYuet/preview"
 

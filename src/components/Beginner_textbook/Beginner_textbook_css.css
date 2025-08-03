@@ -1,0 +1,28 @@
+
+/*
+@import url(https://themes.googleusercontent.com/fonts/css?kit=fpjTOVmNbO4Lz34iLyptLTi9jKYd1gJzj5O2gWsEpXq5DSxTUXlwXebxyXtT0rCwbpWxj1uYanMR8CPS4Qxq6_gjkaFetMBAlt1hE_tWw45593oUZZYZflnfO3AsGsb1OoaB-4gtJLwne69TrVPSPGhuOOmDak6WXfvxnvslTfo);
+*/
+.gray_important {
+    background-color: #d9d9d9;
+    font-size: 16pt;
+    font-family: "Consolas";
+    font-weight: 400
+}
+.chapter_title {
+    font-weight: 400;
+    font-size: 48pt;
+    font-family: "Pinyon Script";
+    text-decoration: none;
+    vertical-align: baseline;
+    font-style: normal;
+    color: #000000
+}
+.table_font {
+    color: #000000;
+    font-weight: 400;
+    text-decoration: none;
+    vertical-align: baseline;
+    font-size: 18pt;
+    font-family: "Quattrocento Sans";
+    font-style: italic
+}
