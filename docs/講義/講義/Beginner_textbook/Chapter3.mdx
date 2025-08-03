@@ -1,0 +1,97 @@
+---
+sidebar_position: 3
+title : "第三章"
+---
+import styles from '@site/src/components/Beginner_textbook/Beginner_textbook_css.css';
+
+# <span class="chapter_title">Chapter 3. </span>
+# <span class="chapter_subtitle"> Operators and Conditional Statements </span>
+
+
+## 3-1 常見的運算子
+
+### 運算子
+運算子是一種記號，讓程式知道要做什麼，以下是常見的計算子：
+
+    - #### 設定運算子 \= 
+        Def. 將左方**設定**為右方數值  
+        例：a=b;   //將b的值設定給a(並非a等於b)
+
+    - #### 括號運算子 ()
+        Def. 決定運算的先後順序   
+        例：a-(b+c);  //(b+c)要先算
+
+    - #### 算數運算子
+        | \+ | \- | \* | / | % |
+        | :---: | :---: | :---: | :---: | :---: |
+        | 加法 | 減法 | 乘法 | 除法 | 取左邊除以右邊後的餘數 |
+
+    - #### 複合賦值運算子
+        | 類型 | a+=b | a-=b | a\*=b | a/=b | a%=b |
+        | :---- | :---- | :---- | :---- | :---- | :---- |
+        | 定義 | a的值設定為a+b | a的值設定為a-b | a的值設定為a\*b | a的值設定為a/b | a的值設定為a%b |
+        | 等價於 | a=a+b | a=a-b | a=a\*b | a=a/b | a=a%b |
+
+    - #### 遞增運算子
+        |  | a遞增 | a遞減 |
+        | :---- | :---- | :---- |
+        | 可寫為 | a++//a=a+1或a+=1 | a--//a=a-1或a-=1 |
+
+    - #### 關係運算子
+        | \> | \< | \>= | \<= | \== | \!= |
+        | :---: | :---: | :---: | :---: | :---: | :---: |
+        | 大於 | 小於 | 大於等於 | 小於等於 | 等於 | 不等於 |
+
+    - #### 邏輯運算子
+        | && | \|\| |
+        | :---: | :---: |
+        | and 且 **(都要成立)** | or 或 **(其中一個成立)** |
+
+    - #### 一元運算子
+        | \+ | \- | \! | \~ |
+        | :---: | :---: | :---: | :---: |
+        | 正數 | 負數 | not 否 | 取1的補數 |  
+
+        優先順序：\!(not) \> &&(and) \> \| \|(or)
+
+    - #### 三元條件運算子
+        (條件) ? A : B  
+        如果條件成立，則A  
+        不成立，則B
+
+## 3-2 判斷  
+
+### if判斷
+
+    1. `if(/*條件式*/) {/*成立時要執行的程式*/}` ：  
+        - 當小括號內的判斷條件成立後  
+        就會執行大括號內的程式  
+
+    2. else if：
+        - 可有多個else if  
+            - 前面需先有if或else if假設，當前面的假設不成立時才會執行else if判斷
+
+    3. else：
+        - 當上方if和else if皆不成立後才會執行  
+        - 只能有一個else
+        - else不需判斷
+
+#### if 和 三元條件運算子的差別
+
+![](/img/Beginner_textbook_pic/image75.png)  
+圖：[https://www.facebook.com/ProgrammersCreateLife/photos/a.241809332534619/2470026513046212/?type=3\&theater](https://www.facebook.com/ProgrammersCreateLife/photos/a.241809332534619/2470026513046212/?type=3&theater)
+
+## 3-3 程式碼範例
+    - 範例一：  
+        ![](/img/Beginner_textbook_pic/image77.png)  
+        ![](/img/Beginner_textbook_pic/image31.png)  
+        ![](/img/Beginner_textbook_pic/image26.png)  
+    - 範例二：  
+        ![](/img/Beginner_textbook_pic/image78.png)  
+        ![](/img/Beginner_textbook_pic/image42.png)  
+        ![](/img/Beginner_textbook_pic/image24.png)  
+
+
+### 小遊戲------運算子的結合：
+![](/img/Beginner_textbook_pic/image48.png)  
+<h3>你答對了嗎？</h3>

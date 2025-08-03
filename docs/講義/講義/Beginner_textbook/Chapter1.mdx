@@ -5,40 +5,45 @@ title : "第一章"
 import styles from '@site/src/components/Beginner_textbook/Beginner_textbook_css.css';
 
 # <span class="chapter_title">Chapter 1. </span>
-## Welcome to C++
-### 1. 程式的基本架構
+# <span class="chapter_subtitle"> Welcome to C++ </span>
+## 1-1 程式的基本架構
 
 下列是一個極簡單的程式碼，本節將簡單介紹此程式碼內的包含的東西及意義  
 ![](/img/Beginner_textbook_pic/image56.png)
-<span class="gray_important">#include&lt;iostream&gt; </span>
-<span class="gray_important">// 含括iostream函數庫</span>  
+```cpp
+#include<iostream> // 含括iostream函數庫
+```
 引入的函數庫，類似字典一般，讓每行指令知道它的功能  
-<span class="gray_important">using namespace std; // 使用名稱空間：std</span> 
-
-不想用的話需在每一次輸入、輸出等前加上std:: (p.s.真的很麻煩 真的)  
-<span class="gray_important">int main( ) \{ &nbsp; &nbsp;\} // 程式主體</span>
+```cpp
+using namespace std; // 使用名稱空間：std
+```  
+不想用的話需在每一次輸入、輸出等前加上std:: (p.s.真的很麻煩 真的)    
+```cpp
+int main( ) { /* 程式主體 */ } 
+```  
 主要程式碼的撰寫處  
-#### 活動 1-1  
+
+### 活動
 請在自己的電腦上撰寫如上的程式碼，且條件如下表格並編譯成四個不同的執行檔，請執行.exe並將觀察結果填入下表格。
 
-|                     system(“pause”); return 0; | 有system(“pause”); | 無system(“pause”); |
-| ----- | ----- | ----- |
-| 有return 0; 作結 |  |  |
-| 無return 0; 作結 |  |  |
+| system(“pause”); return 0; | 有system(“pause”); | 無system(“pause”); |
+| -------------------------- | ------------------ | ------------------ |
+| 有return 0; 作結            |                    |                    |
+| 無return 0; 作結            |                    |                    |
 
 **※注意請至單獨點擊.exe檔執行，在編譯器使用F11效果不顯著**  
-從活動1-1可得出一個結論，程式.exe執行完會**自行關閉**，需要**使用system(“pause”)暫停，**但若只有純粹解題需求，不需要用到.exe的話，可不必添加。由於目前使用的編譯器為Dev C++，主程式**return 0;**的有無是沒有太大的區別的，但是在其他編譯器上，**return 0;**作結是必要的，為了避免不必要的麻煩，請在程式結尾加上。  
+#### 從活動1-1可得出一個結論，程式.exe執行完會**自行關閉**，需要**使用system(“pause”)暫停，**但若只有純粹解題需求，不需要用到.exe的話，可不必添加。由於目前使用的編譯器為Dev C++，主程式**return 0;**的有無是沒有太大的區別的，但是在其他編譯器上，**return 0;**作結是必要的，為了避免不必要的麻煩，請在程式結尾加上。  
 **反思**  
-如果把\#include\<iostream\>或using namespace std;刪除的話將會得到什麼錯誤訊息呢？而這些訊息又是什麼意思？  
+如果把 `#include <iostream>` 或 `using namespace std;` 刪除的話將會得到什麼錯誤訊息呢？而這些訊息又是什麼意思？  
 
 
-- #### 本節重點及易錯細節
+- ### 本節重點及易錯細節
 		- 在程式碼中「空白(space)」及「換行(enter)」對電腦而言是**沒有意義**的，因此一個程式設計者要**善用空白及換行整理程式碼**，**簡潔明瞭的程式碼**將是未來debug的關鍵。  
 		- 而在程式碼中真正做為一項指令結束的是**分號(;)**，因此在每個命令下完記得要以**分號作結**。  
-		- 忘記打分號: 程式會顯示 \[Error\] expected ';' before 'XXX' ，簡單說，你少什麼，他就說他期望在XXX前有什麼  
-		- \#include\<iostream\>、using namespace std; 超級容易拼錯  
+		- 忘記打分號: 程式會顯示 `[Error] expected ';' before 'XXX'` 簡單說，你少什麼，他就說他期望在XXX前有什麼  
+		- `#include <iostream>`、`using namespace std;` 超級容易拼錯  
 
-#### 1-2 基本的輸出  
+## 1-2 基本的輸出  
 在程式中若要與使用者作互動，最直接的方式便是**輸入**與**輸出**的運用，不過目前還沒教到輸入，僅在這裡概述輸出。  
 如果要輸出一段文字，我們使用**cout 和 \<\<**  
 - 例： cout\<\<”一段文字”\<\<endl;  
