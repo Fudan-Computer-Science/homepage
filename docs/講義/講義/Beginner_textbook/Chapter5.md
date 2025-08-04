@@ -1,6 +1,7 @@
 ---
 sidebar_position: 5
 title : "第五章"
+description: "陣列與字串"
 ---
 import styles from '/src/components/Beginner_textbook/Beginner_textbook_css.css';
 

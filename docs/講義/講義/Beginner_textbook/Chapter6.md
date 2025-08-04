@@ -1,6 +1,7 @@
 ---
 sidebar_position: 6
 title : "第六章"
+description: "函數"
 ---
 import styles from '/src/components/Beginner_textbook/Beginner_textbook_css.css';
 
