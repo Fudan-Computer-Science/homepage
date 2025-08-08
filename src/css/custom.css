@@ -60,16 +60,16 @@ pre[class*=big]
     font-weight: 400
 }
 .chapter_title {
+    color: var(--word-color);
     font-weight: 400;
     font-size: 48pt;
     font-family: "Pinyon Script", cursive;
     text-decoration: none;
     vertical-align: baseline;
     font-style: normal;
-    color: --word-color
 }
 .table_font {
-    color: --word-color;
+    color: var(--word-color);
     font-weight: 400;
     text-decoration: none;
     vertical-align: baseline;
@@ -78,7 +78,7 @@ pre[class*=big]
     font-style: italic
 }
 .chapter_subtitle {
-    color: --word-color;
+    color: var(--word-color);
     font-weight: 400;
     text-decoration: none;
     vertical-align: baseline;
