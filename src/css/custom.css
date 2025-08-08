@@ -43,9 +43,13 @@
   font-display: swap;
   src: url(../../static/fonts/PinyonScript.woff2) format('woff2');
 }
-pre[class*=big]
+div[class*=big_block]
 {
     font-size: 1.2em;
+}
+div[class*=very_big_block]
+{
+    font-size: 1.6em;
 }
 .gray_important_big {
     color: var(--word-color);
