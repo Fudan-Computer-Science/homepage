@@ -3,7 +3,6 @@ sidebar_position: 5
 title : "第五章"
 description: "陣列與字串"
 ---
-import styles from '/src/components/Beginner_textbook/Beginner_textbook_css.css';
 
 # <span class="chapter_title">Chapter 5. </span>
 # <span class="chapter_subtitle"> Array and String </span>

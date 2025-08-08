@@ -15,6 +15,8 @@
   --ifm-color-primary-lightest: #9ab5ce;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  --word-color: #000000;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -27,4 +29,67 @@
   --ifm-color-primary-lighter: #32d8b4;
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+
+  --word-color: #fdfdfd;
+}
+
+@import url(https://themes.googleusercontent.com/fonts/css?kit=fpjTOVmNbO4Lz34iLyptLTi9jKYd1gJzj5O2gWsEpXq5DSxTUXlwXebxyXtT0rCwbpWxj1uYanMR8CPS4Qxq6_gjkaFetMBAlt1hE_tWw45593oUZZYZflnfO3AsGsb1OoaB-4gtJLwne69TrVPSPGhuOOmDak6WXfvxnvslTfo);
+
+
+@font-face {
+  font-family: 'Pinyon Script';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../../static/fonts/PinyonScript.woff2) format('woff2');
+}
+pre[class*=big]
+{
+    font-size: 1.2em;
+}
+.gray_important_big {
+    background-color: #d9d9d9;
+    font-size: 16pt;
+    font-family: "Consolas";
+    font-weight: 400
+}
+.gray_important_inline {
+    background-color: #d9d9d9;
+    font-size: 14pt;
+    font-family: "Consolas";
+    font-weight: 400
+}
+.chapter_title {
+    font-weight: 400;
+    font-size: 48pt;
+    font-family: "Pinyon Script", cursive;
+    text-decoration: none;
+    vertical-align: baseline;
+    font-style: normal;
+    color: --word-color
+}
+.table_font {
+    color: --word-color;
+    font-weight: 400;
+    text-decoration: none;
+    vertical-align: baseline;
+    font-size: 18pt;
+    font-family: "Quattrocento Sans";
+    font-style: italic
+}
+.chapter_subtitle {
+    color: --word-color;
+    font-weight: 400;
+    text-decoration: none;
+    vertical-align: baseline;
+    font-size: 36pt;
+    font-family: "Times New Roman";
+    font-style: normal
+}
+.red_warning {
+    color: #ff1f1f;
+    font-weight: 400;
+    font-size: 20pt;
+    font-family: "Times New Roman";
+    font-style: normal
 }

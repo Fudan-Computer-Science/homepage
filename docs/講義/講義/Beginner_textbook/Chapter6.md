@@ -3,7 +3,6 @@ sidebar_position: 6
 title : "第六章"
 description: "函數"
 ---
-import styles from '/src/components/Beginner_textbook/Beginner_textbook_css.css';
 
 # <span class="chapter_title">Chapter 6. </span>
 # <span class="chapter_subtitle"> Functions </span>
@@ -21,9 +20,9 @@ import styles from '/src/components/Beginner_textbook/Beginner_textbook_css.css'
 ## 6-2 C++之中的函數  
 函數的部分有所謂的"void"型態，在C++中，傳回值為void的函數，也就是沒有傳回值的意思；同理，如果引數為void，那麼就代表這個函數不需要傳回值也可以運作。  
 在定義完了函數的原型後，我們可以開始寫函數裡面的內容，如以下範例  
+![](/img/Beginner_textbook_pic/image60.png)  
 是不是簡潔乾淨美觀大方賢慧呢?  
 **函數通常用於簡化程式碼**，各位可以試著把一些先前寫過的程式利用函數的形式簡化。另外某些特別的演算法需要搭配上函數的特性才能實現，雖然這本講義裡並不會教，但是那其實是程式設計的精華所在，有興趣的話可以去找些書或是學長問問看。  
-![](/img/Beginner_textbook_pic/image60.png)  
 也可以不宣告函數，直接把下面的本體寫在上面。
 ## 6-3 有多個引數的函數  
 函數其實是可以允許有多個引數的，甚至是不同引數可以有不同的回傳值  
