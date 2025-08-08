@@ -48,12 +48,14 @@ pre[class*=big]
     font-size: 1.2em;
 }
 .gray_important_big {
+    color: var(--word-color);
     background-color: #d9d9d9;
     font-size: 16pt;
     font-family: "Consolas";
     font-weight: 400
 }
 .gray_important_inline {
+    color: var(--word-color);
     background-color: #d9d9d9;
     font-size: 14pt;
     font-family: "Consolas";
