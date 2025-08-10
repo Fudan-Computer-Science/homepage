@@ -2,11 +2,34 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Fudan-Computer-Science.github.io/homepage/blog</id>
     <title>復旦程式設計班 Blog</title>
-    <updated>2025-06-13T00:00:00.000Z</updated>
+    <updated>2025-08-10T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Fudan-Computer-Science.github.io/homepage/blog"/>
     <subtitle>復旦程式設計班 Blog</subtitle>
     <icon>https://Fudan-Computer-Science.github.io/homepage/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[程設班第十四屆幹部訓練]]></title>
+        <id>https://Fudan-Computer-Science.github.io/homepage/blog/2025-14th-Committee-Members-Training</id>
+        <link href="https://Fudan-Computer-Science.github.io/homepage/blog/2025-14th-Committee-Members-Training"/>
+        <updated>2025-08-10T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[2025 8/9~8/10 程設班第十四屆幹部訓練 圓滿落幕]]></summary>
+        <content type="html"><![CDATA[<p>2025 8/9~8/10 程設班第十四屆幹部訓練 圓滿落幕
+Day 1
+第一天是活動，除了慣例的破冰遊戲能認識從第0屆到第14屆的幹部外，也有造飛機、羅馬競技生死鬥及重頭戲--解謎。在玩樂中認識學長學姊、共同合作並解決問題。
+Day 2
+第二天是14屆幹部面試與試教，在學長姐的點評和講解之下，教學組傳授學員們常見的盲點與教學技巧、行政組則為開學後的迎新活動做進一步的策畫與修正，為正式開課前做最好的準備，以歡迎程式設計班每位學員的到來。
+圖(一) 14屆幹部與指導老師合照
+圖(二) 感謝學長姐們蒞臨指導!!!
+第14屆復旦程式設計班已經開放報名啦!!! 不論你是C++初學者，抑或已有一定程式基礎，都歡迎報名加入! 報名只到8/30，要報要快!!!
+報名連結-&gt; <a href="https://forms.gle/t6RnCWcuYejr4WkQ6" target="_blank" rel="noopener noreferrer">https://forms.gle/t6RnCWcuYejr4WkQ6</a></p>
+<p>活動照片:
+<img decoding="async" loading="lazy" alt="圖(一) 14屆幹部與指導老師合照" src="https://fudan-computer-science.github.io/homepage/assets/images/526350471_1500427867617776_1779292256580456884_n-8ab08e5e40616b019cc57298fbdf33e6.jpg" width="2048" height="1536" class="img_ev3q">
+<img decoding="async" loading="lazy" alt="圖(二) 感謝學長姐們蒞臨指導!!!" src="https://fudan-computer-science.github.io/homepage/assets/images/527358924_971249321756328_3744595429435943201_n-41af264bc1383bf1f18e1e801b1cec78.jpg" width="2048" height="1536" class="img_ev3q"></p>]]></content>
+        <author>
+            <name>Miyun</name>
+        </author>
+        <category label="公佈欄" term="公佈欄"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[2025學科能力競賽資訊科 後記]]></title>
         <id>https://Fudan-Computer-Science.github.io/homepage/blog/2025-academic-competence-contest</id>
