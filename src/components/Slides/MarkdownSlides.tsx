@@ -1,15 +1,9 @@
-// src/components/Slide.tsx
 import React, { useEffect, useRef, useState } from "react";
-import BrowserOnly from "@docusaurus/BrowserOnly"; // <-- 新增
-import Reveal from "reveal.js";
-import RevealHighlight from "reveal.js/plugin/highlight/highlight.esm.js";
+import BrowserOnly from "@docusaurus/BrowserOnly";
+
 import "reveal.js/dist/reveal.css";
 import "reveal.js/dist/theme/black.css";
 import "reveal.js/plugin/highlight/monokai.css";
-
-const handleRefresh = () => {
-  window.location.reload();
-};
 
 export const SlideBreak: React.FC = () => null;
 export const BranchBreak: React.FC = () => null;
@@ -20,7 +14,6 @@ interface SlideProps {
 }
 
 export default function Slide({ children, height = "80vh" }: SlideProps) {
-  // 用 BrowserOnly 來包裹內部才會使用 Reveal
   return (
     <BrowserOnly fallback={<div>Loading slides...</div>}>
       {() => <SlideInner children={children} height={height} />}
@@ -31,11 +24,24 @@ export default function Slide({ children, height = "80vh" }: SlideProps) {
 function SlideInner({ children, height }: SlideProps) {
   const revealRef = useRef<HTMLDivElement | null>(null);
   const deckRef = useRef<any>(null);
+  const [RevealModule, setRevealModule] = useState<any>(null);
+  const [RevealHighlightModule, setRevealHighlightModule] = useState<any>(null);
+
+  // 動態 import Reveal 和 Highlight，避免 SSR 錯誤
+  useEffect(() => {
+    Promise.all([
+      import("reveal.js"),
+      import("reveal.js/plugin/highlight/highlight.esm.js"),
+    ]).then(([Reveal, RevealHighlight]) => {
+      setRevealModule(() => Reveal.default || Reveal);
+      setRevealHighlightModule(() => RevealHighlight.default || RevealHighlight);
+    });
+  }, []);
 
   const slides = React.useMemo(() => splitSlidesWithBranches(children), [children]);
 
   useEffect(() => {
-    if (!revealRef.current) return;
+    if (!RevealModule || !RevealHighlightModule || !revealRef.current) return;
 
     if (deckRef.current) {
       try {
@@ -44,26 +50,23 @@ function SlideInner({ children, height }: SlideProps) {
       deckRef.current = null;
     }
 
-    const timer = setTimeout(() => {
-      const deck = new Reveal(revealRef.current as HTMLElement, {
-        embedded: true,
-        hash: true,
-        slideNumber: true,
-        transition: "slide",
-        plugins: [RevealHighlight],
-      });
-      deck.initialize();
-      deckRef.current = deck;
-    }, 100);
+    const deck = new RevealModule(revealRef.current, {
+      embedded: true,
+      hash: true,
+      slideNumber: true,
+      transition: "slide",
+      plugins: [RevealHighlightModule],
+    });
+    deck.initialize();
+    deckRef.current = deck;
 
     return () => {
-      clearTimeout(timer);
       try {
         deckRef.current?.destroy();
       } catch {}
       deckRef.current = null;
     };
-  }, [slides]);
+  }, [RevealModule, RevealHighlightModule, slides]);
 
   const renderNodeArray = (nodes: React.ReactNode[]) =>
     nodes.map((n, i) => <React.Fragment key={i}>{n}</React.Fragment>);
@@ -100,7 +103,6 @@ function SlideInner({ children, height }: SlideProps) {
   };
 
   return (
-    <BrowserOnly>{() => (
     <>
       <button
         onClick={toggleFullscreen}
@@ -144,7 +146,6 @@ function SlideInner({ children, height }: SlideProps) {
         </div>
       </div>
     </>
-    )}</BrowserOnly>
   );
 }
 
