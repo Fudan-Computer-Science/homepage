@@ -21,6 +21,7 @@
     "@mdx-js/react": "^3.0.0",
     "clsx": "^2.0.0",
     "framer-motion": "^12.16.0",
+    "katex": "^0.16.22",
     "markdown-it": "^14.1.0",
     "marked": "^16.1.2",
     "mermaid": "^11.9.0",

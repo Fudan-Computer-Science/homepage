@@ -2,12 +2,15 @@
 ## 本地修改指南  
 下載git  
 https://git-scm.com/downloads/win  
-下載Node.js
-https://nodejs.org/en/download/
-![](./z_README_files/teach1.png)
-![](./z_README_files/teach2.png)
-![](./z_README_files/teach3.png)
-![](./z_README_files/teach4.png)
+下載nvm
+https://github.com/coreybutler/nvm-windows/releases/download/1.2.2/nvm-setup.exe
+
+開啟cmd
+```shell
+nvm install 18.20.8
+nvm use 18.20.8
+```
+關掉cmd 開啟cmd
 ```shell
 cd 你想要放檔案的位置
 npx create-docusaurus@latest homepage https://github.com/Fudan-Computer-Science/homepage.git -g deep
