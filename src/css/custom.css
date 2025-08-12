@@ -99,3 +99,53 @@ div[class*=very_big_block]
     font-family: "Times New Roman";
     font-style: normal
 }
+
+
+
+/* 
+
+
+*/
+.reveal [class^="hljs-"],
+[class*=" hljs-"] {
+  text-shadow: none !important;
+}
+
+/* 也包含主要容器 */
+.hljs {
+  text-shadow: none !important;
+  color: #faec72 !important;
+}
+
+/* 針對 code 和 pre 也清理 */
+pre, code {
+  text-shadow: none !important;
+}
+/* 投影片中文字大小與行高優化 */
+.reveal .slides section {
+  font-size: 1.6rem;
+  line-height: 1.5;
+}
+.reveal .hljs-comment {
+  color: #60ff6d !important;  /* 調亮綠色 */
+}
+.reveal .hljs-number {
+  color: #60a5ff !important;  /* 調亮綠色 */
+}
+.reveal .hljs-params {
+  color: #45daff !important;  /* 調亮綠色 */
+}
+/* 代碼區塊字體與背景 */
+.reveal pre {
+  font-family: 'Fira Code', Consolas, 'Courier New', monospace;
+  font-size: 1.1rem;
+  background: #383838;
+  border-radius: 4px;
+  padding: 1rem;
+  overflow-x: auto;
+}
+/* 讓標題更醒目 */
+.reveal h1, .reveal h2 {
+  color: #fff;
+  text-shadow: 0 0 10px rgba(0,0,0,0.7);
+}

@@ -1,0 +1,20 @@
+.slide-container {
+  position: relative;
+}
+
+.fullscreen-btn {
+  position: fixed; /* 放在投影片外 */
+  top: 10px;
+  right: 10px;
+  z-index: 9999;
+  padding: 8px 12px;
+  background-color: #222;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.fullscreen-btn:hover {
+  background-color: #444;
+}
