@@ -61,7 +61,7 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/Fudan-Computer-Science/homepage/tree/main/docs',
+            'https://github.com/Fudan-Computer-Science/homepage/tree/main',
           tags: '../blog/tags.yml',
         },
         blog: {
@@ -73,7 +73,7 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/Fudan-Computer-Science/homepage/tree/main/blog',
+            'https://github.com/Fudan-Computer-Science/homepage/tree/main',
           // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
