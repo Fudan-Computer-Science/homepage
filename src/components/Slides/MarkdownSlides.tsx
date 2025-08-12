@@ -1,5 +1,5 @@
 // src/components/Slide.tsx
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Reveal from "reveal.js";
 import RevealHighlight from "reveal.js/plugin/highlight/highlight.esm.js";
 import "reveal.js/dist/reveal.css";
@@ -52,8 +52,61 @@ export default function Slide({ children, height = "80vh" }: SlideProps) {
   const renderNodeArray = (nodes: React.ReactNode[]) =>
     nodes.map((n, i) => <React.Fragment key={i}>{n}</React.Fragment>);
 
+  const toggleFullscreen = () => {
+    if (!revealRef.current) return;
+
+    if (
+      !document.fullscreenElement &&
+      !(document as any).webkitFullscreenElement &&
+      !(document as any).mozFullScreenElement &&
+      !(document as any).msFullscreenElement
+    ) {
+      // 進入全螢幕
+      if (revealRef.current.requestFullscreen) {
+        revealRef.current.requestFullscreen();
+      } else if ((revealRef.current as any).webkitRequestFullscreen) {
+        (revealRef.current as any).webkitRequestFullscreen();
+      } else if ((revealRef.current as any).mozRequestFullScreen) {
+        (revealRef.current as any).mozRequestFullScreen();
+      } else if ((revealRef.current as any).msRequestFullscreen) {
+        (revealRef.current as any).msRequestFullscreen();
+      }
+    } else {
+      // 離開全螢幕
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if ((document as any).webkitExitFullscreen) {
+        (document as any).webkitExitFullscreen();
+      } else if ((document as any).mozCancelFullScreen) {
+        (document as any).mozCancelFullScreen();
+      } else if ((document as any).msExitFullscreen) {
+        (document as any).msExitFullscreen();
+      }
+    }
+  };
   return (
     <>
+      <button
+        onClick={toggleFullscreen}
+        style={{
+          position: "fixed",
+          top: 12,
+          right: 12,
+          zIndex: 9999,
+          padding: "8px 16px",
+          backgroundColor: "#007bff",
+          color: "white",
+          border: "none",
+          borderRadius: 4,
+          cursor: "pointer",
+          userSelect: "none",
+          boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
+          fontWeight: "bold",
+        }}
+        aria-label="Toggle Fullscreen"
+      >
+        {"全螢幕"}
+      </button>
       <div
         className="reveal"
         ref={revealRef}
@@ -82,6 +135,7 @@ export default function Slide({ children, height = "80vh" }: SlideProps) {
       </div>
     </>
   );
+  
 }
 
 /* ---------------- 下面是分割邏輯 ---------------- */

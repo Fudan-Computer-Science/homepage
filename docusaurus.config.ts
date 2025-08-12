@@ -19,7 +19,10 @@ const config: Config = {
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/homepage/',
-
+  themes: ['@docusaurus/theme-mermaid'],
+  markdown: {
+    mermaid: true,
+  },
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'Fudan-Computer-Science', // Usually your GitHub org/user name.
@@ -37,7 +40,6 @@ const config: Config = {
     locales: ['zh-TW'],   
     // 語系配置
   },
-
   presets: [
     [
       'classic',
@@ -47,7 +49,7 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/Fudan-Computer-Science/homepage/blob/main/docusaurus.config.ts',
+            'https://github.com/Fudan-Computer-Science/homepage/tree/main/docs',
           tags: '../blog/tags.yml',
         },
         blog: {
@@ -73,6 +75,9 @@ const config: Config = {
   ],
 
   themeConfig: {
+    mermaid: {
+      theme: {light: 'neutral', dark: 'forest'},
+    },
     // Replace with your project's social card
     image: 'img/FDHS_CPP-social-card.jpg',
     navbar: {
