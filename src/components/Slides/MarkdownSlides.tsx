@@ -127,40 +127,22 @@ function SlideInner({ children, height }: SlideProps) {
         ref={revealRef}
         style={{ height, backgroundColor: "#222", color: "#eee" }}
       >
-        <button
-          onClick={handleRefresh}
-          style={{
-            position: "fixed",
-            bottom: 10,
-            zIndex: 9999,
-            padding: "8px 16px",
-            backgroundColor: "#2e2d2dff",
-            color: "white",
-            border: "none",
-            borderRadius: 4,
-            cursor: "pointer",
-            userSelect: "none",
-            boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
-            fontWeight: "bold",
-          }}
-          aria-label="Fix Block"
-        >
-          若程式碼等跑不出來請按我
-        </button>
-        <div className="slides">
-          {slides.map((branches, i) => {
-            if (branches.length === 1) {
-              return <section key={i}>{renderNodeArray(branches[0])}</section>;
-            }
-            return (
-              <section key={i}>
-                {branches.map((branchNodes, j) => (
-                  <section key={j}>{renderNodeArray(branchNodes)}</section>
-                ))}
-              </section>
-            );
-          })}
-        </div>
+        <BrowserOnly>{() => (
+          <div className="slides">
+            {slides.map((branches, i) => {
+              if (branches.length === 1) {
+                return <section key={i}>{renderNodeArray(branches[0])}</section>;
+              }
+              return (
+                <section key={i}>
+                  {branches.map((branchNodes, j) => (
+                    <section key={j}>{renderNodeArray(branchNodes)}</section>
+                  ))}
+                </section>
+              );
+            })}
+          </div>
+        )}</BrowserOnly>
       </div>
     </>
   );
