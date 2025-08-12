@@ -100,6 +100,7 @@ function SlideInner({ children, height }: SlideProps) {
   };
 
   return (
+    <BrowserOnly>{() => (
     <>
       <button
         onClick={toggleFullscreen}
@@ -127,24 +128,23 @@ function SlideInner({ children, height }: SlideProps) {
         ref={revealRef}
         style={{ height, backgroundColor: "#222", color: "#eee" }}
       >
-        <BrowserOnly>{() => (
-          <div className="slides">
-            {slides.map((branches, i) => {
-              if (branches.length === 1) {
-                return <section key={i}>{renderNodeArray(branches[0])}</section>;
-              }
-              return (
-                <section key={i}>
-                  {branches.map((branchNodes, j) => (
-                    <section key={j}>{renderNodeArray(branchNodes)}</section>
-                  ))}
-                </section>
-              );
-            })}
-          </div>
-        )}</BrowserOnly>
+        <div className="slides">
+          {slides.map((branches, i) => {
+            if (branches.length === 1) {
+              return <section key={i}>{renderNodeArray(branches[0])}</section>;
+            }
+            return (
+              <section key={i}>
+                {branches.map((branchNodes, j) => (
+                  <section key={j}>{renderNodeArray(branchNodes)}</section>
+                ))}
+              </section>
+            );
+          })}
+        </div>
       </div>
     </>
+    )}</BrowserOnly>
   );
 }
 
