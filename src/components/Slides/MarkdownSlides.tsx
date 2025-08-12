@@ -5,7 +5,10 @@ import RevealHighlight from "reveal.js/plugin/highlight/highlight.esm.js";
 import "reveal.js/dist/reveal.css";
 import "reveal.js/dist/theme/black.css";
 import "reveal.js/plugin/highlight/monokai.css";
-
+const handleRefresh = () => {
+    // 重整頁面
+    window.location.reload();
+  };
 /** 明確分隔用元件（水平） */
 export const SlideBreak: React.FC = () => null;
 /** 明確分隔用元件（垂直） */
@@ -84,6 +87,7 @@ export default function Slide({ children, height = "80vh" }: SlideProps) {
       }
     }
   };
+  
   return (
     <>
       <button
@@ -112,6 +116,26 @@ export default function Slide({ children, height = "80vh" }: SlideProps) {
         ref={revealRef}
         style={{ height, backgroundColor: "#222", color: "#eee" }}
       >
+        <button
+          onClick={handleRefresh}
+          style={{
+            position: "fixed",
+            bottom: 10,
+            zIndex: 9999,
+            padding: "8px 16px",
+            backgroundColor: "#2e2d2dff",
+            color: "white",
+            border: "none",
+            borderRadius: 4,
+            cursor: "pointer",
+            userSelect: "none",
+            boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
+            fontWeight: "bold",
+          }}
+          aria-label="Fix Block"
+        >
+          {"若程式碼等跑不出來請按我"}
+        </button>
         <div className="slides">
           {slides.map((branches, i) => {
             // 若只有一個分支，直接輸出單一 <section>
