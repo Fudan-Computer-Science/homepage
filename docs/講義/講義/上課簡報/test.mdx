@@ -10,7 +10,8 @@ import Slide, { SlideBreak, BranchBreak } from '@site/src/components/Slides/Mark
 ## 先備知識
 
 遞迴  
-```cpp
+<pre><code className="language-cpp">
+{`
 int fibonacci(int n)
 {
 	//遞迴終止條件
@@ -28,7 +29,8 @@ int main()
 {
 	int ret = fibonacci(5);
 }
-```
+`}
+</code></pre>
 
 <BranchBreak />
 
@@ -130,7 +132,8 @@ int main()
 
 ## 新code
 
-```cpp
+<pre><code className="language-cpp">
+{`
 vector<int> dp = {0, 1};
 int fibonacci(int n)
 {
@@ -153,23 +156,27 @@ int main()
 {
     int ret = fibonacci(5);
 }
-```
+`}
+</code></pre>
 - 時間複雜度看起來很難分析(?
 - 換一種方式寫！
 
 <BranchBreak />
 
 我們可以注意到  
-```cpp
+<pre><code className="language-cpp">
+{`
 int l = fibonacci(n-1);
 int r = fibonacci(n-2);
-```
+`}
+</code></pre>
 只會調用到n之前的前兩項而已
 所以，我們可以從$n$較小推到比較高的部分
 
 <BranchBreak />
 
-```cpp
+<pre><code className="language-cpp">
+{`
 vector<int> dp = {0, 1};
 int fibonacci(int n)
 {
@@ -189,7 +196,8 @@ int main()
 {
     int ret = fibonacci(5);
 }
-```
+`}
+</code></pre>
 這樣對於每一個節點都只會是$O(1)$的時間
 因此$fibonacci(n)$的時間複雜度是$O(n)$
 
@@ -232,12 +240,12 @@ d --> f
 
 <BranchBreak />
 
-```cpp
+<pre><code className="language-cpp">
+{`
 struct Node
 {
     Node *l = nullptr, *r = nullptr;  
 };
-
 void dfs(Node *n)
 {
     if(n == nullptr)return;
@@ -245,6 +253,7 @@ void dfs(Node *n)
     dfs(n->r);
     return;
 }
-```
+`}
+</code></pre>
 
 </Slide>

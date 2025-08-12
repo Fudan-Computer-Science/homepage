@@ -1,17 +1,17 @@
 // src/components/Slide.tsx
 import React, { useEffect, useRef, useState } from "react";
+import BrowserOnly from "@docusaurus/BrowserOnly"; // <-- 新增
 import Reveal from "reveal.js";
 import RevealHighlight from "reveal.js/plugin/highlight/highlight.esm.js";
 import "reveal.js/dist/reveal.css";
 import "reveal.js/dist/theme/black.css";
 import "reveal.js/plugin/highlight/monokai.css";
+
 const handleRefresh = () => {
-    // 重整頁面
-    window.location.reload();
-  };
-/** 明確分隔用元件（水平） */
+  window.location.reload();
+};
+
 export const SlideBreak: React.FC = () => null;
-/** 明確分隔用元件（垂直） */
 export const BranchBreak: React.FC = () => null;
 
 interface SlideProps {
@@ -20,38 +20,51 @@ interface SlideProps {
 }
 
 export default function Slide({ children, height = "80vh" }: SlideProps) {
-  const revealRef = React.useRef<HTMLDivElement | null>(null);
-  const deckRef = React.useRef<any>(null);
+  // 用 BrowserOnly 來包裹內部才會使用 Reveal
+  return (
+    <BrowserOnly fallback={<div>Loading slides...</div>}>
+      {() => <SlideInner children={children} height={height} />}
+    </BrowserOnly>
+  );
+}
 
-  // 把 MDX 產生的 ReactNode 切成 [ [branch1, branch2], [ ... ] ]
+function SlideInner({ children, height }: SlideProps) {
+  const revealRef = useRef<HTMLDivElement | null>(null);
+  const deckRef = useRef<any>(null);
+
   const slides = React.useMemo(() => splitSlidesWithBranches(children), [children]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!revealRef.current) return;
 
-    // 先 destroy 可能存在的 instance（避免 double init）
     if (deckRef.current) {
-      try { deckRef.current.destroy(); } catch {}
+      try {
+        deckRef.current.destroy();
+      } catch {}
       deckRef.current = null;
     }
 
-    const deck = new Reveal(revealRef.current as HTMLElement, {
-      embedded: true,
-      hash: true,
-      slideNumber: true,
-      transition: "slide",
-      plugins: [RevealHighlight],
-    });
-    deck.initialize();
-    deckRef.current = deck;
+    const timer = setTimeout(() => {
+      const deck = new Reveal(revealRef.current as HTMLElement, {
+        embedded: true,
+        hash: true,
+        slideNumber: true,
+        transition: "slide",
+        plugins: [RevealHighlight],
+      });
+      deck.initialize();
+      deckRef.current = deck;
+    }, 100);
 
     return () => {
-      try { deck.destroy(); } catch {}
+      clearTimeout(timer);
+      try {
+        deckRef.current?.destroy();
+      } catch {}
       deckRef.current = null;
     };
-  }, [slides]); // 內容變動時重新 init（必要時可改為更精細的更新）
+  }, [slides]);
 
-  // helper: 把一個 ReactNode[] 安全渲染（加 key）
   const renderNodeArray = (nodes: React.ReactNode[]) =>
     nodes.map((n, i) => <React.Fragment key={i}>{n}</React.Fragment>);
 
@@ -64,7 +77,6 @@ export default function Slide({ children, height = "80vh" }: SlideProps) {
       !(document as any).mozFullScreenElement &&
       !(document as any).msFullscreenElement
     ) {
-      // 進入全螢幕
       if (revealRef.current.requestFullscreen) {
         revealRef.current.requestFullscreen();
       } else if ((revealRef.current as any).webkitRequestFullscreen) {
@@ -75,7 +87,6 @@ export default function Slide({ children, height = "80vh" }: SlideProps) {
         (revealRef.current as any).msRequestFullscreen();
       }
     } else {
-      // 離開全螢幕
       if (document.exitFullscreen) {
         document.exitFullscreen();
       } else if ((document as any).webkitExitFullscreen) {
@@ -87,7 +98,7 @@ export default function Slide({ children, height = "80vh" }: SlideProps) {
       }
     }
   };
-  
+
   return (
     <>
       <button
@@ -109,7 +120,7 @@ export default function Slide({ children, height = "80vh" }: SlideProps) {
         }}
         aria-label="Toggle Fullscreen"
       >
-        {"全螢幕"}
+        全螢幕
       </button>
       <div
         className="reveal"
@@ -134,19 +145,13 @@ export default function Slide({ children, height = "80vh" }: SlideProps) {
           }}
           aria-label="Fix Block"
         >
-          {"若程式碼等跑不出來請按我"}
+          若程式碼等跑不出來請按我
         </button>
         <div className="slides">
           {slides.map((branches, i) => {
-            // 若只有一個分支，直接輸出單一 <section>
             if (branches.length === 1) {
-              return (
-                <section key={i}>
-                  {renderNodeArray(branches[0])}
-                </section>
-              );
+              return <section key={i}>{renderNodeArray(branches[0])}</section>;
             }
-            // 多個分支 -> 外層 section 包多個內層 section（vertical）
             return (
               <section key={i}>
                 {branches.map((branchNodes, j) => (
@@ -159,7 +164,6 @@ export default function Slide({ children, height = "80vh" }: SlideProps) {
       </div>
     </>
   );
-  
 }
 
 /* ---------------- 下面是分割邏輯 ---------------- */
