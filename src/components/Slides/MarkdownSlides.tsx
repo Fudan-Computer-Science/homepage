@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import BrowserOnly from "@docusaurus/BrowserOnly";
+import "./Slide.css"; // 這裡放按鈕樣式
 
 import "reveal.js/dist/reveal.css";
 import "reveal.js/dist/theme/black.css";
@@ -26,7 +27,7 @@ function SlideInner({ children, height }: SlideProps) {
   const deckRef = useRef<any>(null);
   const [RevealModule, setRevealModule] = useState<any>(null);
   const [RevealHighlightModule, setRevealHighlightModule] = useState<any>(null);
-
+  const [isFs, setIsFs] = useState(false);
   // 動態 import Reveal 和 Highlight，避免 SSR 錯誤
   useEffect(() => {
     Promise.all([
@@ -37,7 +38,28 @@ function SlideInner({ children, height }: SlideProps) {
       setRevealHighlightModule(() => RevealHighlight.default || RevealHighlight);
     });
   }, []);
+  useEffect(() => {
+    const onFsChange = () => {
+      const fullscreenEl =
+        document.fullscreenElement ||
+        (document as any).webkitFullscreenElement ||
+        (document as any).mozFullScreenElement ||
+        (document as any).msFullscreenElement;
+      setIsFs(!!fullscreenEl);
+    };
 
+    document.addEventListener("fullscreenchange", onFsChange);
+    document.addEventListener("webkitfullscreenchange", onFsChange);
+    document.addEventListener("mozfullscreenchange", onFsChange);
+    document.addEventListener("MSFullscreenChange", onFsChange);
+
+    return () => {
+      document.removeEventListener("fullscreenchange", onFsChange);
+      document.removeEventListener("webkitfullscreenchange", onFsChange);
+      document.removeEventListener("mozfullscreenchange", onFsChange);
+      document.removeEventListener("MSFullscreenChange", onFsChange);
+    };
+  }, []);
   const slides = React.useMemo(() => splitSlidesWithBranches(children), [children]);
 
   useEffect(() => {
@@ -71,25 +93,42 @@ function SlideInner({ children, height }: SlideProps) {
   const renderNodeArray = (nodes: React.ReactNode[]) =>
     nodes.map((n, i) => <React.Fragment key={i}>{n}</React.Fragment>);
 
-  const toggleFullscreen = () => {
-    if (!revealRef.current) return;
+  
 
-    if (
-      !document.fullscreenElement &&
-      !(document as any).webkitFullscreenElement &&
-      !(document as any).mozFullScreenElement &&
-      !(document as any).msFullscreenElement
-    ) {
-      if (revealRef.current.requestFullscreen) {
-        revealRef.current.requestFullscreen();
-      } else if ((revealRef.current as any).webkitRequestFullscreen) {
-        (revealRef.current as any).webkitRequestFullscreen();
-      } else if ((revealRef.current as any).mozRequestFullScreen) {
-        (revealRef.current as any).mozRequestFullScreen();
-      } else if ((revealRef.current as any).msRequestFullscreen) {
-        (revealRef.current as any).msRequestFullscreen();
+  const toggleFullscreen = () => {
+    const el = revealRef.current;
+    if (!el) return;
+
+    const isFullscreen =
+      document.fullscreenElement ||
+      (document as any).webkitFullscreenElement ||
+      (document as any).mozFullScreenElement ||
+      (document as any).msFullscreenElement;
+
+    if (!isFullscreen) {
+      // 進入全螢幕
+      if (el.requestFullscreen) {
+        el.requestFullscreen();
+      } else if ((el as any).webkitRequestFullscreen) {
+        (el as any).webkitRequestFullscreen();
+      } else if ((el as any).mozRequestFullScreen) {
+        (el as any).mozRequestFullScreen();
+      } else if ((el as any).msRequestFullscreen) {
+        (el as any).msRequestFullscreen();
+      } else {
+        // iOS Safari 模擬全螢幕
+        el.dataset.fsSimulated = "true";
+        el.style.position = "fixed";
+        el.style.top = "0";
+        el.style.left = "0";
+        el.style.width = "100vw";
+        el.style.height = "100vh";
+        el.style.zIndex = "9999";
+        el.style.background = "#000";
+        document.body.style.overflow = "hidden";
       }
     } else {
+      // 退出全螢幕
       if (document.exitFullscreen) {
         document.exitFullscreen();
       } else if ((document as any).webkitExitFullscreen) {
@@ -98,38 +137,35 @@ function SlideInner({ children, height }: SlideProps) {
         (document as any).mozCancelFullScreen();
       } else if ((document as any).msExitFullscreen) {
         (document as any).msExitFullscreen();
+      } else if (el.dataset.fsSimulated) {
+        // iOS Safari 模擬退出
+        delete el.dataset.fsSimulated;
+        el.style.position = "";
+        el.style.top = "";
+        el.style.left = "";
+        el.style.width = "";
+        el.style.height = "";
+        el.style.zIndex = "";
+        el.style.background = "";
+        document.body.style.overflow = "";
       }
     }
   };
 
   return (
     <>
-      <button
-        onClick={toggleFullscreen}
-        style={{
-          position: "fixed",
-          top: 12,
-          right: 12,
-          zIndex: 9999,
-          padding: "8px 16px",
-          backgroundColor: "#007bff",
-          color: "white",
-          border: "none",
-          borderRadius: 4,
-          cursor: "pointer",
-          userSelect: "none",
-          boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
-          fontWeight: "bold",
-        }}
-        aria-label="Toggle Fullscreen"
-      >
-        全螢幕
-      </button>
       <div
         className="reveal"
         ref={revealRef}
         style={{ height, backgroundColor: "#222", color: "#eee" }}
       >
+        <button
+            className={`fullscreen-btn ${isFs ? "hidden-desktop" : ""}`}
+            onClick={toggleFullscreen}
+            title="全螢幕"
+          >
+            全螢幕⛶
+        </button>
         <div className="slides">
           {slides.map((branches, i) => {
             if (branches.length === 1) {
