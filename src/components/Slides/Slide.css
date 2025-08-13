@@ -20,7 +20,7 @@
 /* 手機版懸浮圓形 */
 @media (max-width: 768px) {
   .fullscreen-btn {
-    position: fixed;
+    position: absolute;
     bottom: 20px;
     right: 20px;
     width: 50px;

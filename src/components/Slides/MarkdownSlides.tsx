@@ -95,62 +95,61 @@ function SlideInner({ children, height }: SlideProps) {
 
   
 
-  const toggleFullscreen = () => {
-    const el = revealRef.current;
-    if (!el) return;
+const toggleFullscreen = () => {
+  const el = revealRef.current;
+  if (!el) return;
 
-    const isFullscreen =
-      document.fullscreenElement ||
-      (document as any).webkitFullscreenElement ||
-      (document as any).mozFullScreenElement ||
-      (document as any).msFullscreenElement;
+  const fullscreenEl =
+    document.fullscreenElement ||
+    (document as any).webkitFullscreenElement ||
+    (document as any).mozFullScreenElement ||
+    (document as any).msFullscreenElement;
 
-    if (!isFullscreen) {
-      // 進入全螢幕
-      if (el.requestFullscreen) {
-        el.requestFullscreen();
-      } else if ((el as any).webkitRequestFullscreen) {
-        (el as any).webkitRequestFullscreen();
-      } else if ((el as any).mozRequestFullScreen) {
-        (el as any).mozRequestFullScreen();
-      } else if ((el as any).msRequestFullscreen) {
-        (el as any).msRequestFullscreen();
-      } else {
-        // iOS Safari 模擬全螢幕
-        el.dataset.fsSimulated = "true";
-        el.style.position = "fixed";
-        el.style.top = "0";
-        el.style.left = "0";
-        el.style.width = "100vw";
-        el.style.height = "100vh";
-        el.style.zIndex = "9999";
-        el.style.background = "#000";
-        document.body.style.overflow = "hidden";
-      }
-    } else {
-      // 退出全螢幕
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if ((document as any).webkitExitFullscreen) {
-        (document as any).webkitExitFullscreen();
-      } else if ((document as any).mozCancelFullScreen) {
-        (document as any).mozCancelFullScreen();
-      } else if ((document as any).msExitFullscreen) {
-        (document as any).msExitFullscreen();
-      } else if (el.dataset.fsSimulated) {
-        // iOS Safari 模擬退出
-        delete el.dataset.fsSimulated;
-        el.style.position = "";
-        el.style.top = "";
-        el.style.left = "";
-        el.style.width = "";
-        el.style.height = "";
-        el.style.zIndex = "";
-        el.style.background = "";
-        document.body.style.overflow = "";
-      }
+  const isSimulated = el.dataset.fsSimulated === "true";
+
+  // 如果已經全螢幕（原生或模擬）
+  if (fullscreenEl || isSimulated) {
+    // 原生全螢幕退出
+    if (fullscreenEl) {
+      if (document.exitFullscreen) document.exitFullscreen();
+      else if ((document as any).webkitExitFullscreen) (document as any).webkitExitFullscreen();
+      else if ((document as any).mozCancelFullScreen) (document as any).mozCancelFullScreen();
+      else if ((document as any).msExitFullscreen) (document as any).msExitFullscreen();
     }
-  };
+    // 模擬全螢幕退出
+    if (isSimulated) {
+      delete el.dataset.fsSimulated;
+      el.style.position = "";
+      el.style.top = "";
+      el.style.left = "";
+      el.style.width = "";
+      el.style.height = "";
+      el.style.zIndex = "";
+      el.style.background = "";
+      document.body.style.overflow = "";
+      setIsFs(false); // 更新按鈕狀態
+    }
+  } else {
+    // 進入全螢幕
+    if (el.requestFullscreen) el.requestFullscreen();
+    else if ((el as any).webkitRequestFullscreen) (el as any).webkitRequestFullscreen();
+    else if ((el as any).mozRequestFullScreen) (el as any).mozRequestFullScreen();
+    else if ((el as any).msRequestFullscreen) (el as any).msRequestFullscreen();
+    else {
+      // 模擬全螢幕（iOS）
+      el.dataset.fsSimulated = "true";
+      el.style.position = "fixed";
+      el.style.top = "0";
+      el.style.left = "0";
+      el.style.width = "100vw";
+      el.style.height = "100vh";
+      el.style.zIndex = "9999";
+      el.style.background = "#000";
+      document.body.style.overflow = "hidden";
+      setIsFs(true); // 更新按鈕狀態
+    }
+  }
+};
 
   return (
     <>
@@ -164,7 +163,7 @@ function SlideInner({ children, height }: SlideProps) {
             onClick={toggleFullscreen}
             title="全螢幕"
           >
-            全螢幕⛶
+            ⛶
         </button>
         <div className="slides">
           {slides.map((branches, i) => {
