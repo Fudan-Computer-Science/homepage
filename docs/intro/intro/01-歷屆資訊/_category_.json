@@ -1,0 +1,8 @@
+{
+  "label": "歷屆資訊",
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "description": "各式關於歷屆的資訊"
+  }
+}
