@@ -71,3 +71,41 @@ int main() // 主程式碼
 	- 請撰寫一程式，請輸出自己的名字。  
 	- 範例輸出：  
 ![](/img/Beginner_textbook_pic/image51.png)
+
+## 小練習
+- 對於以下程式碼，試問發生什麼錯誤?
+(A) 語意錯誤
+(B) 邏輯錯誤
+(C) 語法錯誤
+(D) 沒有錯誤
+```cpp
+#include<iostream>
+with namespace std;
+int main(){
+    cout << "hello, world" << endl;
+}
+```
+(題源: 109學年度入班考)
+
+- 若執行時遇到以下錯誤訊息，試問可能犯了什麼錯誤?
+`[Error] expected ';' before '}' token`
+(A) 沒加`}`
+(B) 沒加`;`
+(C) 沒有宣告
+(D) 沒有寫任何程式碼
+(題源: 109學年度入班考)
+
+- 試問以下程式碼是否可正常編譯並執行?
+```
+#include<iostream>
+int main(){
+    int a, b;
+    std::cin >> a >> b        ;
+    std::cout << a << " " << b << endl;
+}
+```
+(A) 當然可以阿 還用想嗎
+(B) 怎麼可能 沒有 `using namespace std;` 阿
+(C) 不可能 第四行太多空白了
+(D) 哈哈一定不行 因為" "內只能有一個字元
+(題源: 109學年度入班考)

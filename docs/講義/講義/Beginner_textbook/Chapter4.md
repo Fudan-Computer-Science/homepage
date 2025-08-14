@@ -108,3 +108,96 @@ for(初始值; 條件值; 更新值)
 都不會執行到迴圈內的cout。
 
 <h3>**※利用break及continue配合if可以使迴圈的運用更加靈活**</h3>
+
+## 小練習
+- 請參考以下程式碼，並請問會輸出什麼結果？ 
+(A)	2550
+(B)	5050
+(C)	4950
+(D)	2450
+
+```cpp
+#include <iostream>
+using namespace std;
+int main()
+{
+	int sumup = 0;
+	for (int k = 0 ; k < 100 ; k++)
+	{
+		sumup += k * (k % 2 == 0);
+	}
+	cout << sumup << endl;
+	return 0;
+}
+```
+(題源: 108學年度入班考)
+
+- 有一程式碼片段如下所示，若輸入5，則輸出為下列何者？
+```cpp
+#include<iostream>
+using namespace std;
+int main(){
+    int n;
+    while(cin>>n){
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n-i;j++)
+                cout<<"*";
+            for(int j=0;j<i;j++)
+                cout<<" ";
+            for(int j=0;j<i+1;j++)
+                cout<<"*";
+            for(int j=0;j<n-i-1;j++)
+                cout<<" ";
+            for(int j=0;j<n-i-1;j++)
+                cout<<" ";
+            for(int j=0;j<i+1;j++)
+                cout<<"*";
+            cout<<endl;
+        }
+    }
+return 0;}
+```
+(A)
+(B)
+(C)
+(D)
+(題源: 108學年度入班考)
+
+- 對於以下虛擬碼，試問輸出為何?
+(A) 98
+(B) 99
+(C) 100
+(D) 101
+
+```cpp
+int main(){
+    int sum = 0;
+    for (int i = 0; i < 100; i++)
+        sum += (i % 3);
+    cout << sum << endl;
+}
+```
+(題源: 109學年度入班考)
+
+- 對於以下程式碼，下列敘述何者正確?
+(A) 該程式可輸出10*10的乘法表
+(B) 程式碼中的i++等同於i+=2
+(C) 第八行末的輸出"\n"可將輸出向右切齊
+(D) 此程式碼會有 90 行輸出
+
+```cpp
+#include<iostream>
+using namespace std;
+int main(){
+    for (int i = 1; i < 10; i++)
+    {
+        for (int j = 1; j < 10; j++)
+        {
+            cout << i << "*" << j << "=" << i*j << "\n";
+        }
+        cout << endl;
+    }
+    return 0;
+}
+```
+(題源: 109學年度入班考)
