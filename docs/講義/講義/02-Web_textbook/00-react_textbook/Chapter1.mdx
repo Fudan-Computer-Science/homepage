@@ -72,9 +72,8 @@ import CounterExercise1 from '@site/src/components/Web_textbook_react/react_text
     }
     ```
     :::
-## 1-3. export default
 
-## 1-4. 事件處理  
+## 1-3. 事件處理  
 React 的事件命名採**駝峰式 (camelCase)**，並傳入函式。  
 當事件發生時該函式就會被運行。
 :::note[範例]
@@ -88,10 +87,49 @@ function MyButton() {
 }
 ```
 :::
+
+## 1-4. export
+
+- ### export default
+將一個 Component 指定該檔案的「唯一主要輸出」，其他檔案要使用他時可以任意命名。
+:::note[範例]
+```tsx
+// text.tsx
+export default function Text() {
+  return <div>我是文字 文字不好吃</div>;
+}
+```
+
+```tsx
+// App.tsx
+import Delicious from './text';
+<Delicious />
+```
+:::
+
+- ### named export
+使檔案裡的多個功能可以被其他檔案使用。
+:::note[範例]
+```tsx
+// text.tsx
+export default function Text() {
+  return <div>我是文字 文字不好吃</div>;
+}
+```
+
+```tsx
+// App.tsx
+import {Text} from './text';
+<Text />
+```
+:::warning[named export 要加大括號]
+:::
+
+
 ## 1-5. State (狀態?)
 組件內部的資料，使用 useState 管理。
 :::info[簡單來說...]
-在 C++ 中，如果你要讓一個變數的值可以在不同函數之間記住，你可能會：
+在 C++ 中，如果你要讓一個變數的值可以在**同一函數但不同次呼叫時更新**，你可能會：
 
 1. 把它設為 **全域變數**（在競程可以但專案... **拜託不要**）
 2. 把它設為 **類別的成員變數**（封裝比較好）
@@ -134,7 +172,67 @@ import { useState } from "react" //匯入 module 的特定部分
 import React, { useState, useEffect } from "react";
 ```
 :::
+## 1-6 渲染
+看完 1-5 你可能會疑惑  
+為什麼不能像下面這樣  
+```tsx
+import React, { useState } from 'react';
 
+export default function Counter() {
+  let count = 0;  //////
+
+  return (
+    <div>
+        <p>目前計數：{count}</p>
+        <button onClick={() => count++}>+1</button>
+    </div>
+  );
+}
+```
+這就要講到 react 是如何渲染的  
+### 何謂渲染
+即為程式碼把資訊*染*到你的螢幕上  
+和C++把`.cpp`編譯成電腦可運行的`.exe`類似  
+### react如何渲染
+:::info[簡單來說...]
+他會  
+1. 先呼叫你的 Component (初始化)  
+
+當你`onClick`後 他會  
+
+2. 先執行`onClick`的函式  
+3. 然後呢？  
+    - 如果是正確的版本(有用`useState`)
+        - 那他就會再`setCount(count + 1)`之後重新**渲染** (即重新呼叫你的 Component)  
+
+    - 如果是錯誤的版本  
+        - 就沒有然後了  
+
+流程圖  
+```mermaid
+flowchart LR
+    A[使用者點擊按鈕] --> B[呼叫 onClick 的函式]
+    B --> C[呼叫 setCount 更新 state]
+    C --> D[React 標記 state 改變]
+    D --> E[React 重新渲染 Counter 元件]
+    E --> F[畫面上的數字更新]
+```
+
+:::warning[不簡單的說...?]
+1. **初始化元件**  
+   - React 呼叫你的函式元件（Function Component）一次，得到 JSX 樹。
+   - JSX 會被轉成 React Element，再由 React DOM 渲染成瀏覽器的 DOM。
+
+2. **useState 建立狀態**  
+   - useState(初始值) 會返回 `[狀態值, 更新函式]`。
+   - React 會在內部儲存狀態值，讓元件重新渲染時可以保持狀態。
+
+3. **事件觸發重新渲染**  
+   - 當你在元件裡呼叫 `setN(newValue)`：
+     1. React 先更新內部狀態。
+     2. 再重新呼叫元件函式，重新產生新的 JSX 樹。
+     3. React DOM 會比對新舊 JSX 樹，只更新有改變的部分到瀏覽器 DOM（這就是「虛擬 DOM diff」）。
+:::
 ## 1-ex1. 課後練習1
 
 請嘗試實現下列功能吧！  
