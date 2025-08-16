@@ -5,6 +5,10 @@ description: "開始你的React網站"
 tags: [web]
 ---
 
+import Img, { ImgBaseProvider } from '/src/components/ImgPack';
+
+<ImgBaseProvider base="/img/react_textbook_pic/Chapter0">
+
 # <span class="chapter_title">Chapter 0. </span>
 # <span class="chapter_subtitle"> 開始你的React網站 </span>
 
@@ -26,7 +30,7 @@ tags: [web]
 - windows請點：[nvm-windows](https://github.com/coreybutler/nvm-windows/releases/download/1.2.2/nvm-setup.exe)  
 ### 2. 安裝Node.js
 打開 **終端機（Terminal）** 輸入   
-```bash
+```sh
 nvm install node
 ```
 :::info[也可以裝指定的版本]
@@ -36,22 +40,51 @@ nvm install node
     nvm use 20
     ```
 :::
-### 3. 打開 **終端機（Terminal）** 輸入  
+### 3. 啟動專案
+打開 **終端機（Terminal）** 輸入  
 ```bash
+cd 你想要到放你專案的位置
 npm create vite@latest my-app #建立叫做 my-app 的 vite 專案
 ```
-![](/img/react_textbook_pic/00-vite_start.png)
-```
+:::note[]
+React 官方建議使用 **Vite** 或 **Create React App** 來快速啟動專案。  
+這裡我們用 Vite，因為它啟動速度快。 
+:::
+輸入完之後你會看到  
+<Img name="00-vite_start.png" />  
+然後用鍵盤的上下鍵移動綠色箭頭 >  
+移動到`React`，如下  
+<Img name="01-move_to_React.png" />  
+按 enter 鍵，之後你會看到  
+<Img name="02-choosed_React.png" />  
+選`TypeScript`並按 enter   
+<Img name="03-finished.png" />  
+結果如上  
+接著輸入  
+```sh
 cd my-app                     #移動到資料夾my-app
 npm install                   #一鍵安裝 vite 專案需要的套件
+```
+稍微等他下載一下  
+<Img name="04-wait.png" />   
+下載完之後如下  
+<Img name="05-downloaded.png" />   
+最後輸入 
+```sh
 npm run dev                   #開始運行你的專案
 ```
-React 官方建議使用 **Vite** 或 **Create React App** 來快速啟動專案。  
-這裡我們用 Vite，因為它啟動速度快。  
-成功會看到  
-![](/img/react_textbook_pic/01-vite_firstpage.png)
-
+你會看到  
+<Img name="06-builded.png" />   
+你就可以在`http://localhost:5173/`(可能不是這個，請以自己看到的連結為準)  
+看到  
+<Img name="07-vite_firstpage.png" />   
+恭喜你q(≧▽≦q)  
+成功架設了第一個網站  
 :::tip[小技巧]
 在可以更改 src/App.tsx 的內容，起始頁面(上圖)就會更改。  
-可配合後面的講義服用。
+可配合後面的講義服用。  
+還有還有  
+如果有不懂的語法可參考[此處](https://developer.mozilla.org/zh-CN/search)
 :::
+
+</ImgBaseProvider>

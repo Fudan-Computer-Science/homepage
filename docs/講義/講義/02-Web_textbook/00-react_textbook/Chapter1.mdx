@@ -148,10 +148,7 @@ import {Text} from './text';
 :::
 :::note[範例]
 ```tsx live
-/* 
-import React, { useState } from 'react'; (要加)
-(但因為docusaurus環境的因素而註解起來)
-*/
+import React, { useState } from 'react';
 function Counter() {
     // [變數, 修改變數的方法] = useState(初始值)
     const [count, setCount] = useState(0);
@@ -186,10 +183,6 @@ import React, { useState, useEffect } from "react";
 看完 1-5 你可能會疑惑  
 為什麼像下面這樣，按鈕沒有反應    
 ```tsx live
-/* 
-import React, { useState } from 'react'; (要加)
-(但因為docusaurus環境的因素而註解起來)
-*/
 function Counter() {
     let count = 0;
 
@@ -258,4 +251,29 @@ flowchart LR
 <CounterExercise1 />
 :::
 :::danger[歡迎在程設班官網部落格寫下自己的解法!!!]
+:::
+:::warning[易錯重點]
+在 React 裡，每個組件的 return 必須只回傳*一個外層元素*。
+```react live
+function Wrong() {
+    return (
+        <h1>Hello</h1>
+        <p>World</p>
+    );
+}
+```
+所以要用其他東西包起來  
+使得只有一個外層元素  
+ex.  
+- 用 `<div>` 包起來
+- 用語意標籤（例如 `<ul>` 包 `<li>`）
+- 用 React.Fragment (\<\> ... \<\/\>)
+```react live
+function Wrong() {
+    return (
+        <h1>Hello</h1>
+        <p>World</p>
+    );
+}
+```
 :::
