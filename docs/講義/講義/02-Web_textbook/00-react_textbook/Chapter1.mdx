@@ -16,11 +16,13 @@ import CounterExercise1 from '@site/src/components/Web_textbook_react/react_text
 - 分為 Function Component（函式組件） 和 Class Component（類別組件） 
 - *新專案幾乎只用 函式組件。  
     :::note[範例]
-    ```tsx
+    ```tsx live
     function MyButton() {
         return (
-            <h1>不難注意到 底下是一顆按鈕</h1>
-            <button>Click me</button>
+            <div>
+                <h1>不難注意到 底下是一顆按鈕</h1>
+                <button>Click me</button>
+            </div>
         );
     }
     ```
@@ -37,19 +39,21 @@ import CounterExercise1 from '@site/src/components/Web_textbook_react/react_text
     // 這時我們叫 MyButton 是 Father 的子組件
     ```
     :::tip[1-1語法小學堂1]
-    ```tsx
+    ```tsx live
     function Father() {
         function MyButton() {
             return (
-                <h1>不難注意到 底下是一顆按鈕</h1>
-                <button>Click me</button>
+                <div>
+                    <h1>不難注意到 底下是一顆按鈕</h1>
+                    <button>Click me</button>
+                </div>
             );
         }
         return (
             <MyButton />
         );
     }
-    // 合法
+    /* 合法 */
     ```
     :::
 
@@ -58,18 +62,22 @@ import CounterExercise1 from '@site/src/components/Web_textbook_react/react_text
 - Props 是父組件傳給子組件的資料。
 - Props 是 **唯讀**（不能在子組件內直接修改）。
     :::note[範例]
-    ```tsx
+    ```tsx live noInline 
     function MyButton({ text }) {
         return (
-            <h1>不難注意到 底下是一顆按鈕</h1>
-            <button>{ text }</button>
+            <div>
+                <h3>不難注意到 底下寫著{ text }是一顆按鈕</h3>
+                <button>{ text }</button>
+            </div>
         );
     }
+
     function Father() {
         return (
-            <MyButton text="Click me" />
+            <MyButton text="Don't click me" />
         );
     }
+    render(<Father />); /* 把<Father />渲染 */
     ```
     :::
 
@@ -77,7 +85,7 @@ import CounterExercise1 from '@site/src/components/Web_textbook_react/react_text
 React 的事件命名採**駝峰式 (camelCase)**，並傳入函式。  
 當事件發生時該函式就會被運行。
 :::note[範例]
-```tsx
+```tsx live
 function MyButton() {
     function handleClick() {
         alert("Button clicked!");
@@ -88,7 +96,7 @@ function MyButton() {
 ```
 :::
 
-## 1-4. export
+## 1-4. export & import
 
 - ### export default
 將一個 Component 指定該檔案的「唯一主要輸出」，其他檔案要使用他時可以任意命名。
@@ -96,7 +104,7 @@ function MyButton() {
 ```tsx
 // text.tsx
 export default function Text() {
-  return <div>我是文字 文字不好吃</div>;
+  return <p>我是文字 文字不好吃</p>;
 }
 ```
 
@@ -113,7 +121,7 @@ import Delicious from './text';
 ```tsx
 // text.tsx
 export default function Text() {
-  return <div>我是文字 文字不好吃</div>;
+  return <p>我是文字 文字不好吃</p>;
 }
 ```
 
@@ -139,19 +147,21 @@ import {Text} from './text';
 這時就要用 **React Hook** —— `useState`。
 :::
 :::note[範例]
-```tsx
-import React, { useState } from 'react';
+```tsx live
+/* 
+import React, { useState } from 'react'; (要加)
+(但因為docusaurus環境的因素而註解起來)
+*/
+function Counter() {
+    // [變數, 修改變數的方法] = useState(初始值)
+    const [count, setCount] = useState(0);
 
-export default function Counter() {
-  // [變數, 修改變數的方法] = useState(初始值)
-  const [count, setCount] = useState(0);
-
-  return (
-    <div>
-        <p>目前計數：{count}</p>
-        <button onClick={() => setCount(count + 1)}>+1</button>
-    </div>
-  );
+    return (
+        <div>
+            <p>目前計數：{count}</p>
+            <button onClick={() => setCount(count + 1)}>+1</button>
+        </div>
+    );
 }
 ```
 :::
@@ -174,19 +184,21 @@ import React, { useState, useEffect } from "react";
 :::
 ## 1-6 渲染
 看完 1-5 你可能會疑惑  
-為什麼不能像下面這樣  
-```tsx
-import React, { useState } from 'react';
+為什麼像下面這樣，按鈕沒有反應    
+```tsx live
+/* 
+import React, { useState } from 'react'; (要加)
+(但因為docusaurus環境的因素而註解起來)
+*/
+function Counter() {
+    let count = 0;
 
-export default function Counter() {
-  let count = 0;  //////
-
-  return (
-    <div>
-        <p>目前計數：{count}</p>
-        <button onClick={() => count++}>+1</button>
-    </div>
-  );
+    return (
+        <div>
+            <p>目前計數：{count}</p>
+            <button onClick={() => count++}>+1</button>
+        </div>
+    );
 }
 ```
 這就要講到 react 是如何渲染的  
