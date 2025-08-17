@@ -137,13 +137,13 @@ import {Text} from './text';
 ## 1-5. State (狀態?)
 組件內部的資料，使用 useState 管理。
 :::info[簡單來說...]
-在 C++ 中，如果你要讓一個變數的值可以在**同一函數但不同次呼叫時更新**，你可能會：
+在 C++ 中，如果你要讓一個變數的值可以在**同一函數但不同次呼叫時讀取同一份變數**，你可能會：
 
 1. 把它設為 **全域變數**（在競程可以但專案... **拜託不要**）
 2. 把它設為 **類別的成員變數**（封裝比較好）
 
 在 React 中，Component本質上是「普通函數」，沒有像 C++ 類別那樣的成員變數，  
-但是我們仍希望它能「記住」一些值（例如計數器的數字、輸入框的內容）要怎麼做呢？    
+但是我們仍希望它能「記住」一些變數（例如計數器的數字、輸入框的內容）要怎麼做呢？    
 這時就要用 **React Hook** —— `useState`。
 :::
 :::note[範例]
@@ -181,7 +181,7 @@ import React, { useState, useEffect } from "react";
 :::
 ## 1-6 渲染
 看完 1-5 你可能會疑惑  
-為什麼像下面這樣，按鈕沒有反應    
+為什麼像下面這樣，`目前計數：`的部分沒有變化    
 ```tsx live
 function Counter() {
     let count = 0;
@@ -194,6 +194,25 @@ function Counter() {
     );
 }
 ```
+是count沒有加到嗎？  
+我們可以做一個程式來證偽  
+```tsx live
+function Counter() {
+    let count = 0;
+
+    return (
+        <div>
+            <p>目前計數：{count}</p>
+            <button onClick={() => {
+                count++;
+                alert(count);
+                }}>按我證偽</button>
+        </div>
+    );
+}
+```
+可以發現到count是不斷增加的  
+那究竟為什麼`目前計數：`的部分沒有變化呢？  
 這就要講到 react 是如何渲染的  
 ### 何謂渲染
 即為程式碼把資訊*染*到你的螢幕上  
@@ -254,7 +273,7 @@ flowchart LR
 :::
 :::warning[易錯重點]
 在 React 裡，每個組件的 return 必須只回傳*一個外層元素*。
-```react live
+```tsx live
 function Wrong() {
     return (
         <h1>Hello</h1>
@@ -268,11 +287,13 @@ ex.
 - 用 `<div>` 包起來
 - 用語意標籤（例如 `<ul>` 包 `<li>`）
 - 用 React.Fragment (\<\> ... \<\/\>)
-```react live
-function Wrong() {
+```tsx live
+function Right() {
     return (
-        <h1>Hello</h1>
-        <p>World</p>
+        <>
+            <h1>Hello</h1>
+            <p>World</p>
+        </>
     );
 }
 ```

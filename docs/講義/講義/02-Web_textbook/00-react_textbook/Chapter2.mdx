@@ -4,7 +4,7 @@ title: "Chapter 2. React 進階語法"
 description: "React 進階語法"
 tags: [web]
 ---
-import CounterExercise1 from '@site/src/components/Web_textbook_react/react_textbook/Chapter1.tsx';
+import CounterExercise1 from '@site/src/components/Web_textbook_react/react_textbook/Chapter2.tsx';
 
 # <span class="chapter_title">Chapter 2. </span>
 # <span class="chapter_subtitle"> React 進階語法 </span>
@@ -110,3 +110,41 @@ sequenceDiagram
     ReactRender ->> UI: React 重新渲染，更新畫面
 ```
 
+:::
+
+
+## 2-ex1. 課後練習1
+相信各位學過可變大小陣列  
+請實作出一個按鈕  
+和一`<li>`清單  
+按下按鈕會在清單中新增當前的時間。   
+:::info[範例]
+<CounterExercise1 />
+:::
+:::tip[2-ex1語法小學堂1]  
+`<li>`清單  
+```html live
+<ul>
+  <li>FDCS</li>
+  <li>14</li>
+  <li>th</li>
+</ul>
+```
+:::
+:::tip[2-ex1語法小學堂2]  
+陣列新增元素  
+```tsx live
+export default function test() {
+  let arr = ["OwO"];
+  
+  return (
+    <button onClick={() => {
+      arr.push("meow"); //在arr後面新增元素
+      alert(arr); 
+      alert([...arr, "喵"]); //建立一個有arr的所有元素, "喵" 的陣列
+      arr = ["OwO"];
+    }}>按我理解語法小學堂</button>
+  );
+}
+```
+:::
