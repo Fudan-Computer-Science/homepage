@@ -46,17 +46,27 @@ React 的畫面更新流程大致上是：
 :::
 那什麼是`useEffect`呢？  
 `useEffect`就是 React 提供的一個鉤子 (Hook)，專門放這些副作用的程式碼。  
-`useEffect`由三個部分組成  
+`useEffect`有兩個參數`(函數, 陣列)`  
+可以拆分成三個部分組成  
 ```tsx
 useEffect(() => {
-  console.log("Effect 啟動");
+    console.log("Effect 啟動！"); // Effect 啟動
 
-  return () => {
-    console.log("Component 卸載，清理 Effect");
-  };
-}, []); // 空依賴陣列 -> 只在 mount 和 unmount
-
+    return () => {  // 清理 Effect
+      console.log("Component 卸載，清理 Effect");
+    };
+  },
+  [] // 依賴陣列[]
+); 
 ```
+:::info[什麼時候會觸發`useEffect`]
+- 在**組件載入時**觸發  
+- 如果**依賴陣列**有東西的話 當該東西更新時也會觸發
+:::
+:::info[什麼時候會`return`]
+- 在**組件卸載時**觸發  
+- 如果**依賴陣列**有東西的話 當該東西更新**前**也會觸發
+:::
 範例  
 ```tsx live
 import { useState, useEffect } from "react";
@@ -83,7 +93,7 @@ export default function Clock() {
 - \(\) => \{\}
 - 1000
 不難觀察到他們的資料型態，一個是函數F，一個是數字N  
-而他的作用正是每固定的時間()  
+而他的作用正是每固定的時間呼叫一次函數F  
 :::
 流程圖  
 ```mermaid
@@ -99,3 +109,4 @@ sequenceDiagram
     ReactState ->> ReactRender: 狀態改變，通知 React
     ReactRender ->> UI: React 重新渲染，更新畫面
 ```
+
