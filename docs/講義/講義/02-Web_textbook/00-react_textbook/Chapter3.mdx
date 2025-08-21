@@ -1,0 +1,76 @@
+---
+sidebar_position: 0
+title: "Chapter 3. 事件 & 表單處理"
+description: "事件 & 表單處理"
+tags: [web]
+---
+import CounterExercise1 from '@site/src/components/Web_textbook_react/react_textbook/Chapter1.tsx';
+
+# <span class="chapter_title">Chapter 3. </span>
+# <span class="chapter_subtitle"> 事件 & 表單處理 </span>
+
+## 3-1. 什麼是`onChange`  
+在 HTML 裡，輸入框會自己更新值，但 React 採用**單向資料流**。  
+所以，React 不會自動幫你把輸入框的值放到 state，你必須自己監聽`onChange`，然後更新 state 。  
+具體來說如何使用呢？  
+直接上範例比較好理解  
+```tsx live
+import React, { useState } from "react";
+
+export default function FormExample() {
+  // 1. 宣告一個 state 來存輸入的值
+  const [name, setName] = useState("");
+
+  // 2. JSX 內讓 input 的 value 跟 state 綁在一起
+  return (
+    <div>
+      <h2>受控元件範例</h2>
+      <input
+        type="text"
+        value={name} // React 接管 input 的值
+        onChange={(e) => setName(e.target.value)} // 每次輸入都更新 state
+        placeholder="請輸入名字"
+      />
+      <p>Hello, {name}</p>
+    </div>
+  );
+}
+```
+流程：  
+1. 使用者打字 → 觸發`onChange`  
+2. React 執行 `setName(e.target.value)`
+3. state 更新 → React 重新渲染 → `value={name}` 讓 input 顯示最新值
+4. 畫面上 Hello, XXX 也即時更新  
+
+
+## 3-2. 什麼是`onSubmit`  
+一樣的概念  
+```tsx live
+import React, { useState } from "react";
+
+export default function LoginForm() {
+  const [email, setEmail] = useState("");
+
+  function handleSubmit(e) {
+    e.preventDefault(); // 阻止整頁刷新
+    alert(`送出表單，Email: ${email}`);
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="請輸入 Email"
+      />
+      <button type="submit">送出</button>
+    </form>
+  );
+}
+```
+:::danger[為什麼要`e.preventDefault()`]
+在 HTML 裡，`<form>`的**預設行為**是送出後整頁重新載入。  
+不難發現，如果它重新載入的話state會不見，這不太好。  
+為了阻止它刷新，會用`e.preventDefault()`阻止瀏覽器的**預設行為**。
+:::
