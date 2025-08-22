@@ -1,6 +1,6 @@
 import React from "react";
-import BannerMarquee from "./BannerMarquee";
-import MenuGrid from "./MenuGrid";
+import BannerMarquee from "./components/BannerMarquee";
+import MenuGrid from "./components/MenuGrid";
 
 export default function App() {
   return (
