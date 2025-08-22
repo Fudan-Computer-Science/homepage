@@ -1,6 +1,6 @@
 import React from "react";
 import "./MenuGrid.css";
-import useBaseUrl from '@docusaurus/useBaseUrl';
+import useBaseUrl from "@docusaurus/useBaseUrl";
 
 const menuItems = [
   { link: "/img/main_screen", img: "/img/main_screen/1.png" },
