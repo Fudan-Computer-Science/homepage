@@ -1,3 +1,4 @@
+/*
 import type {ReactNode} from 'react';
 import Link from '@docusaurus/Link';
 import clsx from 'clsx';
@@ -81,3 +82,4 @@ export default function HomepageFeatures(): ReactNode {
     </section>
   );
 }
+*/

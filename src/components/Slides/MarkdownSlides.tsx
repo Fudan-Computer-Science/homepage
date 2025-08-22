@@ -1,3 +1,5 @@
+import type {useMDXComponents} from '@mdx-js/react';
+//const components: MDXComponents = {};
 import React, { useEffect, useRef, useState } from "react";
 import BrowserOnly from "@docusaurus/BrowserOnly";
 import "./Slide.css"; // 這裡放按鈕樣式
