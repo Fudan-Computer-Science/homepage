@@ -1,14 +1,15 @@
 .menu-grid {
   display: grid;
   gap: 12px;
-  /* 自動根據寬度決定格子數，每格最小 160px，最大自動填滿 */
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   width: 100%;
+  max-width: 100%;
+  /* 預設桌面每行最多 4 格 */
+  grid-template-columns: repeat(5, 1fr);
 }
 
 .menu-item img {
   width: 100%;
-  aspect-ratio: 1 / 1; /* 正方形 */
+  aspect-ratio: 1 / 1; /* 保持正方形 */
   object-fit: cover;
   border-radius: 12px;
   display: block;
@@ -17,4 +18,18 @@
 
 .menu-item:hover img {
   transform: scale(1.05);
+}
+
+/* 平板：每行 3 格 */
+@media (max-width: 1024px) {
+  .menu-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* 手機：每行 2 格 */
+@media (max-width: 640px) {
+  .menu-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
