@@ -3,7 +3,7 @@ import Marquee from "react-fast-marquee";
 import "./BannerMarquee.css";
 
 const banners = [
-  "static/img/main_screen/news_ticker/114_test_time.png"
+  require("./img/main_screen/news_ticker/114_test_time.png")
 ];
 
 export default function BannerMarquee() {
@@ -15,3 +15,4 @@ export default function BannerMarquee() {
     </Marquee>
   );
 }
+
