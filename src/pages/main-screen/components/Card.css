@@ -4,8 +4,8 @@
 }
 
 .menu-card:hover {
-  transform: scale(1.05);
-  transition: transform 0.2s ease; /* 只有 hover 時啟用平滑 */
+  transform: scale(1.2);
+  transition: transform 0.3s cubic-bezier(0,0,0.70,3); /* 只有 hover 時啟用平滑 */
   filter: brightness(0.85); /* 變暗 */
 }
 .card-text {
