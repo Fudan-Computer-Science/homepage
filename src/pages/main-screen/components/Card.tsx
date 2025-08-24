@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import './Card.css';
 import Link from "@docusaurus/Link";
 import { link } from "framer-motion/client";
-
+import BrowserOnly from "@docusaurus/BrowserOnly";
 export type ColorSet = {
   backgroundColor: string;
   textColor: string;
@@ -56,11 +56,15 @@ export default function Card(props: CardProps): React.ReactElement {
   }, [color.imgColor]);
 
   return (
-    <Link href={link}>
-      <div style={divStyle} className="menu-card">
-        <Svg ref={svgRef} style={{ width: '50%', height: '50%' }} />
-        <p style={textStyle}>{text}</p>
-      </div>
-    </Link>
+    <BrowserOnly>
+      {() => 
+      <Link href={link}>
+        <div style={divStyle} className="menu-card">
+          <Svg ref={svgRef} style={{ width: '50%', height: '50%' }} />
+          <p style={textStyle}>{text}</p>
+        </div>
+      </Link>
+      }
+    </BrowserOnly>
   );
 }
