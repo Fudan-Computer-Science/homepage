@@ -36,7 +36,7 @@ const theme:ColorSet[] = [
 ]
 export default function CardGrid(): React.ReactElement {
   const [maxCols, setMaxCols] = useState(4);
-  const [screenW, setScreenW] = useState(window.innerWidth);
+  const [screenW, setScreenW] = useState(0);
 
   useEffect(() => {
     function updateGrid() {
