@@ -54,12 +54,12 @@ export default function BannerMarquee() {
           {siteConfig.title}
         </Heading>
         <p className={styles.subtitle}>{siteConfig.tagline}</p>
-        <Link
+{/*         <Link
           className="button button--secondary button--lg"
           to="/docs/intro/intro/入班考試資訊"
         >
           入班考資訊
-        </Link>
+        </Link> */}
       </div>
     </header>
   );

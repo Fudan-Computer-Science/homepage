@@ -4,13 +4,17 @@ import "./MenuGrid.css";
 import BrowserOnly from "@docusaurus/BrowserOnly";
 const baseUrl:string = "@site/static/img/main_screen/";
 
-import coding from "@site/static/img/main_screen/coding.svg";
+
 
 type CardProps = {
   text: string;
   link: string;
   img: React.ComponentType<React.ComponentProps<'svg'>>;
 };
+
+/* 此處新增主頁字卡 */
+import coding from "@site/static/img/main_screen/coding.svg";
+
 const cardsData: CardProps[] = [
   { text: "關於程式設計班", link: "/homepage", img: coding},
   { text: "加入我們", link: "/page2", img: coding},
