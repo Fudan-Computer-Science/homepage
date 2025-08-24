@@ -1,0 +1,14 @@
+.menu-card {
+  transition: none; /* 預設不過渡 */
+  cursor: pointer;
+}
+
+.menu-card:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease; /* 只有 hover 時啟用平滑 */
+  filter: brightness(0.85); /* 變暗 */
+}
+.card-text {
+  word-break: break-word;
+  font-family: "Cute Regular"
+}

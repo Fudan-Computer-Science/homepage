@@ -7,12 +7,12 @@
 /* You can override the default Infima variables here. */
 :root {
   --ifm-color-primary: #6690b5;
-  --ifm-color-primary-dark: #4c799c;
-  --ifm-color-primary-darker: #277148;
+  --ifm-color-primary-dark: #6590b4;
+  --ifm-color-primary-darker: #4c799c;
   --ifm-color-primary-darkest: #436a8b;
   --ifm-color-primary-light: #779cbd;
   --ifm-color-primary-lighter: #88a9c6;
-  --ifm-color-primary-lightest: #9ab5ce;
+  --ifm-color-primary-lightest: #96cbd6;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 
@@ -35,7 +35,13 @@
 
 @import url(https://themes.googleusercontent.com/fonts/css?kit=fpjTOVmNbO4Lz34iLyptLTi9jKYd1gJzj5O2gWsEpXq5DSxTUXlwXebxyXtT0rCwbpWxj1uYanMR8CPS4Qxq6_gjkaFetMBAlt1hE_tWw45593oUZZYZflnfO3AsGsb1OoaB-4gtJLwne69TrVPSPGhuOOmDak6WXfvxnvslTfo);
 
-
+@font-face {
+  font-family: 'Cute Regular';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../../static/fonts/Cute-Regular.woff2) format('woff2');
+}
 @font-face {
   font-family: 'Pinyon Script';
   font-style: normal;

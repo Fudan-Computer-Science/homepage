@@ -1,6 +1,10 @@
 .banner-img {
   height: 273px;
-  margin: 0 20px;
-  border-radius: 8px;
-  object-fit: cover;
+}
+.banner-div {
+  box-sizing: border-box;
+  vertical-align: bottom;
+  margin: 0;
+  padding: 0;
+  gap: 0px;
 }

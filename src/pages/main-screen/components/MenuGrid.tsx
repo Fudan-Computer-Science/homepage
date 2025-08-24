@@ -1,26 +1,86 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import Card, { ColorSet } from "./Card";
 import "./MenuGrid.css";
-import useBaseUrl from "@docusaurus/useBaseUrl";
 
-const menuItems = [
-  { link: "/img/main_screen", img: "/img/main_screen/1.png" },
-  { link: "/page2", img: "/img/main_screen/2.png" },
-  { link: "/page3", img: "/img/main_screen/3.png" },
-  { link: "/page4", img: "/img/main_screen/4.png" },
-  { link: "/page5", img: "/img/main_screen/5.png" },
-  { link: "/page6", img: "/img/main_screen/6.png" },
-  { link: "/page7", img: "/img/main_screen/7.png" },
-  { link: "/page8", img: "/img/main_screen/8.png" },
+const baseUrl:string = "@site/static/img/main_screen/";
+
+import coding from "@site/static/img/main_screen/coding.svg";
+
+type CardProps = {
+  text: string;
+  link: string;
+  img: React.ComponentType<React.ComponentProps<'svg'>>;
+};
+const cardsData: CardProps[] = [
+  { text: "關於程式設計班", link: "/homepage", img: coding},
+  { text: "加入我們", link: "/page2", img: coding},
+  { text: "FAQ", link: "/page3", img: coding},
+  { text: "部落格", link: "/page3", img: coding},
+  { text: "旦旦解題網", link: "/page3", img: coding},
+  { text: "入班考講義", link: "/page3", img: coding},
+  { text: "課堂講義", link: "/page3", img: coding},
+  { text: "聯絡我們", link: "/page3", img: coding},
 ];
 
-export default function MenuGrid() {
+const theme:ColorSet[] = [
+  {
+    backgroundColor: "var(--ifm-color-primary-lightest)",
+    textColor: "#ffffff",
+    imgColor: "#6590b4"
+  },
+  {
+    backgroundColor: "var(--ifm-color-primary-dark)",
+    textColor: "#414141",
+    imgColor: "#d9d9d9"
+  }
+]
+export default function CardGrid(): React.ReactElement {
+  const [maxCols, setMaxCols] = useState(4);
+  const [screenW, setScreenW] = useState(window.innerWidth);
+
+  useEffect(() => {
+    function updateGrid() {
+      const width = window.innerWidth;
+      let cols = 5;
+      if (width <= 640) cols = 2;
+      else if (width <= 1024) cols = 3;
+      else if (width <= 1200) cols = 4;
+      setMaxCols(cols);
+      setScreenW(width);
+    }
+    updateGrid();
+    window.addEventListener("resize", updateGrid);
+    return () => window.removeEventListener("resize", updateGrid);
+  }, []);
+
+  // 切成每行 maxCols 張
+  const rows: CardProps[][] = [];
+  for (let i = 0; i < cardsData.length; i += maxCols) {
+    rows.push(cardsData.slice(i, i + maxCols));
+  }
+
   return (
-    <div className="menu-grid">
-      {menuItems.map((item, index) => (
-        <a key={index} href={item.link} className="menu-item">
-          <img src={useBaseUrl(item.img)} alt={`選單圖片 ${index + 1}`} />
-        </a>
-      ))}
+    <div className="menu-card-div">
+      {rows.map((cards, rowIdx) => {
+        const cardWidth = screenW / cards.length; // 最後一行自動平均
+        return (
+          <div key={rowIdx} className="menu-row" style={{ display: "flex" }}>
+            {cards.map((card, idx) => {
+              const color = theme[(rowIdx+idx)%2];
+               
+              return <Card
+                key={idx}
+                text={card.text}
+                link={card.link}
+                Svg={card.img}
+                color={color}
+                width={cardWidth}
+                height={cardWidth} // 高度也等於寬度 → 保持正方形
+              />
+            })}
+          </div>
+        );
+      })}
     </div>
   );
 }

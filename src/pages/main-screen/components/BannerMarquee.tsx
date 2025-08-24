@@ -6,9 +6,11 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 export default function BannerMarquee() {
   return (
-    <Marquee gradient={false} speed={50}>
-      <img src={useBaseUrl("/img/main_screen/news_ticker/114_test_time.png")} className="banner-img" />
-    </Marquee>
+    <div>
+      <Marquee gradient={false} speed={50}>
+        <img src={useBaseUrl("/img/main_screen/news_ticker/114_test_time.png")} className="banner-img" />
+      </Marquee>
+    </div>
   );
 }
 

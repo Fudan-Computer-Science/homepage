@@ -1,35 +1,13 @@
-.menu-grid {
-  display: grid;
-  gap: 12px;
-  width: 100%;
-  max-width: 100%;
-  /* 預設桌面每行最多 4 格 */
-  grid-template-columns: repeat(5, 1fr);
+.menu-card-div {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 0; /* 去掉間距 */
+  overflow: hidden;
 }
 
-.menu-item img {
-  width: 100%;
-  aspect-ratio: 1 / 1; /* 保持正方形 */
-  object-fit: cover;
-  border-radius: 12px;
-  display: block;
-  transition: transform 0.2s ease;
-}
-
-.menu-item:hover img {
-  transform: scale(1.05);
-}
-
-/* 平板：每行 3 格 */
-@media (max-width: 1024px) {
-  .menu-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* 手機：每行 2 格 */
-@media (max-width: 640px) {
-  .menu-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.menu-row {
+  display: flex;
+  gap: 0; /* 去掉行內間距 */
 }
