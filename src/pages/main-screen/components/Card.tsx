@@ -39,7 +39,7 @@ export default function Card(props: CardProps): React.ReactElement {
 
         // 文字樣式
         const textStyle: React.CSSProperties = {
-          fontSize: width * 0.1,
+          fontSize: height * 0.1,
           textAlign: 'center',
           margin: 0,
           padding: 0,
@@ -64,7 +64,7 @@ export default function Card(props: CardProps): React.ReactElement {
         return (
           <Link href={link}>
             <div style={divStyle} className="menu-card">
-              <Svg ref={svgRef} style={{ width: '50%', height: '50%' }} />
+              <Svg ref={svgRef} style={{ width: '100%', height: '100%' }} />
               <p style={textStyle}>{text}</p>
             </div>
           </Link>

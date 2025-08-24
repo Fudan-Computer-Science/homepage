@@ -74,32 +74,28 @@ export default function CardGrid(): React.ReactElement {
   for (let i = 0; i < cardsData.length; i += maxCols) {
     rows.push(cardsData.slice(i, i + maxCols));
   }
-
+  const cardHeight = screenW / maxCols;
   return (
-    <BrowserOnly>
-      {() => 
-        <div className="menu-card-div">
-        {rows.map((cards, rowIdx) => {
-          const cardWidth = screenW / cards.length; // 最後一行自動平均
-          return (
-            <div key={rowIdx} className="menu-row" style={{ display: "flex" }}>
-              {cards.map((card, idx) => {
-                const color = theme[(rowIdx+idx)%2];
-                return <Card
-                  key={idx}
-                  text={card.text}
-                  link={card.link}
-                  Svg={card.img}
-                  color={color}
-                  width={cardWidth}
-                  height={cardWidth} // 高度也等於寬度 → 保持正方形
-                />
-              })}
-            </div>
-          );
-        })}
-      </div>
-      }
-    </BrowserOnly>
+      <div className="menu-card-div">
+      {rows.map((cards, rowIdx) => {
+        const cardWidth = screenW / cards.length; // 最後一行自動平均
+        return (
+          <div key={rowIdx} className="menu-row" style={{ display: "flex" }}>
+            {cards.map((card, idx) => {
+              const color = theme[(rowIdx+idx)%2];
+              return <Card
+                key={idx}
+                text={card.text}
+                link={card.link}
+                Svg={card.img}
+                color={color}
+                width={cardWidth}
+                height={cardHeight} // 高度也等於寬度 → 保持正方形
+              />
+            })}
+          </div>
+        );
+      })}
+    </div>
   );
 }
