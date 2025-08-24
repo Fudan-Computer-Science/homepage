@@ -13,20 +13,25 @@ type CardProps = {
 };
 
 /* 此處新增主頁字卡 */
-import coding from "@site/static/img/main_screen/coding.svg";
-import a1_code from "@site/static/img/main_screen/a1_code.svg";
-import a2_register_now from "@site/static/img/main_screen/a2_register_now.svg";
-import a3_faq from "@site/static/img/main_screen/a3_faq.svg";
-import a4_blog from "@site/static/img/main_screen/a4_blog.svg";
-import a5_ddj from "@site/static/img/main_screen/a5_ddj.svg"; 
-import a6_intro_textbook from "@site/static/img/main_screen/a6_intro_textbook.svg";
-import a7_textbook from "@site/static/img/main_screen/a7_textbook.svg"; 
-import a8_contect_us from "@site/static/img/main_screen/a8_contect_us.svg";
-import a9_competition_result from "@site/static/img/main_screen/a9_competition_result.svg";
-import a10_bulletin_board from "@site/static/img/main_screen/a10_bulletin_board.svg";
+/* 
+加入svg後請先
+在terminal輸入
+npx ts-node ./static/img/main_screen/svg-to-currentColor.ts ./static/img/main_screen/raw_svg ./static/img/main_screen
+來置換
+*/
+import A1Code from "@site/static/img/main_screen/A1Code";
+import a2_register_now from "@site/static/img/main_screen/A2RegisterNow";
+import a3_faq from "@site/static/img/main_screen/A3Faq";
+import a4_blog from "@site/static/img/main_screen/A4Blog";
+import a5_ddj from "@site/static/img/main_screen/A5Ddj"; 
+import a6_intro_textbook from "@site/static/img/main_screen/A6IntroTextbook";
+import a7_textbook from "@site/static/img/main_screen/A7Textbook"; 
+import a8_contect_us from "@site/static/img/main_screen/A8ContectUs";
+import a9_competition_result from "@site/static/img/main_screen/A9CompetitionResult";
+import a10_bulletin_board from "@site/static/img/main_screen/A10BulletinBoard";
 
 const cardsData: CardProps[] = [
-  { text: "關於程式設計班", link: "/homepage", img: a1_code},
+  { text: "關於程式設計班", link: "/homepage", img: A1Code},
   { text: "加入我們", link: "/page2", img: a2_register_now},
   { text: "FAQ", link: "/page3", img: a3_faq},
   { text: "部落格", link: "/page3", img: a4_blog},

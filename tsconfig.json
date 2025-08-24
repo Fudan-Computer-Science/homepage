@@ -5,6 +5,9 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "module": "esnext",
+    "paths": {
+      "@site/*": ["./*"]
+    },
     "moduleResolution": "bundler"
   },
   "exclude": [".docusaurus", "build"]

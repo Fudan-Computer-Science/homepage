@@ -31,6 +31,7 @@ export default function Card(props: CardProps): React.ReactElement {
           width,
           height,
           backgroundColor: color.backgroundColor,
+          color: color.imgColor,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
