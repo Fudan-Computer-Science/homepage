@@ -32,7 +32,7 @@ import a10_bulletin_board from "@site/static/img/main_screen/A10BulletinBoard";
 
 const cardsData: CardProps[] = [
   { text: "關於程式設計班", link: "/homepage/docs/intro/intro/程設班介紹", img: A1Code},
-  { text: "加入我們", link: "/homepage/docs/intro/intro/", img: a2_register_now},
+  { text: "加入我們", link: "/homepage/docs/intro/intro/入班考試資訊", img: a2_register_now},
   { text: "FAQ", link: "/docs/InGrid/FAQ", img: a3_faq},
   { text: "部落格", link: "/blog", img: a4_blog},
   { text: "旦旦解題網", link: "https://dandanjudge.fdhs.tyc.edu.tw/", img: a5_ddj},
