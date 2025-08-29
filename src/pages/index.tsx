@@ -8,26 +8,6 @@ import Heading from '@theme/Heading';
 
 import styles from './index.module.css';
 
-function HomepageHeader() {
-  const {siteConfig} = useDocusaurusContext();
-  return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
-      <div className="container">
-        <Heading as="h1" className="hero__title">
-          {siteConfig.title}
-        </Heading>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
-        <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="/docs/intro/intro/入班考試資訊">
-            入班考資訊
-          </Link>
-        </div>
-      </div>
-    </header>
-  );
-}
 
 export default function Home(): ReactNode {
   const {siteConfig} = useDocusaurusContext();
@@ -35,7 +15,6 @@ export default function Home(): ReactNode {
     <Layout
       title={`cout << "${siteConfig.title}" << endl`}
       description="復旦程式設計班 給復旦人的C++教學">
-      <HomepageHeader />
       <main>
         <HomepageFeatures />
       </main>
