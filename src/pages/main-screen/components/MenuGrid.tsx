@@ -31,16 +31,16 @@ import a9_competition_result from "@site/static/img/main_screen/A9CompetitionRes
 import a10_bulletin_board from "@site/static/img/main_screen/A10BulletinBoard";
 
 const cardsData: CardProps[] = [
-  { text: "關於程式設計班", link: "/homepage", img: A1Code},
-  { text: "加入我們", link: "/page2", img: a2_register_now},
-  { text: "FAQ", link: "/page3", img: a3_faq},
-  { text: "部落格", link: "/page3", img: a4_blog},
-  { text: "旦旦解題網", link: "/page3", img: a5_ddj},
-  { text: "入班考講義", link: "/page3", img: a6_intro_textbook},
-  { text: "課堂講義", link: "/page3", img: a7_textbook},
-  { text: "聯絡我們", link: "/page3", img: a8_contect_us},
-  {text: "競賽成果", link: "/page3", img: a9_competition_result},
-  {text: "公布欄", link: "/page3", img: a10_bulletin_board},
+  { text: "關於程式設計班", link: "/homepage/docs/intro/intro/程設班介紹", img: A1Code},
+  { text: "加入我們", link: "/homepage/docs/intro/intro/", img: a2_register_now},
+  { text: "FAQ", link: "/docs/InGrid/FAQ", img: a3_faq},
+  { text: "部落格", link: "/blog", img: a4_blog},
+  { text: "旦旦解題網", link: "https://dandanjudge.fdhs.tyc.edu.tw/", img: a5_ddj},
+  { text: "入班考講義", link: "/homepage/docs/category/入班考講義", img: a6_intro_textbook},
+  { text: "課堂講義", link: "/homepage/docs/category/歷屆講義", img: a7_textbook},
+  { text: "聯絡我們", link: "/docs/InGrid/ConnectUs", img: a8_contect_us},
+  {text: "競賽成果", link: "/docs/InGrid/CompetitionResult", img: a9_competition_result},
+  {text: "公布欄", link: "/blog/tags/announcement", img: a10_bulletin_board},
 ];
 
 const theme:ColorSet[] = [
