@@ -1,0 +1,49 @@
+.details {
+  border: 2px solid;
+  border-radius: 10px;
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  transition: background 0.2s ease;
+}
+
+/* summary 樣式 */
+.summary {
+  cursor: pointer;
+  font-weight: bold;
+  margin: 0.2rem 0;
+}
+
+.content {
+  margin-top: 0.5rem;
+}
+
+/* 🎨 顏色主題：對應 Docusaurus Admonition 色系 */
+.note {
+  border-color: var(--ifm-color-secondary);
+  background: var(--ifm-color-secondary-contrast-background);
+  color: var(--ifm-color-secondary-contrast-foreground);
+}
+
+.info {
+  border-color: var(--ifm-color-info);
+  background: var(--ifm-color-info-contrast-background);
+  color: var(--ifm-color-info-contrast-foreground);
+}
+
+.warning {
+  border-color: var(--ifm-color-warning);
+  background: var(--ifm-color-warning-contrast-background);
+  color: var(--ifm-color-warning-contrast-foreground);
+}
+
+.danger {
+  border-color: var(--ifm-color-danger);
+  background: var(--ifm-color-danger-contrast-background);
+  color: var(--ifm-color-danger-contrast-foreground);
+}
+
+.success {
+  border-color: var(--ifm-color-success);
+  background: var(--ifm-color-success-contrast-background);
+  color: var(--ifm-color-success-contrast-foreground);
+}

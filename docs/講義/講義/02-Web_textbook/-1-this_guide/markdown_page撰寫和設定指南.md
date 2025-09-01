@@ -51,7 +51,7 @@ docusaurus官方並未將所有的程式納入著色範圍，若有需要請參�
 這些多半需要 .mdx 才能使用
 
 ### 1. ImgPack
-```jsx
+```tsx
 import Img, { ImgBaseProvider } from '/src/components/ImgPack';
 <ImgBaseProvider base="/img/react_textbook_pic/Chapter0">
 <Img name="00-vite_start.png" />
@@ -60,9 +60,35 @@ import Img, { ImgBaseProvider } from '/src/components/ImgPack';
 ```
 其中`<Img name="00-vite_start.png" />`等價於 `![](/img/react_textbook_pic/Chapter0/00-vite_start.png)`
 
-### 2. Slide
+### 2. DetailsBlock  
+折疊區塊  
+```tsx
+import DetailsBlock from '@site/src/components/DetailsBlock/DetailsBlock';
+
+<DetailsBlock type="note" title="📝 筆記">
+  這是 Note 類型的折疊區塊。
+</DetailsBlock>
+
+<DetailsBlock type="info" title="ℹ️ 資訊">
+  這是 Info 類型的折疊區塊。
+</DetailsBlock>
+
+<DetailsBlock type="warning" title="⚠️ 警告">
+  小心！這是 Warning 區塊。
+</DetailsBlock>
+
+<DetailsBlock type="danger" title="❌ 危險">
+  這是 Danger 區塊。
+</DetailsBlock>
+
+<DetailsBlock type="success" title="✅ 成功">
+  恭喜！這是 Success 區塊。
+</DetailsBlock>
+```
+
+### 3. Slide
 會變成簡報
-```jsx
+```tsx
 import Slide, { SlideBreak, BranchBreak } from '@site/src/components/Slides/MarkdownSlides.tsx';
 
 # slide外的標題
