@@ -3,6 +3,7 @@ sidebar_position: 2
 title : "第二章"
 description: "變數與資料型態"
 ---
+import DetailsBlock from '@site/src/components/DetailsBlock/DetailsBlock';
 
 # <span class="chapter_title">Chapter 2. </span>
 # <span class="chapter_subtitle"> Variables and Data Types </span>
@@ -116,7 +117,7 @@ description: "變數與資料型態"
 | \\" | 雙引號 |
 
 ## 小練習
-- 請參考以下程式碼，並請問以下哪一組輸入可讓程式輸出錯誤答案？
+:::tip[請參考以下程式碼，並請問以下哪一組輸入可讓程式輸出錯誤答案？]
 ```cpp
 #include <iostream>
 using namespace std;
@@ -129,18 +130,20 @@ int main()
 }
 
 ```
-(A) 100 1000
-(B) 1000000000 1000000000
-(C) 2147483647 1
-(D) -2147483647 -1
-
+(A) 100 1000  
+(B) 1000000000 1000000000  
+(C) 2147483647 1  
+(D) -2147483647 -1  
+<DetailsBlock type="info" title="答案">
+  (C)
+</DetailsBlock>
 (題源: 108學年度入班考)
-
-- 對於以下虛擬碼，試問輸出為何?
-(A) 8
-(B) 16
-(C) 24
-(D) 32
+:::
+:::tip[對於以下虛擬碼，試問輸出為何?]
+(A) 8  
+(B) 16  
+(C) 24  
+(D) 32  
 
 ```cpp
 int main(){
@@ -154,21 +157,26 @@ int main(){
     cout << a << endl;
 }
 ```
+<DetailsBlock type="info" title="答案">
+  (A)
+</DetailsBlock>
 (題源: 109學年度入班考)
-
-- 對於以下概念，下列何者正確?
-(A) int型態的數字限制範圍大於double
-(B) int是32位元有號整數
-(C) float的精度大於double
-(D) bool是8位元有號整數
-
+:::
+:::tip[對於以下概念，下列何者正確?]
+(A) int型態的數字限制範圍大於double  
+(B) int是32位元有號整數  
+(C) float的精度大於double  
+(D) bool是8位元有號整數  
+<DetailsBlock type="info" title="答案">
+  (B)
+</DetailsBlock>
 (題源: 109學年度入班考)
-
-- 旦旦監獄某次段考全校平均太低，為了調整分數老師們協議將每個人的分數加7分後乘以三再減五最後除以2 (不考慮分數大於 100 的狀況)，為了讓分數換更快速，某位老師寫了以下程式，請問程式碼中空白處應填入何者才可出目標分數?
-(A) `fscore = (iscore + 7) * (3 - 5 / 2);`
-(B) `fscore = (iscore + 7) * 3 - 5 / 2;`
-(C) `fscore = [(iscore + 7) * 3 - 5] / 2;`
-(D) `fscore = ((iscore + 7) * 3 - 5) / 2;`
+:::
+:::tip[旦旦監獄某次段考全校平均太低，為了調整分數老師們協議將每個人的分數加7分後乘以三再減五最後除以2 (不考慮分數大於 100 的狀況)，為了讓分數換更快速，某位老師寫了以下程式，請問程式碼中空白處應填入何者才可出目標分數?]
+(A) `fscore = (iscore + 7) * (3 - 5 / 2);`  
+(B) `fscore = (iscore + 7) * 3 - 5 / 2;`  
+(C) `fscore = [(iscore + 7) * 3 - 5] / 2;`  
+(D) `fscore = ((iscore + 7) * 3 - 5) / 2;`  
 ```cpp
 #include<iostream>
 using namespace std;
@@ -179,13 +187,16 @@ int main(){
     cout << fscore << endl;
 }
 ```
+<DetailsBlock type="info" title="答案">
+  (D)
+</DetailsBlock>
 (題源: 109學年度入班考)
-
-- 對於以下程式碼，試問輸出為何?
-(A) 1
-(B) 0
-(C) 無法輸出
-(D) 以上皆非
+:::
+:::tip[對於以下程式碼，試問輸出為何?]
+(A) 1  
+(B) 0  
+(C) 無法輸出  
+(D) 以上皆非  
 
 ```cpp
 #include<iostream>
@@ -195,4 +206,8 @@ int main(){
     cout << (!t || f && t || t && t) << endl;
 }
 ```
+<DetailsBlock type="info" title="答案">
+  (A)
+</DetailsBlock>
 (題源: 109學年度入班考)
+:::

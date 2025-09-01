@@ -3,6 +3,8 @@ sidebar_position: 1
 title : "第一章"
 description: "歡迎來到C++"
 ---
+import DetailsBlock from '@site/src/components/DetailsBlock/DetailsBlock';
+
 
 # <span class="chapter_title">Chapter 1. </span>
 # <span class="chapter_subtitle"> Welcome to C++ </span>
@@ -73,11 +75,11 @@ int main() // 主程式碼
 ![](/img/Beginner_textbook_pic/image51.png)
 
 ## 小練習
-- 對於以下程式碼，試問發生什麼錯誤?
-(A) 語意錯誤
-(B) 邏輯錯誤
-(C) 語法錯誤
-(D) 沒有錯誤
+:::tip[對於以下程式碼，試問發生什麼錯誤?]  
+(A) 語意錯誤  
+(B) 邏輯錯誤  
+(C) 語法錯誤  
+(D) 沒有錯誤  
 ```cpp
 #include<iostream>
 with namespace std;
@@ -85,18 +87,26 @@ int main(){
     cout << "hello, world" << endl;
 }
 ```
+<DetailsBlock type="info" title="答案">
+  (C)
+</DetailsBlock>
 (題源: 109學年度入班考)
+:::
 
-- 若執行時遇到以下錯誤訊息，試問可能犯了什麼錯誤?
-`[Error] expected ';' before '}' token`
-(A) 沒加`}`
-(B) 沒加`;`
-(C) 沒有宣告
-(D) 沒有寫任何程式碼
+
+:::tip[若執行時遇到以下錯誤訊息，試問可能犯了什麼錯誤?]
+`[Error] expected ';' before '}' token`  
+(A) 沒加`}`  
+(B) 沒加`;`  
+(C) 沒有宣告  
+(D) 沒有寫任何程式碼  
+<DetailsBlock type="info" title="答案">
+  (B)
+</DetailsBlock>
 (題源: 109學年度入班考)
-
-- 試問以下程式碼是否可正常編譯並執行?
-```
+:::
+:::tip[試問以下程式碼是否可正常編譯並執行?]
+```cpp
 #include<iostream>
 int main(){
     int a, b;
@@ -104,8 +114,12 @@ int main(){
     std::cout << a << " " << b << endl;
 }
 ```
-(A) 當然可以阿 還用想嗎
-(B) 怎麼可能 沒有 `using namespace std;` 阿
-(C) 不可能 第四行太多空白了
-(D) 哈哈一定不行 因為" "內只能有一個字元
+(A) 當然可以阿 還用想嗎  
+(B) 怎麼可能 沒有 `using namespace std;` 阿  
+(C) 不可能 第四行太多空白了  
+(D) 哈哈一定不行 因為" "內只能有一個字元  
+<DetailsBlock type="info" title="答案">
+  (A)
+</DetailsBlock>
 (題源: 109學年度入班考)
+:::
