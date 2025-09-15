@@ -4,10 +4,51 @@
         <title>復旦程式設計班 Blog</title>
         <link>https://Fudan-Computer-Science.github.io/homepage/blog</link>
         <description>復旦程式設計班 Blog</description>
-        <lastBuildDate>Sun, 10 Aug 2025 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 13 Sep 2025 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>zh-TW</language>
+        <item>
+            <title><![CDATA[ 114學年度 程設班錄取名單]]></title>
+            <link>https://Fudan-Computer-Science.github.io/homepage/blog/2025/09/13/ 114學年度 程設班錄取名單</link>
+            <guid>https://Fudan-Computer-Science.github.io/homepage/blog/2025/09/13/ 114學年度 程設班錄取名單</guid>
+            <pubDate>Sat, 13 Sep 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[本學年度報名日期為 2025/6/28 至 2025/8/23 ，總報名人數為70位，錄取50位。]]></description>
+            <content:encoded><![CDATA[<p>本學年度報名日期為 2025/6/28 至 2025/8/23 ，總報名人數為70位，錄取50位。</p>
+<p>恭喜以下所有同學加入復旦程設班大家庭! 希冀在這一年的上課過程中，能認識更多喜歡程式的朋友，並學習到更多程式技巧!</p>
+<p>初階班:</p>
+<p>377	葉O旼</p>
+<p>378	夏O懷、高O叡、陳O妍</p>
+<p>380	洪O愷</p>
+<p>381	彭O豪</p>
+<p>382	黃O生</p>
+<p>390	陳O瑋、黃O軒、鄭O翊、饒O禾</p>
+<p>391	劉O瑋、謝O昌</p>
+<p>392	彭O維、馮O淇、何O璋</p>
+<p>393 張O富</p>
+<p>394 林O榆、李O盈</p>
+<p>395 劉O霖</p>
+<p>398	蘇O泓</p>
+<p>459	吳O錡、鍾O尉</p>
+<p>466	黃O愷</p>
+<p>469	吳O琢、高O諺、謝O侑</p>
+<p>471	王O瑜、吳O蜜</p>
+<p>472	翁O叡</p>
+<p>473	吳O軒</p>
+<p>474	黃O瑀、楊O亭</p>
+<p>477	林O洋</p>
+<p>477	秦O蔚</p>
+<p>進階班:</p>
+<p>377	劉O慶</p>
+<p>380	王O奕、朱O廷、吳O諺、林O愷</p>
+<p>381	陳O源、游O智、許O盈</p>
+<p>383	薛O博、施O薇</p>
+<p>389	陳O凱</p>
+<p>394	張O玹</p>
+<p>459	黃O閔</p>
+<p>468	卓O亮</p>
+<p>473	劉O瑋</p>]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[程設班第十四屆幹部訓練]]></title>
             <link>https://Fudan-Computer-Science.github.io/homepage/blog/2025-14th-Committee-Members-Training</link>
@@ -49,11 +90,12 @@
             <pubDate>Tue, 10 Jun 2025 00:00:00 GMT</pubDate>
             <description><![CDATA[如果有任何重要事項(開始報名、錄取榜單、比賽報名等)，都會公告在這裡!]]></description>
             <content:encoded><![CDATA[<p>如果有任何重要事項(開始報名、錄取榜單、比賽報名等)，都會公告在這裡!</p>
-<p>Last Update: 2025/7/17</p>
+<p>Last Update: 2025/9/13</p>
 <ul>
 <li>7/1 14屆程設班入班考正式開放報名</li>
 <li>2025 YTP少年圖靈競賽 8/11線上初賽</li>
 <li>14屆程式設計班 入班考暨二次篩選 報名至8/23日止。 (已截止報名)</li>
+<li>9/15 公告第14屆錄取名單</li>
 </ul>]]></content:encoded>
             <category>公佈欄</category>
         </item>
