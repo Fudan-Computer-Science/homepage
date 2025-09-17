@@ -1,5 +1,5 @@
 import React from "react"
-import CalendarGrid from "./CalendarGrid"
+import CalendarGrid from "@site/src/components/Calendar/CalendarGrid"
 import BrowserOnly from "@docusaurus/BrowserOnly";
 const API_KEY = "AIzaSyCzKHk9nRzKI4ldIrb1xZc8lhQgiewBoc8"
 

@@ -13,7 +13,7 @@ type DayCellProps = {
   onClick?: () => void
 }
 
-function RawDayCell({ day, events, onClick }: DayCellProps) {
+export default function DayCell({ day, events, onClick }: DayCellProps) {
   return (
     <div
       onClick={onClick}
@@ -62,13 +62,5 @@ function RawDayCell({ day, events, onClick }: DayCellProps) {
         ))}
       </div>
     </div>
-  )
-}
-
-export default function DayCell() {
-  return (
-    <BrowserOnly fallback={<div>Loading calendar...</div>}>
-        {() => <RawDayCell />}
-      </BrowserOnly>
   )
 }
