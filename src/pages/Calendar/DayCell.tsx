@@ -1,5 +1,5 @@
 import React from "react"
-
+import BrowserOnly from "@docusaurus/BrowserOnly";
 export type EventItem = {
   title: string
   url?: string
@@ -13,7 +13,7 @@ type DayCellProps = {
   onClick?: () => void
 }
 
-export default function DayCell({ day, events, onClick }: DayCellProps) {
+function RawDayCell({ day, events, onClick }: DayCellProps) {
   return (
     <div
       onClick={onClick}
@@ -62,5 +62,13 @@ export default function DayCell({ day, events, onClick }: DayCellProps) {
         ))}
       </div>
     </div>
+  )
+}
+
+export default function DayCell() {
+  return (
+    <BrowserOnly fallback={<div>Loading calendar...</div>}>
+        {() => <RawDayCell />}
+      </BrowserOnly>
   )
 }
