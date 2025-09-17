@@ -1,21 +1,13 @@
 import React from "react"
-import BrowserOnly from "@docusaurus/BrowserOnly";
-export type EventItem = {
-  title: string
-  url?: string
-  color?: string,
-  date: any
-}
+import { EventItem } from "./types"
 
 type DayCellProps = {
   day: number
   events: EventItem[]
-  onClick?: () => void
-  width?: number
-  height?: number
+  onClick?: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
-export default function DayCell({ day, events, onClick, width=100, height=100 }: DayCellProps) {
+export default function DayCell({ day, events, onClick }: DayCellProps) {
   return (
     <div
       onClick={onClick}
