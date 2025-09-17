@@ -1,6 +1,6 @@
 import React from "react"
 import CalendarGrid from "./CalendarGrid"
-
+import BrowserOnly from "@docusaurus/BrowserOnly";
 const API_KEY = "AIzaSyCzKHk9nRzKI4ldIrb1xZc8lhQgiewBoc8"
 
 const calendars = [
@@ -9,7 +9,7 @@ const calendars = [
   //{ id: "another@gmail.com", color: "#f44336", name: "Red Calendar" },
 ]
 
-export default function IndexPage() {
+function IndexPage() {
   return (
     <div style={{ padding: "2rem", fontFamily: "Arial, sans-serif" }}>
       <CalendarGrid apiKey={API_KEY} calendars={calendars} />
@@ -43,4 +43,9 @@ export default function IndexPage() {
       </div>
     </div>
   )
+}
+export default function App() {
+return (<BrowserOnly fallback={<div>Loading calendar...</div>}>
+        {() => <IndexPage />}
+      </BrowserOnly>);
 }
