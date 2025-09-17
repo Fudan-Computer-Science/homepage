@@ -23,6 +23,7 @@ npx create-docusaurus@latest homepage https://github.com/Fudan-Computer-Science/
 ### 執行
 在terminal打
 ```shell
+cd ./homepage
 npx docusaurus start
 #如果遇到檔案 C:\Program Files\nodejs\npm.ps1 未經數位簽署。您無法在目前的系統上執行此指令碼。
 #則用管理員權限打開shell
