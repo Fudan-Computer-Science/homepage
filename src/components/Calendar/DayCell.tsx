@@ -11,9 +11,11 @@ type DayCellProps = {
   day: number
   events: EventItem[]
   onClick?: () => void
+  width?: number
+  height?: number
 }
 
-export default function DayCell({ day, events, onClick }: DayCellProps) {
+export default function DayCell({ day, events, onClick, width=100, height=100 }: DayCellProps) {
   return (
     <div
       onClick={onClick}

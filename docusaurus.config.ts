@@ -117,6 +117,7 @@ const config: Config = {
           label: '講義',
         },
         {to: '/blog', label: '部落格', position: 'left'},
+        {to: '/Calendar', label: '行事曆', position: 'right'},
         {to: '/games', label: '神奇小遊戲(?', position: 'right'},
         {
           href: 'https://github.com/Fudan-Computer-Science/homepage/tree/main/blog',
