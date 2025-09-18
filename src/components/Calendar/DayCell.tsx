@@ -1,11 +1,6 @@
 import React from "react"
 import BrowserOnly from "@docusaurus/BrowserOnly";
-export type EventItem = {
-  title: string
-  url?: string
-  color?: string,
-  date: any
-}
+import { EventItem } from "./types"
 
 type DayCellProps = {
   day: number

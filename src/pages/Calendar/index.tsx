@@ -6,7 +6,9 @@ const API_KEY = "AIzaSyCzKHk9nRzKI4ldIrb1xZc8lhQgiewBoc8"
 
 const calendars = [
   { id: "fdcs.cpp@gmail.com", color: "#2196f3", name: "程設班上課" },
-  //{ id: "othercalendar@gmail.com", color: "#4caf50", name: "Other Calendar" },
+  { id: "082f3273638f3653d139c2ff04f4dec4a12b64c744419cfb5030a7a7060e6c99@group.calendar.google.com", 
+    color: "#4caf50", 
+    name: "復旦行事曆" },
   //{ id: "another@gmail.com", color: "#f44336", name: "Red Calendar" },
 ]
 
