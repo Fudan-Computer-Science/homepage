@@ -90,18 +90,7 @@ export default function CalendarGrid({ apiKey, calendars }: CalendarGridProps) {
           onClick={() =>
             setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1))
           }
-          style={{
-            background: "#f5f5f5",
-            border: "1px solid #ddd",
-            borderRadius: "8px",
-            padding: "6px 12px",
-            fontSize: "14px",
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            gap: "6px",
-            transition: "all 0.2s ease",
-          }}
+          className={styles.CalendarButton}
           onMouseEnter={(e) => (e.currentTarget.style.background = "#eaeaea")}
           onMouseLeave={(e) => (e.currentTarget.style.background = "#f5f5f5")}
         >
@@ -117,18 +106,7 @@ export default function CalendarGrid({ apiKey, calendars }: CalendarGridProps) {
           onClick={() =>
             setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1))
           }
-          style={{
-            background: "#f5f5f5",
-            border: "1px solid #ddd",
-            borderRadius: "8px",
-            padding: "6px 12px",
-            fontSize: "14px",
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            gap: "6px",
-            transition: "all 0.2s ease",
-          }}
+          className={styles.CalendarButton}
           onMouseEnter={(e) => (e.currentTarget.style.background = "#eaeaea")}
           onMouseLeave={(e) => (e.currentTarget.style.background = "#f5f5f5")}
         >
