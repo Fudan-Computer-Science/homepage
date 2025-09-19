@@ -1,0 +1,4 @@
+td.full { background-color: #8bc34a; color: white; }
+td.partial { background-color: #ff9800; color: white; }
+td.zero { background-color: #f44336; color: white; }
+button { padding: 5px 10px; cursor: pointer; margin-bottom: 10px; }
