@@ -1,0 +1,136 @@
+---
+sidebar_position: 1
+title : "時間複雜度"
+description: ''
+hide_table_of_contents: true
+---
+
+import DetailsBlock from '@site/src/components/DetailsBlock/DetailsBlock';
+import AuthorCard from '@site/src/components/DocsAuthor/AuthorCard';
+
+<AuthorCard
+  author={{
+    name: 'yuan',
+    url: 'https://hackmd.io/@tXYPPZLTQR-p7X9tV61jUA',
+    imageURL: '',
+  }}
+  date="2025-09-20"
+/>
+
+# 時間複雜度  
+![我想成為影之強者！第二季 \[1\]\_15：00_1757802367775](https://hackmd.io/_uploads/ByHb4dQjee.png)  
+(出自\<\<我想成為影之強者！第二季\>\>15：00)  
+歡迎各位來到進階班~~~~  
+相信寫過二篩的人都被TLE搞得頭很痛，那我們要怎麼避免寫出會被題目TLE的code呢?  
+這時候我們就需要計算code的執行時間以比較code的優劣  
+## 計算
+假設只有運行 ```wah()``` 需要時間 $1$  
+下列兩個code哪個code較快呢?  
+```cpp  
+for(int i=0;i<N;i++){
+    for(int j=0;j<N;j++){
+        wah();
+    }
+}
+```
+```cpp
+for(int i=0;i<N;i++){
+    wah();
+    wah();
+    wah();
+}
+```
+
+![image](https://hackmd.io/_uploads/BkX46uXogg.png)  
+
+雖然在短期來看，上面的code會稍快，但對電腦來說，短期內的時間差距幾乎小到可以忽略不計，因此我們應該要注意的是這段code的趨勢。  
+故下面的code比較快。  
+
+## big O 簡介  
+$O( )$被用來描述一個code增長的上限，指的是這個code在最爛的情況下，執行時間的增長不會超過$O()$。  
+:::info
+在計算$O()$時，要去忽略多項式的係數和常數，並取最高項次。  
+例如:  
+$T(114514n^2+810n+3)$ = $O(n^2)$  
+:::
+以下是常見的時間複雜度和對應的演算法: 
+
+| 時間複雜度 | 名稱 | 常見演算法 |
+| -------- | -------- | -------- |
+| $O(1)$   | 常數階 | 讀取陣列 |
+| $O(logn)$| 對數階 | 二分搜  |
+| $O(n)$   | 線性階 | 迴圈    |
+| $O(nlogn)$| 線性對數階 | Quick sort|
+| $O(n^2)$| 平方階 | Bubble sort|
+| $O(n^3)$| 三次方階 |三層迴圈|
+| $O(2^n)$| 指數階 |費氏數列|
+| $O(n!)$| 階層階 |排列組合，八皇后問題|
+
+## 執行時間
+那具體的執行時間呢，在電腦內直接看執行時間會因性能不同而有所差異，又大部分題目是以一秒為門檻，可參考以下表格。
+
+以下皆假設題目的時間限制為 1 秒，用來估算的數字為 n:
+
+| 時間複雜度    | 常數大小 | 常見N的上限 |
+| --------    | --------| -------- |
+| $O(n)$      | 夠小    | $10^7$   |
+| $O(n)$      | 略大    | $10^6$   |
+| $O(nlogn)$  | 夠小    | $10^6$   |
+| $O(nlogn)$  | 一般    | $5*10^5$   |
+| $O(nlogn)$  | 過大    | $2*10^5$   |
+| $O(nlog^2n)$| 夠小    | $10^5$   |
+| $O(nlog^2n)$| 一般    | $5*10^4$   |
+| $O(n^2)$    | 夠小    | $10000$   |
+| $O(n^2)$    | 一般    | $5000$   |
+| $O(n^2)$    | 略大    | $3000$   |
+| $O(n^2logn)$| 夠小    | $3000$   |
+| $O(n^2logn)$| 一般    | $1000$   |
+| $O(n^3)$    | 極小    | $1000$   |
+| $O(n^3)$    | 一般    | $500$   |
+| $O(2^n)$    | 需要仔細評估| $20$~$25$|
+
+(來源:NTUCPC Guide)
+## 小練習
+1. $T(2^n + n!)= O(?)$
+<DetailsBlock type="success" title="答案">
+  $O(n!)$
+</DetailsBlock>
+
+2. $O(?)$  
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    vector<int> a={3,2,1,4,6};
+    sort(a.begin(),a.end());
+    for(auto i:a) cout<<i<<" ";
+    return 0;
+}
+```
+<DetailsBlock type="success" title="答案">
+  $O(nlogn)$
+  :::danger[注意]
+    sort() 是 $O(nlogn)$ !!!!
+  :::
+</DetailsBlock>
+3. $O(?)$  
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int n;
+    cin >> n;
+    vector<int> a={3,2,1,4,6,....};
+    for(int i=0;i<n;i++){
+       for(int j=0;j<n;j++){
+            sort(n.begin(),n.end());
+        } 
+    }
+    return 0;
+}
+```
+<DetailsBlock type="success" title="答案">
+  $O(n^3logn)$
+</DetailsBlock>

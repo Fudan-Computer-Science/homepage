@@ -1,0 +1,177 @@
+---
+sidebar_position: 14
+title : "線段樹"
+description: '線段樹是一種高效的數據結構，主要用於處理數組的區間查詢和更新操作。'
+hide_table_of_contents: true
+---
+
+import AuthorCard from '@site/src/components/DocsAuthor/AuthorCard';
+
+<AuthorCard
+  author={{
+    name: 'Bryan Huang // 草貓 (進階教學)',
+    url: 'https://github.com/Bryan0324',
+    imageURL: 'https://github.com/Bryan0324.png',
+  }}
+  date="2025-09-20"
+/>
+
+線段樹
+===
+## 先備知識
+* dfs
+* [二元樹](https://hackmd.io/@Bryan0324/BinaryTree)
+* 前綴和
+## 前導
+想必各位應該已經學過前綴和了(?  
+但在用前綴和時雖然可以用$O(1)$的時間來做**查詢**但  
+沒辦法修改\(~~當然你可以每次修改都把整個前綴和砍掉重做但這樣時間複雜度極糟~~\)  
+所以，如果我們需要可以支援修改操作、查詢範圍總和的結構時，我們可以考慮使用本篇的主角**線段樹**  
+
+## 介紹
+![線段樹](https://hackmd.io/_uploads/HJTBpsCaJe.png)  
+這是一線段樹，來構建他吧！  
+### 構建
+![build1.drawio](https://github.com/Bryan0324/fudan_cppclass/blob/main/lecture/Segtree/Segtreebuild/build1.png?raw=true)  
+mid是這範圍的一半\( 上圖mid為4 \)  
+![build2.drawio](https://github.com/Bryan0324/fudan_cppclass/blob/main/lecture/Segtree/Segtreebuild/build2.png?raw=true)  
+![build3.drawio](https://github.com/Bryan0324/fudan_cppclass/blob/main/lecture/Segtree/Segtreebuild/build3.png?raw=true)  
+![build4.drawio](https://github.com/Bryan0324/fudan_cppclass/blob/main/lecture/Segtree/Segtreebuild/build4.png?raw=true)  
+![build5.drawio](https://github.com/Bryan0324/fudan_cppclass/blob/main/lecture/Segtree/Segtreebuild/build5.png?raw=true)  
+![build6.drawio](https://github.com/Bryan0324/fudan_cppclass/blob/main/lecture/Segtree/Segtreebuild/build6.png?raw=true)  
+![build7.drawio](https://github.com/Bryan0324/fudan_cppclass/blob/main/lecture/Segtree/Segtreebuild/build7.png?raw=true)  
+![build8.drawio](https://github.com/Bryan0324/fudan_cppclass/blob/main/lecture/Segtree/Segtreebuild/build8.png?raw=true)  
+![build9.drawio](https://github.com/Bryan0324/fudan_cppclass/blob/main/lecture/Segtree/Segtreebuild/build9.png?raw=true)  
+![build10.drawio](https://github.com/Bryan0324/fudan_cppclass/blob/main/lecture/Segtree/Segtreebuild/build10.png?raw=true)  
+![build11.drawio](https://github.com/Bryan0324/fudan_cppclass/blob/main/lecture/Segtree/Segtreebuild/build11.png?raw=true)  
+
+
+我們成功種出一顆線段樹了\(掌聲\)  
+但單單是種出一顆線段樹沒用，還要配合加上查詢的功能才能讓線段樹具有意義  
+### 查詢
+![find_pic-find1.drawio](https://github.com/Bryan0324/fudan_cppclass/blob/main/lecture/Segtree/Segtreefind/find_pic-find1.drawio.png?raw=true)  
+![find_pic-find2.drawio](https://github.com/Bryan0324/fudan_cppclass/blob/main/lecture/Segtree/Segtreefind/find_pic-find2.drawio.png?raw=true)  
+![find_pic-find3.drawio](https://github.com/Bryan0324/fudan_cppclass/blob/main/lecture/Segtree/Segtreefind/find_pic-find3.drawio.png?raw=true)  
+![find_pic-find4.drawio](https://github.com/Bryan0324/fudan_cppclass/blob/main/lecture/Segtree/Segtreefind/find_pic-find4.drawio.png?raw=true)  
+![find_pic-find5.drawio](https://github.com/Bryan0324/fudan_cppclass/blob/main/lecture/Segtree/Segtreefind/find_pic-find5.drawio.png?raw=true)  
+但只有尋找的線段樹和前綴和有什麼差別!!!~~\(時間複雜度比前綴和大~~所以接下來要介紹如何修改  
+### 修改
+![update_pic-update1.drawio](https://github.com/Bryan0324/fudan_cppclass/blob/main/lecture/Segtree/Segtreeupdate/update_pic-update1.drawio.png?raw=true)  
+![update_pic-update2.drawio](https://github.com/Bryan0324/fudan_cppclass/blob/main/lecture/Segtree/Segtreeupdate/update_pic-update2.drawio.png?raw=true)  
+![update_pic-update3.drawio](https://github.com/Bryan0324/fudan_cppclass/blob/main/lecture/Segtree/Segtreeupdate/update_pic-update3.drawio.png?raw=true)  
+![update_pic-update4.drawio](https://github.com/Bryan0324/fudan_cppclass/blob/main/lecture/Segtree/Segtreeupdate/update_pic-update4.drawio.png?raw=true)  
+![update_pic-update5.drawio](https://github.com/Bryan0324/fudan_cppclass/blob/main/lecture/Segtree/Segtreeupdate/update_pic-update5.drawio.png?raw=true)  
+![update_pic-update6.drawio](https://github.com/Bryan0324/fudan_cppclass/blob/main/lecture/Segtree/Segtreeupdate/update_pic-update6.drawio.png?raw=true)
+學會修改了!!!
+
+## 實作
+
+```cpp
+typedef pair<size_t, size_t> lnr; //左和右
+#define left first
+#define right second
+struct node() //和二元樹一樣，每個節點性質都一樣
+{
+    node *l = nullptr, *r = nullptr; //和二元樹一樣，需要左節點和右節點
+    size_t num = 0, lazy_tag = 0;    //節點所裝的數字、懶人標籤
+    
+    //Constructor(建構式) 拿來構建node的
+    node(vector<size_t>::iterator vl, vector<size_t>::iterator vr)
+    {    //學過二元樹應該都有指標的概念 (?  ( 採前閉後開區間 )
+        if(vl+1 == vr) //到底了，不能繼續往下(前閉後開)   *遞迴終止條件*
+        {
+            num = *vl;
+            return;
+        }
+        vector<size_t>::iterator mid = vl + (vr-vl)/2; //依照終點切割區間
+        l = new node(vl, mid);//                     *向下遞迴*
+        r = new node(mid, vr); //前閉後開
+        num = l.num + r.num;  //把子代的結果合併得到母代 *接收遞迴傳上來的結果*
+        return;
+    }
+    // 下推懶標
+    void push_lazytag(lnr range)
+    {
+        size_t mid = ( range.left + range.right )/2;
+        // 左節點的大小為(mid - range.left)，裡面所有的元素都要加lazy_tag的數值
+        l->num += lazy_tag * (mid - range.left);
+        r->num += lazy_tag * (range.right - mid);
+        // 子節點下的節點也會被加到
+        l->lazy_tag += lazy_tag;
+        r->lazy_tag += lazy_tag;
+        lazy_tag = 0;
+        return;
+    }
+    
+    //查詢部分     *當前格子所代表的範圍 *目標的範圍   ( 皆採前閉後開區間 )
+    size_t query(lnr range, lnr target)
+    {
+        // 用數線的順序寫比較不容易亂
+        if(target.left <= range.left && range.right <= target.right)
+        { // 目前所在節點 被 查詢範圍 包含
+            return num;
+        }
+        push_lazytag(range); //要找子代，需先下推懶標
+        size_t mid = (range.left+range.right)/2; // 這一格的中線
+        if(mid <= target.left)return r->query({mid, range.right}, target);
+        //左小孩出界 => 只需要找右小孩
+        
+        if(target.right <= mid)return l->query({range.left, mid}, target);
+        //右小孩出界 => 只需要找左小孩
+        
+        //左右小孩皆未出界 => 兩者都要找
+        return r->query({mid, range.right}, target) + l->query({range.left, mid}, target);
+    }
+    
+    void modify(lnr range, lnr target, size_t value)
+    {
+        num += value * (range.right - range.left); // 將遞迴到的節點增加，(range.right - range.left)為目前節點的大小
+        if(target.left <= range.left && range.right <= target.right)
+        { // 目前所在節點 被 查詢範圍 包含
+            lazy_tag += value * (range.right - range.left);
+            // 增加懶標
+            return;
+        }
+        push_lazytag(range); //要找子代，需先下推懶標
+        size_t mid = (range.left+range.right)/2;
+        if( !(mid <= target.left) ) l->modify({range.left, mid}, target, n);
+        //左小孩 *未*出界 => 需要找左小孩
+        if( !(target.right <= mid) ) r->modify({mid, range.right}, target, n);
+        //右小孩 *未*出界 => 需要找右小孩
+        return;
+    }
+}
+// 包裝 (方便使用，非必要)
+class SegTree
+{
+    public:
+    node *root = nullptr;
+    vector<size_t>::iterator vl, vr;
+    SegTree(vector<size_t>::iterator l, vector<size_t>::iterator r)
+    {
+        vl = l;
+        vr = r;
+        root = new node(l, r);
+        return;
+    }
+    size_t query(lnr target)
+    {
+        return root->query({0, r-l}, target);
+    }
+    void modify(lnr target, size_t n)
+    {
+        root->modify({0, r-l}, target, n)
+        return;
+    }
+}
+```
+## 小試身手
+* [Dynamic Range Sum Queries (CSES)](https://cses.fi/problemset/task/1648)
+* [Dynamic Range Minimum Queries (CSES)](https://cses.fi/problemset/task/1649)
+* [Range Update Queries (CSES)](https://cses.fi/problemset/task/1651)
+* [Hotel Queries (CSES)](https://cses.fi/problemset/task/1143)
+## 延伸學習
+* 動態開點線段樹
+* 持久化線段樹
+* 李超線段樹
+* 吉如一線段樹

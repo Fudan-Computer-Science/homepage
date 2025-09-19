@@ -1,0 +1,1206 @@
+---
+sidebar_position: 2
+title : "STL containers"
+description: ''
+hide_table_of_contents: true
+---
+
+import DetailsBlock from '@site/src/components/DetailsBlock/DetailsBlock';
+import AuthorCard from '@site/src/components/DocsAuthor/AuthorCard';
+
+<AuthorCard
+  author={{
+    name: 'nowob',
+    url: 'https://hackmd.io/@nowob',
+    imageURL: '',
+  }}
+  date="2025-09-20"
+/>
+
+# STL containers
+
+
+
+## 前言
+
+![image](https://hackmd.io/_uploads/HkulQ_Esee.png)
+
+
+
+歡迎各位來到進階班第一次聽我課  
+||有人說我原本寫歡迎各位來到進階班很怪所以我這樣改了:0||  
+||他叫我改成konpeko，他好奇怪QQ||  
+相信來到這裡的各位肯定都對 `stl` 非常熟悉了對吧 吧 吧  
+還不熟也沒有關係 這就是這堂課和這份講義誕生的意義  
+帶大家在正式踏入演算法之前再複習一次 `stl` ，之後這些 `stl` 就會被當成背景不會多解釋了 希望各位都能在這裡對 `stl` 熟能生巧:D  
+
+
+
+## Vector
+### 標頭檔:
+```cpp=
+#include <vector>
+```
+---
+### 宣告:
+```cpp=
+// 最基本的宣告
+vector<資料型態> 名稱(大小);
+
+// 如果想先把東西丟進去的宣告
+vector<資料型態> 名稱{內容};
+
+// 空 vector，大小為 0 
+vector<int> v;
+
+// 建立大小為 10 的 vector，只預開容量裡面沒東西
+vector<int> v(10); 
+
+// 建立大小為 10 的 vector，初始值全為 `-1`
+vector<int> v(10, -1); 
+
+// 開一個內容為 {1, 2, 3} 的 vector，大小為 3
+vector<int> v = {1, 2, 3}; 
+
+// 複製 v1
+vector<int> v2(v1);
+```
+---
+### vector 的樣子 (?  
+size 表示的是 vector 中的元素個數，capacity 則表示容量大小（就像上面可以先預開的容量）。
+
+![image](https://hackmd.io/_uploads/BJ0hC6kxlg.png)
+
+---
+
+### 常用函式:
+
+#### `push_back()` / `pop_back()`
+
+顧名思義，`push_back()` 會把括號裡面的東西丟到 vector 後面。需要注意的是，放進去的東西要跟一開始設的資料型態一樣，而`pop_back()`就是把vector最後面的元素刪掉。
+```cpp=
+vector<int> vec;
+vec.push_back(1); // 1
+vec.push_back(2); // 1 2
+vec.push_back(3); // 1 2 3
+vec.pop_back();   // 1 2
+vec.push_back(1); // 1 2 1
+```
+
+:::spoiler 在容量用完的時候 `push_back` 會發生什麼事？
+大部分情況下，capacity（容量）會變成兩倍，這麼做很顯然會有點浪費。所以如果今天解題的時候你很懶，全部用 `push_back` 沒有預開時，吃到 MLE（Memory Limit Exceeded），可以嘗試先預開。
+:::
+
+---
+
+#### `size()`
+
+取得目前 vector 的大小，也可以說是元素數量，常常用來遍歷 vector。
+```cpp=
+vector<int> vec = {1, 2, 3, 4, 5};
+
+cout << vec.size(); // 5
+
+// 遍歷輸出 vector
+for (int i = 0; i < vec.size(); i++) {
+    cout << vec[i] << ' ';
+}
+```
+
+---
+
+#### `empty()`
+
+用來檢測這個 vector 是不是完全空了。是的話會回傳 `true`，注意這裡指的空是「完全沒東西」，也可以說是 `size() = 0`。
+```cpp=
+vector<int> vec = {0};
+cout << vec.empty(); // 0 (false) 有東西
+
+vec.pop_back(); // 沒東西了
+cout << vec.empty(); // 1 (true) 沒東西
+```
+
+---
+
+#### `resize()`
+
+可以直接指定
+```cpp=
+vector<int> vec = {1, 1, 4, 5, 1, 4};
+vec.resize();
+cout << vec.empty(); // 1 (true)
+cout << vec.size();  // 0
+```
+
+---
+
+#### `erase()`
+
+刪除指定 iterator 的元素，iterator要解釋可能有點複雜，在這裡知道要先寫個begin給他定位到你指定的vector的頭就好，要砍後面的元素就往後加。
+```cpp=
+vector<int> v = {1, 2, 3, 4, 5};
+v.erase(v.begin() + 2); // 刪除第三個元素
+```
+
+---
+
+### 其他函式（有更多但真的很少用）
+
+
+- **`resize()`**  
+  重設容器的大小，這裡指的是 `size()`，如果原本大小超過，會把多的刪掉。
+- **`front()`**  
+  存取第一個元素。
+- **`back()`**  
+  存取最後一個元素。
+- **`data()`**  
+  存取第一項元素的指標。
+- **`assign()`**  
+  分配容器新的內容替換當前內容，並修改大小。
+- **`insert()`**  
+  插入元素。
+- **`swap()`**  
+  交換兩個容器。
+---
+
+
+
+#### 題目練習:
+
+
+
+a864 記得vector裡面也可以擺string應該就行
+
+---
+:::spoiler 原始碼
+```cpp=
+// 這只是示意
+template<class T>
+class my_vector{
+    T* buf;
+    size_t sz;
+    size_t cap;
+    void grow(){
+        size_t ncap = cap ? cap * 2 : 1;
+        T* nb = new T[ncap];
+        for(size_t i=0;i<sz;i++) nb[i] = buf[i];
+        delete[] buf;
+        buf = nb;
+        cap = ncap;
+    }
+public:
+    my_vector(): buf(nullptr), sz(0), cap(0){}
+    ~my_vector(){ delete[] buf; }
+    void push_back(const T& v){
+        if(sz == cap) grow();
+        buf[sz++] = v;
+    }
+    void pop_back(){
+        if(sz) sz--;
+    }
+    T& operator[](size_t i){ return buf[i]; }
+    const T& operator[](size_t i) const{ return buf[i]; }
+    size_t size() const{ return sz; }
+    size_t capacity() const{ return cap; }
+    bool empty() const{ return sz==0; }
+    void clear(){ sz = 0; }
+};
+```
+:::
+---
+## Pair
+`pair` 顧名思義，一雙東西，基本上就是把兩個資料綁在一起，分成 `first` 跟 `second` 兩格，解題的時候很常用，尤其在題目要求把東西綁在一起的時候(ex:貪心經典的入場出場時間)  
+- 常常拿來表示 `(x, y)`、`(value, index)`、`(距離, 節點)`  
+- `priority_queue` / `set` / `map` 這些等等會提到容器底層邏輯也跟 `pair` 一樣，只是更多功能
+- 想一次回傳兩個值也可以直接回傳一個 `pair`
+---
+### 標頭檔:
+```cpp=
+#include <utility>
+```
+---
+### 宣告:
+```cpp=
+// 最常見寫法
+pair<int, int> p;
+
+// 宣告的時候直接定義
+pair<int, int> p2(3, 7);
+pair<string, int> p3("pekora", 3);
+
+// 初始化列表
+pair<int, string> p4{0, "miko"};
+
+// make_pair（可以直接幫你判斷該用甚麼資料型態，不用特別打）
+auto p5 = make_pair(114, 514);
+
+// C++17 比較聰明可以這樣搞
+pair p6(1, 2.5); // -> pair<int, double>
+
+// 複製 / 指派
+pair<int,int> a = {1, 2};
+pair<int,int> b = a;
+b = {9, 9};
+```
+---
+### 存取 & 交換
+```cpp=
+cout << p3.first << ' ' << p3.second << '\n';
+swap(p2, a); // 會把 a 跟 p2 裡的東西交換
+```
+---
+### 比大小（內建字典序）
+會優先比 `first`，然後才比 `second`。
+(這特性在某些題目會是解題關鍵:0)
+
+```cpp=
+pair<int,int> A{1, 9}, B{1, 3}, C{2, 0};
+cout << (A < B) << '\n'; // 0 (因為 9 < 3 不成立)
+cout << (B < C) << '\n'; // 1 (1 < 2)
+```
+---
+### tie / ignore（拆開用）
+老實說我這輩子沒這樣寫過，但看起來很酷就編進來了
+```cpp=
+pair<int,string> yaj{114514, "u&u"};
+int x; string s;
+tie(x, s) = yaj; // x = 114514, s = "u&u"
+
+// 只想拿 second
+tie(ignore, s) = yaj;
+```
+---
+### 跟其他容器一起用
+最常見的用法
+```cpp=
+vector<pair<int,int>> homo;
+homo.push_back({11, 45});
+homo.push_back({1, 4});
+sort(homo.begin(), homo.end()); // 前面有提到，這裡會先依 first 排序再排second
+```
+---
+### 什麼時候不該用 pair？
+你發現會有一坨 `pair` 的時候，建議換成寫 `struct` 在競程你的隊友會感謝你的
+(雖然我是屬於狂寫 pair 那派:D)
+
+---
+### 題目練習:
+我找不到純pair的題目所以:
+
+---
+:::spoiler pair 原始碼
+```cpp=
+template<class T1, class T2>
+struct my_pair{
+    T1 first;
+    T2 second;
+    my_pair(): first(), second() {}
+    my_pair(const T1& a, const T2& b): first(a), second(b) {}
+};
+
+template<class T1, class T2>
+my_pair<T1,T2> my_make_pair(T1 a, T2 b){
+    return my_pair<T1,T2>(a, b);
+}
+
+template<class T1, class T2>
+bool operator<(const my_pair<T1,T2>& A, const my_pair<T1,T2>& B){
+    if (A.first < B.first) return true;
+    if (B.first < A.first) return false;
+    return A.second < B.second;
+}
+```
+:::
+
+---
+## Struct
+
+剛剛在 `pair` 有提到 `struct` 這裡簡單介紹一下
+C++ 的 `struct` 是一種用來打包多個資料（欄位）的自訂型別，最常拿來表示一個物件或一組有關聯的資料，比如點座標、學生資料等。
+
+### 範例
+
+```cpp
+struct Point{
+    int x;
+    int y;
+};
+
+Point p;
+p.x = 3;
+p.y = 5;
+```
+
+可以理解成自己弄出了一個沒什麼功能的資料型態，優點是在很多資料要存的時候比較直觀，或是在上面提到會用到很多 `pair` 時改用 `struct` 會更好讀程式也比較清楚。
+
+---
+
+
+
+
+## Set / Multiset / Unordered_set
+差不多的東西編在一起 
+大概差這樣:
+- `set`：不重複 + 排序
+- `multiset`：可重複 + 排序  
+- `unordered_set`：不排序，用 hash（平均 O(1)，最壞 O(n)）  
+
+---
+
+### 什麼時候選誰
+| 想做的事 | 用誰 |
+|----------|------|
+| 去重 + 排序 | set |
+| 需要重複值 | multiset |
+| 只問在不在 | unordered_set |
+| 需要 lower_bound / upper_bound | set / multiset |
+| 會一直插入刪除 | set |
+
+---
+
+### 標頭檔:
+```cpp=
+#include <set>
+#include <unordered_set>
+```
+---
+
+### 宣告:
+```cpp=
+set<int> st;
+multiset<int> ms;
+unordered_set<int> us;
+
+set<int> st2 = {5, 1, 5, 2}; // -> {1, 2, 5} 自動去重 & 排序
+set<int> st3(st2);           // 複製
+```
+---
+### 插入:
+```cpp=
+st.insert(10); // 裡面只有 10
+st.insert(3); // 因為set會自動排序所以裡面現在是 3, 10
+st.insert(3); // 去重，還是只有 3, 10
+
+ms.insert(5);
+ms.insert(5); // mutiset不去重，裡面是 5, 5
+
+us.insert(7);
+```
+---
+### 查找 / 判斷存在:
+```cpp=
+if (st.count(3)) // 有 3
+
+auto it = st.find(10); // O(log n)
+if (it != st.end()) cout << *it;
+
+if (ms.count(5) >= 2) // 至少兩個 5 
+
+if (us.find(7) != us.end()) // 平均 O(1)
+```
+---
+### 刪除:
+```cpp=
+// set / unordered_set 直接 erase(key)
+st.erase(3);
+
+// multiset erase(key) 會砍掉全部該值
+ms.erase(5);
+
+// 想只砍一個
+auto it2 = ms.find(5);
+if (it2 != ms.end()) ms.erase(it2);
+```
+---
+### 遍歷 (有序的才會排序):
+```cpp=
+for (auto x : st) cout << x << ' ';
+```
+---
+### lower_bound / upper_bound（只有 set / multiset 有）
+```cpp=
+auto itl = st.lower_bound(5); // 第一個 >= 5
+auto itu = st.upper_bound(5); // 第一個 > 5
+```
+---
+### 自訂排序（set 才能搞）
+```cpp=
+struct Node{ int x, y; };
+struct Cmp{
+    bool operator()(const Node& a, const Node& b) const{
+        if (a.x != b.x) return a.x < b.x;
+        return a.y > b.y; // x 一樣時 y 大的排前面
+    }
+};
+set<Node, Cmp> S;
+```
+---
+
+
+### 複雜度
+- set / multiset：插、刪、找 → O(log n)  
+- unordered_set：平均 O(1)（爆掉時 O(n)）  
+---
+### 注意
+- `unordered_set` 沒有 `lower_bound`。  
+- 想找第 k 小只用別的資料型態。  
+- `erase(it)` 只刪那個，`erase(key)` multiset 會全刪。  
+- 插入不會讓 set 其他 iterator 爆炸（除非你刪那個）。  
+- `unordered_set` 順序亂的，基本上就是在賭博
+---
+### 題目練習:
+
+
+:::spoiler set 原始碼
+```cpp=
+// 紅黑樹節點
+template<class T>
+struct RBNode{
+    T val;
+    bool red;
+    RBNode *l, *r, *p;
+};
+
+// set
+template<class Key, class Compare = std::less<Key>>
+class my_set{
+    RBNode<Key>* root = nullptr;
+    Compare comp;
+public:
+    bool contains(const Key& k) const{
+        auto cur = root;
+        while(cur){
+            if (comp(k, cur->val)) cur = cur->l;
+            else if (comp(cur->val, k)) cur = cur->r;
+            else return true;
+        }
+        return false;
+    }
+    bool insert(const Key& k){
+        // 1. 當 BST 插
+        // 2. 修正顏色 + 旋轉
+        return true;
+    }
+};
+
+// 簡化 hash set
+template<class Key, class Hash = std::hash<Key>>
+class my_unordered_set{
+    struct Node{ Key key; Node* next; };
+    vector<Node*> bucket;
+    size_t sz;
+    void rehash(){ /* 省略 */ }
+public:
+    my_unordered_set(): bucket(8,nullptr), sz(0) {}
+    bool insert(const Key& k){
+        if (sz > bucket.size() * 0.75) rehash();
+        size_t h = Hash{}(k) % bucket.size();
+        Node* cur = bucket[h];
+        while(cur){
+            if (cur->key == k) return false;
+            cur = cur->next;
+        }
+        bucket[h] = new Node{k, bucket[h]};
+        ++sz;
+        return true;
+    }
+};
+```
+:::
+
+---
+
+## Map / Unordered_map
+很香，超級香 
+- `map`：有序（key 會幫你排好）  
+- `unordered_map`：hash，平均快，順序亂  
+用途：很多，甚麼類型的題目都可能出現，反正很香，真的，相信我
+
+基本上可以想像成一本書， `key` 代表的是頁碼， `value` 代表的是那一頁的內容
+然後 `key` 跟 `value` 可以是任何東西
+可以是一個字串 "peko"，也可以是114514維陣列
+(因為真的很香所以多講一下)
+
+---
+### 標頭檔:
+```cpp=
+#include <map>
+#include <unordered_map>
+```
+---
+### 宣告:
+```cpp=
+map<string,int> mp;
+unordered_map<int,long long> ump;
+
+// 設成 {1,10},{2,20},{3,30} 結構可以理解成陣列包 pair，而這個 pair 的 first 就是 key，second 就是 value
+map<int,int> mp2 = {{1,10},{3,30},{2,20}};
+```
+---
+### 插入 / 指派:
+```cpp=
+mp["peko"] = 3;   // 不存在會新建 key，值從 0 變 3
+mp["peko"] += 4;  // 7
+mp.insert({"miko", 0});
+mp.insert(make_pair("subaru", 2));
+
+ump[114514] = 1919810;
+```
+---
+### 查找:
+```cpp=
+cout << mp["hi"]; // 如果 key 不存在，會建一個值=0 的
+
+if (mp.count("miko")) // 有存在 miko 的話回傳 true
+
+auto it = mp.find("maimai"); // 在 map 中查找 key "maimai"
+if (it != mp.end()) cout << it->second; // 找到就輸出對應 value
+
+auto it2 = ump.find(42); // 在 unordered_map 中查找 key 42
+if (it2 != ump.end()) cout << it2->second; // 找到就輸出對應 value
+```
+---
+### 遍歷:
+```cpp=
+for (auto &x : mp){
+    cout << x.first << " => " << x.second << '\n';
+}
+```
+---
+### 刪除:
+```cpp=
+mp.erase("gura");
+auto it3 = mp.find("ame");
+if (it3 != mp.end()) mp.erase(it3); // 沒找到就刪了
+```
+---
+### lower_bound / upper_bound（只有 map 有）
+```cpp=
+auto itl = mp.lower_bound("ryandic");
+if (itl != mp.end()) cout << itl->first;
+```
+---
+### unordered_map 放自訂型別:
+放好玩的
+```cpp=
+struct Node{
+    int x, y;
+    bool operator==(const Node& o) const { return x==o.x && y==o.y; }
+};
+struct NodeHash {
+    size_t operator()(const Node& n) const{
+        size_t h1 = std::hash<int>{}(n.x);
+        size_t h2 = std::hash<int>{}(n.y);
+        return h1 ^ (h2 + 0x9e3779b97f4a7c15ULL + (h1<<6) + (h1>>2));
+    }
+};
+unordered_map<Node,int,NodeHash> M;
+```
+---
+### 計數
+```cpp=
+string s = "sakura";
+map<char,int> freq;
+for (char c : s) freq[c]++; // 有出現過那個字就加
+
+for (auto &x : freq){
+    cout << x.first << ' ' << x.second << '\n'; // 印出每個字母跟他出現次數
+}
+```
+---
+### 避免誤建
+好其實我也沒用過，但一樣我看到了
+```cpp=
+auto itx = mp.find("xxx"); // 找 key "xxx"
+if (itx != mp.end()) cout << itx->second; // 有就印值
+else cout << "not found\n"; // 沒有就說沒有
+```
+---
+### 安全刪迭代
+好其實這我也沒用過，但一樣我看到了
+```cpp=
+for (auto it = mp.begin(); it != mp.end(); ){
+    if (/* 想刪 */) it = mp.erase(it); // C++11 回傳下一個
+    else ++it;
+}
+```
+---
+### map vs unordered_map 怎麼選
+| 情況 | 推薦 |
+|------|------|
+| 要排序輸出 | map |
+| 只在乎存在 / 次數 | unordered_map |
+| 要 lower_bound | map |
+| key 很多又要一直插入刪除 | unordered_map |
+| 想輸出穩定順序 | map |
+---
+### 注意
+- `mp[key]` 會強制建 → 只檢查用 `find`。  
+- `map` 裡 `pair` 的 `first` 是 `const`，不能改 key。  
+- unordered_map 遇到 hash 爛資料可能會炸。  
+- unordered_map 常數很大慎用，跟unordered_set一樣算是在賭博。
+---
+### 題目練習:
+
+a890(我知道他寫初階班，但我找不到更好的基礎 `map` 題了)
+覺得太簡單的可以去寫進階的卡堆:0
+
+---
+:::spoiler map 原始碼
+```cpp=
+// map 紅黑樹節點
+template<class Key, class T>
+struct RBNode{
+    std::pair<const Key, T> kv;
+    bool red;
+    RBNode *l, *r, *p;
+};
+
+// 精簡版(因為我爛)
+template<class Key, class T, class Compare = std::less<Key>>
+class my_map{
+    RBNode<Key,T>* root = nullptr;
+    Compare comp;
+public:
+    T& operator[](const Key& k){
+        // 找不到時理論上要插入，但我懶
+        static T temp;
+        return temp;
+    }
+    RBNode<Key,T>* find_node(const Key& k) const{
+        auto cur = root;
+        while(cur){
+            if (comp(k, cur->kv.first)) cur = cur->l;
+            else if (comp(cur->kv.first, k)) cur = cur->r;
+            else return cur;
+        }
+        return nullptr;
+    }
+};
+
+// unordered_map
+template<class Key, class T, class Hash = std::hash<Key>>
+class my_unordered_map{
+    struct Node{ Key k; T v; Node* next; };
+    vector<Node*> bucket;
+    size_t sz;
+    void rehash(){ /* 省略 */ }
+public:
+    my_unordered_map(): bucket(8,nullptr), sz(0) {}
+    T& operator[](const Key& k){
+        if (sz > bucket.size()*0.75) rehash();
+        size_t h = Hash{}(k) % bucket.size();
+        Node* cur = bucket[h];
+        while(cur){
+            if (cur->k == k) return cur->v;
+            cur = cur->next;
+        }
+        Node* nn = new Node{k, T(), bucket[h]};
+        bucket[h] = nn;
+        ++sz;
+        return nn->v;
+    }
+};
+```
+:::
+
+---
+
+## Stack
+### 標頭檔:
+```cpp=
+#include<stack>
+```
+
+### 宣告:
+```cpp=
+//最基本的宣告
+stack<資料型態> 名稱;
+
+//空 stack
+stack<int> s;
+```
+---
+### stack 的特性
+Stack 是一種後進先出（LIFO, Last In First Out）的神奇容器，可以想像成一個酷酷的容器(如圖)，每個資料都是盤子，慢慢堆起來，但很顯然這個容器只有一個開口，無論要做甚麼操作都只能對最上面做，所有的操作都只能對最上層的元素進行，這是 Stack 的限制也是特色。
+![image](https://hackmd.io/_uploads/r1dmTJleeg.png)
+
+---
+### 常用函式:
+#### push()/pop()
+
+`push()` 會將元素放到堆疊頂端，而 `pop()` 會移除堆疊頂端的元素。
+```cpp=
+stack<int> s;
+s.push(1); // 1
+s.push(2); // 1 2
+s.push(3); // 1 2 3
+s.pop();   // 1 2
+s.push(4); // 1 2 4
+```
+---
+#### top()
+
+`top()` 用來取得堆疊頂端的元素，但不會移除該元素。
+```cpp=
+stack<int> s;
+s.push(10);
+s.push(20);
+
+cout << s.top(); // 20
+```
+---
+#### empty()
+
+`empty()` 用來檢查堆疊是否為空，若為空則回傳 `true`，否則回傳 `false`。
+```cpp=
+stack<int> s;
+
+cout << s.empty(); // 1 (true)
+
+s.push(5);
+cout << s.empty(); // 0 (false)
+```
+---
+#### size()
+
+`size()` 用來取得堆疊中目前的元素數量。
+```cpp=
+stack<int> s;
+s.push(1);
+s.push(2);
+s.push(3);
+
+cout << s.size(); // 3
+```
+
+---
+
+#### 其他函式
+- `emplace`：原地建構物件並加入堆疊頂端（會比`push`更好一點，但不會差太多，反正我都用`push`）。
+- `swap`：交換兩個堆疊的內容。
+```cpp=
+// 使用 swap 範例
+stack<int> s1, s2;
+s1.push(1); s1.push(2);
+s2.push(3); s2.push(4);
+
+s1.swap(s2);
+// s1 現在為 3, 4
+// s2 現在為 1, 2
+```
+---
+### 然後呢?
+看到這裡你可能會疑惑，不是有個vector很好用了嗎，為什麼我要用這個只能動頂端的怪容器??
+答案很簡單
+總會有題目是專門來搞人的
+像是這題 a204
+基本上不用stack很難解
+看完題目後感覺一頭霧水的話沒關係
+這裡會慢慢的教怎麼用stack去處理題目中的括號問題
+但應該不會完整教完，涉及到一點別的技巧
+(然後這題不一定真的要拿到AC，懂怎麼用stack實作就好)
+![image](https://hackmd.io/_uploads/Hy4WFUxxxx.png)
+
+
+
+
+---
+
+
+#### 解題步驟
+遍歷字串：
+
+如果遇到左括號（(, [, \{），將其推入堆疊，並記錄它的位置。
+如果遇到右括號（), ], \}）：
+就再看如果堆疊為空，說明右括號多餘，直接輸出 No 並附上當前位置。
+堆疊有東西的話從堆疊頂部取出對應的左括號，檢查是否匹配：
+如果匹配：繼續處理下一個字元。
+如果不匹配：輸出 No 並附上當前位置。
+檢查堆疊是否為空：
+
+如果遍歷結束後，堆疊中還有多的左括號，就代表左括號多餘，輸出 No 並附上堆疊頂部括號的位置。
+輸出結果：
+
+如果字串完全匹配，輸出 Yes。
+
+
+
+
+---
+希望在解這題的過程中可以讓大家體會到stack的魅力所在，也可以意識到它的存在是有意義的(不然上面那題要用vector硬寫會痛苦死，而且八成會吃tle)，有興趣的學員也可以嘗試慢慢把這題解出來
+
+stack也當然不只適用在括號，更難的還有深度優先搜尋（DFS, Depth First Search）,單調棧（Monotonic Stack）之類的神奇演算法適用
+
+---
+
+### 題目練習
+
+b281 跟上面的 a204
+b281先來這裡https://tioj.sprout.tw/problems/35
+
+---
+:::spoiler 原始碼
+```cpp=
+template<class T>
+class my_stack{
+    std::vector<T> a;
+public:
+    void push(const T& v){ a.push_back(v); }
+    void pop(){ if(!a.empty()) a.pop_back(); }
+    T& top(){ return a.back(); }
+    const T& top() const{ return a.back(); }
+    bool empty() const{ return a.empty(); }
+    size_t size() const{ return a.size(); }
+};
+```
+:::
+---
+## Queue / Deque
+### 標頭檔:
+```cpp=
+#include <queue>
+```
+---
+### 宣告:
+```cpp=
+// 最基本的宣告
+queue<資料型態> 名稱;
+---
+// 空 queue
+queue<int> q;
+
+// 複製 q1
+queue<int> q2(q1);
+```
+---
+### queue 長啥樣
+queue 是一種先進先出的資料結構（FIFO, First In First Out），就像排隊一樣，先進來的會先出去。
+![image](https://hackmd.io/_uploads/Hkjgleeleg.png)
+白話點就要刪只能刪前面，要加只能加後面
+
+
+--- 
+
+### 常用函式:
+
+#### `push()` / `pop()`
+
+`push()` 會把括號裡面的東西放到 queue 的尾端，而 `pop()` 則會把 queue 的前端元素移除。就跟前面提到的基本上一樣。
+```cpp=
+queue<int> q;
+q.push(1); // 1
+q.push(2); // 1 2
+q.push(3); // 1 2 3
+q.pop();   // 2 3
+q.push(4); // 2 3 4
+```
+
+---
+
+#### `front()` / `back()`
+
+顧名思義`front()` 用來存queue 中的第一個元素，而 `back()` 用來存最後一個元素。
+```cpp=
+queue<int> q;
+q.push(11);
+q.push(45);
+q.push(14);
+
+cout << q.front(); // 11
+cout << q.back();  // 14
+```
+
+---
+
+#### `size()`
+
+取得目前 queue 的大小，也就是其中的元素數量。
+```cpp=
+queue<int> q;
+
+q.push(1919);
+q.push(114514);
+q.push(780);
+
+cout << q.size(); // 3
+```
+
+---
+
+#### `empty()`
+
+檢查 queue 是否為空。如果 queue 是空的，會回傳 `true`，否則會回傳 `false`。
+```cpp=
+queue<int> q;
+
+cout << q.empty(); // 1 (true)
+
+q.push(22);
+cout << q.empty(); // 0 (false)
+```
+
+---
+
+#### `swap()`
+
+用於交換兩個 queue 的內容。
+```cpp=
+queue<int> q1, q2;
+
+q1.push(1);
+q1.push(2);
+
+q2.push(3);
+q2.push(4);
+
+q1.swap(q2);
+
+// q1: 3 4
+// q2: 1 2
+```
+
+---
+
+### 然後呢?
+相信聰明的各位在看完stack和前面的講解後，可以猜到queue的最常見題型
+沒錯! 就是排隊問題
+不過我找不到難度適合的題目
+這裡會拿a979來講一下
+雖然他好像說這題不是queue:
+會跟stack一樣一步一步慢慢看要怎麼解
+真的有興趣想練習可以說一下我可以出一題
+然後想練習的可以到隔壁zerojudge寫e447
+
+---
+### 需要注意的小地方
+在用queue想pop的時候，記得要先判一下queue裡面有沒有東西，假如裡面沒東西你硬pop的話會導致程式壞掉
+
+---
+
+
+
+### deque
+如果需要同時操作頭尾，可以考慮使用 `deque`。
+![image](https://hackmd.io/_uploads/Bkn0Leggee.png)
+
+白話點就是有天才把兩個queue拚在一起變成一個很酷的容器，原本的queue要加元素只能加在後面，要刪元素只能刪最後面，不過用了deque後就能對頭尾都做新增值和刪除值的動作。
+```cpp=
+#include <deque>
+deque<int> dq;
+
+dq.push_front(1);
+dq.push_back(2);
+
+cout << dq.front(); // 1
+cout << dq.back();  // 2
+dq.pop_front();
+dq.pop_back();
+```
+
+---
+:::spoiler 原始碼
+```cpp=
+template<class T>
+class my_queue{
+    struct Node{
+        T val;
+        Node* nxt;
+        Node(const T& v): val(v), nxt(nullptr){}
+    };
+    Node* head;
+    Node* tail;
+    size_t sz;
+public:
+    my_queue(): head(nullptr), tail(nullptr), sz(0){}
+    ~my_queue(){
+        while(head){
+            Node* tmp = head;
+            head = head->nxt;
+            delete tmp;
+        }
+    }
+    void push(const T& v){
+        Node* n = new Node(v);
+        if(tail) tail->nxt = n;
+        else head = n;
+        tail = n;
+        sz++;
+    }
+    void pop(){
+        if(!head) return;
+        Node* tmp = head;
+        head = head->nxt;
+        if(!head) tail = nullptr;
+        delete tmp;
+        sz--;
+    }
+    T& front(){ return head->val; }
+    const T& front() const{ return head->val; }
+    T& back(){ return tail->val; }
+    const T& back() const{ return tail->val; }
+    bool empty() const{ return sz==0; }
+    size_t size() const{ return sz; }
+};
+```
+
+:::
+---
+
+### 題目練習
+
+b282
+先來這裡https://tioj.sprout.tw/problems/36
+
+## Priority_queue / 自訂排序
+前面 queue 那邊有提過，這裡再單獨拿出來一下。`priority_queue` 可以想像成「永遠讓你先拿目前最大（或最小）那個」的容器，底層是堆（heap）
+### 標頭檔:
+```cpp=
+#include <queue>
+```
+
+### 宣告:
+```cpp=
+// 預設最大堆（top 最大）
+priority_queue<int> pq;
+
+// 最小堆
+priority_queue<int, vector<int>, greater<int>> minpq;
+```
+---
+### 基本操作:
+```cpp=
+pq.push(10);
+pq.push(5);
+pq.push(20);
+
+cout << pq.top() << '\n'; // 20
+pq.pop();                 // 移除 20
+cout << pq.top() << '\n'; // 10
+cout << pq.size() << '\n';
+cout << pq.empty() << '\n';
+```
+---
+### 自訂結構 + 排序:
+```cpp=
+struct Node {
+    int dist;
+    int id;
+};
+
+// 讓 dist 小的優先 (所以用 >)
+struct Cmp {
+    bool operator()(const Node& a, const Node& b) const {
+        return a.dist > b.dist;
+    }
+};
+
+priority_queue<Node, vector<Node>, Cmp> pq2;
+```
+---
+### 最小堆 + pair（常見）
+```cpp=
+// (距離, 節點)
+priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pqd;
+```
+---
+### 找前 K 大（也常見）
+```cpp=
+vector<int> nums = {5,1,9,3,7,8};
+int K = 3;
+priority_queue<int, vector<int>, greater<int>> keep; // 小的在 top
+for (int x : nums){
+    if ((int)keep.size() < K) keep.push(x);
+    else if (x > keep.top()){
+        keep.pop();
+        keep.push(x);
+    }
+}
+// keep 裡面就是最大的 K 個（無排序）
+```
+---
+### 延遲刪除技巧（lazy delete）
+因為不能直接刪中間：
+```cpp=
+priority_queue<int> pp;
+unordered_map<int,int> dead;
+
+auto clean = [&](){
+    while(!pp.empty() && dead[pp.top()]){
+        dead[pp.top()]--;
+        pp.pop();
+    }
+};
+
+pp.push(7);
+pp.push(5);
+dead[7]++; // 標記刪它
+clean();   // 真正清掉 7
+```
+---
+### 複雜度
+- push：O(log n)  
+- pop：O(log n)  
+- top：O(1)  
+- 沒有 find，也沒有原生 decrease-key → 想玩要自己搞  
+---
+### 題目練習:
+
+b262(不是功課)
+
+---
+:::spoiler 原始碼
+```cpp=
+template<class T, class Compare = std::less<T>>
+class my_priority_queue{
+    vector<T> a;
+    Compare cmp;
+    void sift_up(int i){
+        while(i>0){
+            int p=(i-1)/2;
+            if(!cmp(a[p], a[i])) break;
+            swap(a[p], a[i]);
+            i=p;
+        }
+    }
+    void sift_down(int i){
+        int n=a.size();
+        while(true){
+            int l=i*2+1, r=i*2+2, g=i;
+            if(l<n && cmp(a[g], a[l])) g=l;
+            if(r<n && cmp(a[g], a[r])) g=r;
+            if(g==i) break;
+            swap(a[g], a[i]);
+            i=g;
+        }
+    }
+public:
+    void push(const T& v){
+        a.push_back(v);
+        sift_up((int)a.size()-1);
+    }
+    void pop(){
+        if(a.empty()) return;
+        swap(a[0], a.back());
+        a.pop_back();
+        if(!a.empty()) sift_down(0);
+    }
+    const T& top() const{ return a.front(); }
+    bool empty() const{ return a.empty(); }
+    int size() const{ return (int)a.size(); }
+};
+```
+
+:::
+---
+
+## 進階題練習
+
+b146 b282 b283
+這三題要用甚麼容器相信大家可以的
+第一週的功課會簡單不少，希望大家可以寫寫看進階題
+下週上課後我會再把這三題的題解丟上來
+b283我花了好幾個小時測資一直爛 可先來這邊練https://tioj.sprout.tw/problems/19
+b282也是https://tioj.sprout.tw/problems/18
+
+廢話: 如果某些容器裡面的內容長的格式不太一樣很正常:0 這講義好幾個月前試教弄了一點現在把他用完，然後此時此刻我大概編完講義了才發現這件事但我人快死了不想修，除非我心血來潮把他統一不然一些小點的標題是函式一些是功能請見諒:D
