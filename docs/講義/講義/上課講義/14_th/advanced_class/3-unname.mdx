@@ -1,0 +1,121 @@
+---
+sidebar_position: 3
+title : "單調性"
+description: ''
+---
+
+import BinarySearchInteractive from '@site/src/components/AlgorithmTextbookComponents/Chapter3';
+import DetailsBlock from '@site/src/components/DetailsBlock/DetailsBlock';
+
+## 玩玩看，想一想
+下面的卡片每個數字都是 **遞增的** 聰明的你能在幾次之內找到答案呢？
+
+<BinarySearchInteractive />
+
+### 觀察
+可以發現到當你選了一個數字 $ptr$ 時  
+![](/img/Algorithm_textbook_pic/image3-1.png)  
+$target$要麼在其右邊要麼在其左邊 (也有可能就是他)  
+而又因為數列是遞增的  
+所以  
+- 當 $target < ptr$ 時  
+    - $target$ 在 $ptr$ 左邊  
+- 所以當 $ ptr < target$ 時  
+    - $target$ 在 $ptr$ 右邊  
+
+#### 分析時間複雜度
+我們可以先定義 對大小為 $n$ 的陣列做二分搜時間複雜度為$F(n) = O(???)$  
+那我們當我們選定 $ptr$ 時  
+時間複雜度 $F(n) = F($*右邊的長度* 或是 *左邊的長度*$)$  
+如果 *右邊的長度* 和 *左邊的長度* 長度差距過大  
+那抽到大的那一邊時間上會不好  
+所以我們應該要盡量讓她保持一致  
+為此 *$ptr$ 選在陣列的一半最好*  
+得 $F(n) = O(1)+F(n/2)$  
+當陣列大小 n = 1時 $target$ *必定等於* $ptr$ 所以就不用再找了  
+因此得出結論 F(n) = $O(1) \times $(要除幾次 $2$ 才會使$n \leq 1$ )  
+要除幾次 $2$ 才會使$n \leq 1$  
+可以寫作 $x$  
+設$x$為$(n \div 2^x = 1)$  
+$(n \div 2^x = 1)$ => $(n = 2^x)$    
+根據[log的定義](https://zh.wikipedia.org/zh-tw/對數)得知$x = log_2 n$  
+因此時間複雜度為$O(1) \times log_2 n$  
+
+<h2>=> *$O(log_2 n)$*</h2>  
+
+(想要精確證明請閱)
+## 實作
+如果你有看上面的證明的話應該就知道怎麼做\(
+```cpp
+// range是前閉後開的 即range = {0, 7}時範圍為 0 1 2 3 4 5 6 **不含7**
+int BinarySearch(vector<int> &v, int target, pair<int, int> range)
+{
+    int mid = (range.first+range.second) / 2; //上文之ptr
+    if(range.first + 1 == range.second)return range.first;
+    if(v[mid] <= target)
+    {
+        // 對於 陣列像 1 2 3 3 3 4 5 6 88 114 (target = 3)
+        //我們會想求得 **最後一個3**
+        return BinarySearch(v, target, {mid, range.second});
+    }else 
+    {
+        return BinarySearch(v, target, {range.first, mid});
+    }
+}
+```
+:::danger[附效果]
+當 target 不在 陣列v 中會發生什麼事
+<DetailsBlock type="success" title="答案">
+  會得到最接近 target 且 小於它的值 的 index  
+  例如 陣列像 1 2 3 3 3 4 5 6 88 114 (target = 7)  
+  則會回傳 6 的 index 7  
+  可以自己用腦袋跑跑看程式 想想看為什麼  
+</DetailsBlock>
+:::
+:::tip[想一想 說一說]
+我們若想求的會想求得 **第一個target** 要怎麼做  
+附效果一樣嗎  
+<DetailsBlock type="success" title="參考答案">
+```cpp
+// range是**前閉後開**的 即range = {0, 7}時範圍為 0 1 2 3 4 5 6
+int BinarySearch(vector<int> &v, int target, pair<int, int> range)
+{
+    int mid = (range.first+range.second) / 2; //上文之ptr
+    if(range.first == range.second)return range.first;
+    /*
+        == 的理由是因為當v[mid] < target時mid一定會向前一格(+1)
+        所以最後range.first == range.second才會是答案
+        (這裡應該會搭配實際演示)
+    */
+
+
+    if(v[mid] < target)
+    {
+        return BinarySearch(v, target, {mid+1, range.second});
+    }else 
+    {
+        // 對於 陣列像 1 2 3 3 3 4 5 6 88 114 (target = 3)
+        //我們會想求得 **第一個3** (lower_bound)
+        return BinarySearch(v, target, {range.first, mid});
+    }
+}
+// 或
+// range是**前閉後閉**的 即range = {0, 7}時範圍為 0 1 2 3 4 5 6 7
+int BinarySearch(vector<int> &v, int target, pair<int, int> range)
+{
+    int mid = (range.first+range.second) / 2; //上文之ptr
+    if(range.first == range.second)return range.first;
+    if(v[mid] < target)
+    {
+        return BinarySearch(v, target, {mid+1, range.second});
+    }else 
+    {
+        // 對於 陣列像 1 2 3 3 3 4 5 6 88 114 (target = 3)
+        //我們會想求得 **第一個3** (lower_bound)
+        return BinarySearch(v, target, {range.first, mid});
+    }
+}
+```
+</DetailsBlock>
+:::
+
