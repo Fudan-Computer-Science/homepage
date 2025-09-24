@@ -7,7 +7,9 @@ description: ''
 import BinarySearchInteractive from '@site/src/components/AlgorithmTextbookComponents/Chapter3';
 import DetailsBlock from '@site/src/components/DetailsBlock/DetailsBlock';
 
-## 玩玩看，想一想
+## 二分搜尋法 (Binary Search)   
+
+### 玩玩看，想一想
 下面的卡片每個數字都是 **遞增的** 聰明的你能在幾次之內找到答案呢？
 
 <BinarySearchInteractive />
@@ -24,7 +26,7 @@ $target$要麼在其右邊要麼在其左邊 (也有可能就是他)
     - $target$ 在 $ptr$ 右邊  
 
 #### 分析時間複雜度
-我們可以先定義 對大小為 $n$ 的陣列做二分搜時間複雜度為$F(n) = O(???)$  
+我們可以先定義 對大小為 $n$ 的陣列做搜尋時間複雜度為$F(n) = O(???)$  
 那我們當我們選定 $ptr$ 時  
 時間複雜度 $F(n) = F($*右邊的長度* 或是 *左邊的長度*$)$  
 如果 *右邊的長度* 和 *左邊的長度* 長度差距過大  
@@ -42,9 +44,12 @@ $(n \div 2^x = 1)$ => $(n = 2^x)$
 因此時間複雜度為$O(1) \times log_2 n$  
 
 <h2>=> *$O(log_2 n)$*</h2>  
-
-(想要精確證明請閱)
-## 實作
+:::success[小結]
+那麼恭喜你 你學會如何運用單調性來做搜尋了    
+因為在搜尋的過程中我們會將陣列一分為二  
+所以這個方法叫做 **二分搜尋法 (Binary Search)**  
+:::
+### 實作
 如果你有看上面的證明的話應該就知道怎麼做\(
 ```cpp
 // range是前閉後開的 即range = {0, 7}時範圍為 0 1 2 3 4 5 6 **不含7**
@@ -119,3 +124,49 @@ int BinarySearch(vector<int> &v, int target, pair<int, int> range)
 </DetailsBlock>
 :::
 
+## 內建函式
+C++ STL 內建了兩個函式 `lower_bound` 和 `upper_bound`
+- `lower_bound` 會回傳 **第一個大於等於 target 的位置**
+- `upper_bound` 會回傳 **第一個大於 target 的位置**
+```cpp
+#include <iostream>  
+#include <vector>
+#include <algorithm> // 需要包含這個標頭檔
+using namespace std;
+int main() 
+{
+    vector<int> v = {1, 2, 3, 3, 3, 4, 5, 6, 88, 114};
+    int target = 3;
+
+    // 使用 lower_bound 找到第一個大於等於 target 的位置
+    auto lower = lower_bound(v.begin(), v.end(), target);
+    if (lower != v.end()) 
+    {
+        cout << "First element >= " << target << " is at index: " << (lower - v.begin()) << endl;
+    } else 
+    {
+        cout << "No element >= " << target << endl;
+    }
+
+    // 使用 upper_bound 找到第一個大於 target 的位置
+    auto upper = upper_bound(v.begin(), v.end(), target);
+    if (upper != v.end()) 
+    {
+        cout << "First element > " << target << " is at index: " << (upper - v.begin()) << endl;
+    } else 
+    {
+        cout << "No element > " << target << endl;
+    }
+
+    return 0;
+}
+```
+<DetailsBlock type="note" title="輸出">
+- First element >= 3 is at index: 2
+- First element > 3 is at index: 5
+</DetailsBlock>
+
+### 例題
+[apcs 2020-7-p3圓環出口](https://zerojudge.tw/ShowProblem?problemid=f581)  
+[CSES-Sum of Two Values](https://cses.fi/problemset/task/1640)  
+[CSES-Concert Tickets](https://cses.fi/problemset/task/1091) !!!**容器如map set等也有二分搜**  
