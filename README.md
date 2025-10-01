@@ -7,8 +7,8 @@ https://github.com/coreybutler/nvm-windows/releases/download/1.2.2/nvm-setup.exe
 
 開啟cmd
 ```shell
-nvm install 18.20.8
-nvm use 18.20.8
+nvm install 20.19.5
+nvm use 20.19.5
 ```
 關掉cmd 開啟cmd
 ```shell
