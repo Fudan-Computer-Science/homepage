@@ -1,0 +1,48 @@
+---
+sidebar_position: 3
+title : "單調性"
+description: ''
+---
+
+import BSTInteractiveWithTarget from '@site/src/components/AlgorithmTextbookComponents/Chapter4';
+import DetailsBlock from '@site/src/components/DetailsBlock/DetailsBlock';
+
+## 二元搜尋樹 (Binary Search Tree)   
+
+### 玩玩看，想一想
+下面每一個節點的左子樹都比他小  
+右子樹都比他大  
+唯有父節點被點擊子節點才可以被點擊  
+找出目標數字需要幾步呢？    
+<BSTInteractiveWithTarget />
+
+### 觀察
+可以發現最慘的情況下 
+我們會走到樹的最底層   
+而一棵平衡的二元搜尋樹   
+高度約為 $log_2 n$ (n為節點數)  
+但如果一棵樹不平衡呢？  
+例如下面這棵樹  
+```
+        5
+       /
+      4
+     /
+    3
+   /
+  2
+ /
+1
+```
+這棵樹的高度為 $n$  
+因此最糟時間複雜度為 $O(n)$  
+#### 如何建造一棵平衡的二元搜尋樹？
+1. 將陣列排序 (假設已經是排序好的)  
+2. 取中間值作為根節點
+3. 對左半邊重複步驟 2
+4. 對右半邊重複步驟 2
+5. 重複直到陣列長度為 0
+(有沒有很像二分搜尋法？)
+
+### 例題
+[47 . 二元搜尋樹](https://tioj.sprout.tw/problems/47/)
