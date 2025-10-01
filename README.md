@@ -45,6 +45,10 @@ Set-ExecutionPolicy -ExecutionPolicy Bypass
 ![](./z_README_files/teach8.png)
 ### 提交變更
 ```
+要commit前可先設定
+git config --global user.email "FDHSCPP@gmail.com"    
+git config --global user.name "FDHSCPP"   
+用自己的帳號!!!(也可以亂輸入)  
 git request-pull
 ```
 當屆幹部應該會看完之後幫你merge回main
