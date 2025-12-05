@@ -155,3 +155,26 @@ pre, code {
   color: #fff;
   text-shadow: 0 0 10px rgba(0,0,0,0.7);
 }
+
+/* Spoiler text: hover 顯示 */
+.spoiler {
+  background-color: #000;
+  color: transparent;
+  border-radius: 4px;
+  padding: 0 0.15em;
+  cursor: pointer;
+  transition: color 0.12s ease, background-color 0.12s ease;
+}
+
+/* 暗色主題支援 */
+[data-theme='dark'] .spoiler {
+  background-color: #444;
+}
+
+/* hover 或 focus 顯示內容 */
+.spoiler:hover,
+.spoiler:focus {
+  color: inherit;
+  background-color: transparent;
+  outline: none;
+}

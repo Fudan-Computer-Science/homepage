@@ -62,6 +62,17 @@ import Img, { ImgBaseProvider } from '/src/components/ImgPack';
 
 ### 2. DetailsBlock  
 折疊區塊  
+:::warning[改版]
+舊版仍可用 但現在.md/.mdx可以支援  
+  \:::spoiler[some text]  
+  \:::  
+  或  
+  \:::warning[?=spoiler改版]  
+  \:::  
+:::info[?=spoiler 製作者] 
+:::danger[?=spoiler 猜猜我是誰]  
+14th進階教學 草貓  
+:::  
 ```tsx
 import DetailsBlock from '@site/src/components/DetailsBlock/DetailsBlock';
 

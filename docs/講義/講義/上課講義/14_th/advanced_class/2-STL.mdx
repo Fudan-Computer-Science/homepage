@@ -87,7 +87,7 @@ vec.pop_back();   // 1 2
 vec.push_back(1); // 1 2 1
 ```
 
-:::spoiler 在容量用完的時候 `push_back` 會發生什麼事？
+:::danger[?=spoiler在容量用完的時候 `push_back` 會發生什麼事？]
 大部分情況下，capacity（容量）會變成兩倍，這麼做很顯然會有點浪費。所以如果今天解題的時候你很懶，全部用 `push_back` 沒有預開時，吃到 MLE（Memory Limit Exceeded），可以嘗試先預開。
 :::
 

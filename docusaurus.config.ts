@@ -56,8 +56,17 @@ const config: Config = {
       'classic',
       {
         docs: {
-          remarkPlugins: [remarkMath],
-          rehypePlugins: [rehypeKatex],
+          admonitions: {
+            keywords: ['note', 'tip', 'info', 'warning', 'danger', 'spoiler'],
+            extendDefaults: true,
+          },
+          remarkPlugins: [
+            remarkMath, 
+          ],
+          rehypePlugins: [
+            rehypeKatex,
+            require('./plugins/remark-spoiler'),
+          ],
           sidebarPath: './sidebars.ts',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
@@ -66,6 +75,17 @@ const config: Config = {
           tags: '../blog/tags.yml',
         },
         blog: {
+          admonitions: {
+            keywords: ['note', 'tip', 'info', 'warning', 'danger', 'spoiler'],
+            extendDefaults: true,
+          },
+          remarkPlugins: [
+            remarkMath, 
+          ],
+          rehypePlugins: [
+            rehypeKatex,
+            require('./plugins/remark-spoiler'),
+          ],
           showReadingTime: true,
           feedOptions: {
             type: ['rss', 'atom'],
