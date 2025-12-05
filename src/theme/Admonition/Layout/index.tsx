@@ -41,14 +41,17 @@ function AdmonitionContent({children}: Pick<Props, 'children'>) {
 
 export default function AdmonitionLayout(props: Props): ReactNode {
   const {type, icon, title, children, className} = props;
-  if(title.toString().startsWith("?=spoiler")){
+  if(typeof title === 'string' || (Array.isArray(title) && typeof title[0] === 'string')){
     let newTitle = title;
-    if(typeof newTitle === 'string')newTitle = newTitle.replace("?=spoiler","");
-    else if(typeof newTitle[0] === 'string')newTitle = newTitle[0].replace("?=spoiler","");
+    if(typeof newTitle === 'string'){
+      newTitle = newTitle.replace("?=spoiler","");
+    } else if(Array.isArray(newTitle) && typeof newTitle[0] === 'string'){
+      newTitle = [newTitle[0].replace("?=spoiler",""), ...newTitle.slice(1)];
+    }
     return (
       <AdmonitionContainer type={type} className={className}>
         <details>
-            {title || icon ? <AdmonitionHeading title={newTitle} icon={icon} /> : null}
+            {newTitle || icon ? <AdmonitionHeading title={newTitle} icon={icon} /> : null}
             <AdmonitionContent>{children}</AdmonitionContent>
         </details>
       </AdmonitionContainer>

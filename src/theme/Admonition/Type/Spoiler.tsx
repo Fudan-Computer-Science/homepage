@@ -18,10 +18,18 @@ const defaultProps = {
 };
 
 export default function AdmonitionTypeSpoiler(props: Props): ReactNode {
+  const newprops: Props = 
+  {
+    children: props.children,
+    type: props.type,
+    icon: props.icon,
+    title: (<>?=spoiler {props.title}</>).props.children,
+    className: props.className,
+  };
   return (
     <AdmonitionLayout
       {...defaultProps}
-      {...props}
+      {...newprops}
       className={clsx(infimaClassName, props.className)}>
       {props.children}
     </AdmonitionLayout>
