@@ -63,7 +63,7 @@
 <p>圖(一) 14屆幹部與指導老師合照</p>
 <p>圖(二) 感謝學長姐們蒞臨指導!!!</p>
 <p>第14屆復旦程式設計班已經開放報名啦!!! 不論你是C++初學者，抑或已有一定程式基礎，都歡迎報名加入! 報名只到8/30，要報要快!!!</p>
-<p>報名連結-&gt; <a href="https://forms.gle/t6RnCWcuYejr4WkQ6" target="_blank" rel="noopener noreferrer">https://forms.gle/t6RnCWcuYejr4WkQ6</a></p>
+<p>報名連結-&gt; <a href="https://forms.gle/t6RnCWcuYejr4WkQ6" target="_blank" rel="noopener noreferrer" class="">https://forms.gle/t6RnCWcuYejr4WkQ6</a></p>
 <p>活動照片:
 <img decoding="async" loading="lazy" alt="圖(一) 14屆幹部與指導老師合照" src="https://fudan-computer-science.github.io/homepage/assets/images/526350471_1500427867617776_1779292256580456884_n-8ab08e5e40616b019cc57298fbdf33e6.jpg" width="2048" height="1536" class="img_ev3q">
 <img decoding="async" loading="lazy" alt="圖(二) 感謝學長姐們蒞臨指導!!!" src="https://fudan-computer-science.github.io/homepage/assets/images/527358924_971249321756328_3744595429435943201_n-41af264bc1383bf1f18e1e801b1cec78.jpg" width="2048" height="1536" class="img_ev3q"></p>]]></content:encoded>
@@ -92,10 +92,10 @@
             <content:encoded><![CDATA[<p>如果有任何重要事項(開始報名、錄取榜單、比賽報名等)，都會公告在這裡!</p>
 <p>Last Update: 2025/9/13</p>
 <ul>
-<li>7/1 14屆程設班入班考正式開放報名</li>
-<li>2025 YTP少年圖靈競賽 8/11線上初賽</li>
-<li>14屆程式設計班 入班考暨二次篩選 報名至8/23日止。 (已截止報名)</li>
-<li>9/15 公告第14屆錄取名單</li>
+<li class="">7/1 14屆程設班入班考正式開放報名</li>
+<li class="">2025 YTP少年圖靈競賽 8/11線上初賽</li>
+<li class="">14屆程式設計班 入班考暨二次篩選 報名至8/23日止。 (已截止報名)</li>
+<li class="">9/15 公告第14屆錄取名單</li>
 </ul>]]></content:encoded>
             <category>公佈欄</category>
         </item>
@@ -117,32 +117,32 @@
             <description><![CDATA[一個能分享程式設計冷知識、奇妙語法、資訊趨勢觀察、個人資訊科技相關作品的小小園地。]]></description>
             <content:encoded><![CDATA[<p>一個能分享程式設計冷知識、奇妙語法、資訊趨勢觀察、個人資訊科技相關作品的小小園地。
 也開放投稿!</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="關於部落格">關於部落格<a href="https://fudan-computer-science.github.io/homepage/blog/setting-up-blog#%E9%97%9C%E6%96%BC%E9%83%A8%E8%90%BD%E6%A0%BC" class="hash-link" aria-label="關於部落格的直接連結" title="關於部落格的直接連結">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="關於部落格">關於部落格<a href="https://fudan-computer-science.github.io/homepage/blog/setting-up-blog#%E9%97%9C%E6%96%BC%E9%83%A8%E8%90%BD%E6%A0%BC" class="hash-link" aria-label="關於部落格的直接連結" title="關於部落格的直接連結" translate="no">​</a></h2>
 <p>每次發現了超酷的程式知識卻不知道能跟誰分享嗎? 對於現在瞬息萬變的資訊發展有什麼想法嗎? 最近做了甚麼小專案想要有個地方發表，做學習歷程嗎?
 程設班部落格可以給你一個小小的地方發表! 甚至你最近<del>打mai打出了心得</del>，想投稿也可以!</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="投稿資格獎勵">投稿資格/獎勵<a href="https://fudan-computer-science.github.io/homepage/blog/setting-up-blog#%E6%8A%95%E7%A8%BF%E8%B3%87%E6%A0%BC%E7%8D%8E%E5%8B%B5" class="hash-link" aria-label="投稿資格/獎勵的直接連結" title="投稿資格/獎勵的直接連結">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="投稿資格獎勵">投稿資格/獎勵<a href="https://fudan-computer-science.github.io/homepage/blog/setting-up-blog#%E6%8A%95%E7%A8%BF%E8%B3%87%E6%A0%BC%E7%8D%8E%E5%8B%B5" class="hash-link" aria-label="投稿資格/獎勵的直接連結" title="投稿資格/獎勵的直接連結" translate="no">​</a></h2>
 <ul>
-<li>投稿資格: 不限 (不是程設班的也可以，也不限校內外與年紀，歡迎歷屆學長姐投稿)</li>
-<li>獎勵領取資格: 僅限14屆程設班正式學員與幹部</li>
-<li>投稿表單: 點我</li>
-<li>投稿種類(可複選):<!-- -->
+<li class="">投稿資格: 不限 (不是程設班的也可以，也不限校內外與年紀，歡迎歷屆學長姐投稿)</li>
+<li class="">獎勵領取資格: 僅限14屆程設班正式學員與幹部</li>
+<li class="">投稿表單: 點我</li>
+<li class="">投稿種類(可複選):<!-- -->
 <ul>
-<li>C++語法</li>
-<li>演算法與資料結構 (不限進階班範圍)</li>
-<li>競賽檢定</li>
-<li>資訊趨勢 (資訊教育、時事等)</li>
-<li>作品/專案分享 (不限程設班作品，惟須跟資訊科技有關聯)</li>
-<li>日常分享(?</li>
+<li class="">C++語法</li>
+<li class="">演算法與資料結構 (不限進階班範圍)</li>
+<li class="">競賽檢定</li>
+<li class="">資訊趨勢 (資訊教育、時事等)</li>
+<li class="">作品/專案分享 (不限程設班作品，惟須跟資訊科技有關聯)</li>
+<li class="">日常分享(?</li>
 </ul>
 </li>
-<li>專業領域:<!-- -->
+<li class="">專業領域:<!-- -->
 <ul>
-<li>AI、神經網路、大型語言模型</li>
-<li>競技程式</li>
-<li>數據分析</li>
-<li>網頁設計 (包含前後端)</li>
-<li>資訊安全</li>
-<li>遊戲開發</li>
+<li class="">AI、神經網路、大型語言模型</li>
+<li class="">競技程式</li>
+<li class="">數據分析</li>
+<li class="">網頁設計 (包含前後端)</li>
+<li class="">資訊安全</li>
+<li class="">遊戲開發</li>
 </ul>
 </li>
 </ul>]]></content:encoded>
