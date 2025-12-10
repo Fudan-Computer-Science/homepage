@@ -22,22 +22,14 @@
     "@mdx-js/react": "^3.0.0",
     "clsx": "^2.0.0",
     "framer-motion": "^12.16.0",
-    "katex": "^0.16.22",
-    "markdown-it": "^14.1.0",
-    "marked": "^16.1.2",
-    "mdx-prism": "^0.3.4",
-    "mermaid": "^11.9.0",
     "prism-react-renderer": "^2.3.0",
-    "prismjs": "^1.30.0",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
     "react-fast-marquee": "^1.6.5",
     "react-tsparticles": "^2.12.2",
     "rehype-katex": "^7.0.1",
-    "remark-admonitions": "^1.2.1",
     "remark-math": "^6.0.0",
-    "reveal.js": "^5.2.1",
-    "tsparticles": "^3.8.1"
+    "reveal.js": "^5.2.1"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "^3.8.1",

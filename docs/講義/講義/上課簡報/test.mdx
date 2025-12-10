@@ -14,20 +14,20 @@ import Slide, { SlideBreak, BranchBreak } from '@site/src/components/Slides/Mark
 {`
 int fibonacci(int n)
 {
-	//遞迴終止條件
-	if(n == 0)return 0;
-	if(n == 1)return 1;
+    //遞迴終止條件
+    if(n == 0)return 0;
+    if(n == 1)return 1;
 	
-	//向下遞迴
-	int l = fibonacci(n-1);
-	int r = fibonacci(n-2);
+    //向下遞迴
+    int l = fibonacci(n-1);
+    int r = fibonacci(n-2);
 	
-	//回傳結果
-	return l+r;
+    //回傳結果
+    return l+r;
 }
 int main()
 {
-	int ret = fibonacci(5);
+    int ret = fibonacci(5);
 }
 `}
 </code></pre>
