@@ -1,39 +1,34 @@
 import React from "react";
 import styles from "./AuthorCard.module.css";
+import authorsGlobal from "js-yaml-loader!../../../blog/authors.yml";
+import blogAuthor from '@theme/Blog/Components/Author';
 
-type Author = {
-  name: string;
-  url?: string;
-  imageURL?: string;
-};
+export default function Authors({ authors, size = "h1" }) {
+  if (!authors || authors.length === 0) {
+    return <div style={{marginTop: 20, marginBottom: 20}}>No authors found.</div>;
+  }
 
-type Props = {
-  author: Author;
-  date: string;
-};
+  // Filter authors based on the authors parameter (list of author keys)
+  const filteredAuthors = authors.map(authorKey => {
+    const authorData = authorsGlobal[authorKey];
+    if (!authorData) {
+      console.warn(`Author key "${authorKey}" not found in authors.yml`);
+      return null;
+    }
+    return {
+      key: authorKey,
+      ...authorData
+    };
+  }).filter(Boolean); // Remove null entries
 
-export default function AuthorCard({ author, date }: Props) {
+  if (filteredAuthors.length === 0) {
+    return <div style={{marginTop: 20, marginBottom: 20}}>No valid authors found.</div>;
+  }
+  let author = filteredAuthors[0];
+  author["imageURL"] = author["image_url"];
+  author["page"] = {"permalink": "/homepage/blog/authors/" + author["key"].replace(/([A-Z])/g, '-$1').toLowerCase()};
+  console.log(author);
   return (
-    <div className={styles.authorCard}>
-      {author.imageURL && (
-        <img
-          className={styles.avatar}
-          src={author.imageURL}
-          alt={author.name}
-        />
-      )}
-      <div className={styles.info}>
-        <div className={styles.name}>
-          {author.url ? (
-            <a href={author.url} target="_blank" rel="noopener noreferrer">
-              {author.name}
-            </a>
-          ) : (
-            author.name
-          )}
-        </div>
-        <time className={styles.date}>{date}</time>
-      </div>
-    </div>
+      blogAuthor({author: author, as: size})
   );
 }

@@ -1,3 +1,5 @@
+# 1~3rd
+
 # 14th
 14thClassLeader:
   name: Miyun
@@ -7,11 +9,14 @@
   socials:
     instgram: https://www.instagram.com/miyun_owo/
     github: Miyun-owo
-14thAdvancedEducation:
-  name: Bryan_Huang
+14thAdvancedTeachingDirector:
+  name: 草貓
   title: 第十四屆進階教學 aka.架網站的那個
   url: https://github.com/Bryan0324
   image_url: https://github.com/Bryan0324.png
   page: true
   socials:
-    github: Bryan_Huang
+    github: https://github.com/Bryan0324
+    page: https://bryan0324.github.io/
+AdvancedTeachingAssistant:
+  name: nowob
