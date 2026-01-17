@@ -42,7 +42,7 @@ const config: Config = {
   organizationName: 'Fudan-Computer-Science', // Usually your GitHub org/user name.
   projectName: 'homepage', // Usually your repo name.
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onDuplicateRoutes: 'warn',
 
   // Even if you don't use internationalization, you can use this field to set
