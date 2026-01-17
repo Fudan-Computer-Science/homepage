@@ -111,6 +111,11 @@ const config: Config = {
   ],
 
   themeConfig: {
+    giscus: {
+      repo: 'Fudan-Computer-Science/homepage',
+      repoId: 'R_kgDOOzYo6g',
+      categoryId: 'DIC_kwDOOzYo6s4C1FgF',
+    },
     mermaid: {
       theme: {light: 'neutral', dark: 'forest'},
     },
