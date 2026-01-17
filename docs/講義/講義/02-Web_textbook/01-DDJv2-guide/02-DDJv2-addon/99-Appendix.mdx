@@ -1,0 +1,40 @@
+---
+sidebar_position: 99
+title : 附錄 -- HydroOJ 整體架構流程圖
+description: ''
+hide_table_of_contents: true
+---
+注：下圖為 HydroOJ 整體架構流程圖，參考自 [官方repo](https://github.com/hydro-dev/Hydro) 非官方之圖式，有誤請不吝告知我們進行修正，謝謝！
+```mermaid
+flowchart TD
+    user -->|瀏覽器請求 GET/POST| before-handler
+    before-handler --> handler
+    handler --> after-handler
+    handler -->|渲染HTML/body| addPage
+    handler --> tmp 
+    addPage -->|注射HTML/body| user
+
+    addon -->|新增| before-handler
+    addon -->|新增| after-handler
+    addon -->|使用| tmp
+
+    subgraph HydroOJ 伺服器
+        tmp[其他HydroOJ服務]
+        subgraph 路由系統
+            before-handler(前置處理器)
+            handler[處理器]
+            after-handler(後置處理器)
+        end
+        subgraph addon *附加套件系統*
+            addon[附加套件]
+        end
+    end
+    subgraph HydroOJ 客戶端
+        user[使用者]
+        addPage[注射 *addPage*]
+    end
+```
+
+import Authors from '@site/src/components/DocsAuthor/AuthorCard';
+
+<Authors authors={["14thAdvancedTeachingDirector"]} size="h3" />
