@@ -24,6 +24,9 @@ const config: Config = {
   themes: ['@docusaurus/theme-mermaid', '@docusaurus/theme-live-codeblock'],
   markdown: {
     mermaid: true,
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
   },
   stylesheets: [
     {
@@ -40,7 +43,7 @@ const config: Config = {
   projectName: 'homepage', // Usually your repo name.
 
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  onDuplicateRoutes: 'warn',
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
