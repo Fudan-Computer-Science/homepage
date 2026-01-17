@@ -13,6 +13,8 @@ const defaultConfig: Partial<GiscusProps> = {
   lang: 'zh-TW',
 }
 
+
+// modify form https://imroc.cc/note/docusaurus/giscus
 export default function Comment(): JSX.Element {
   const themeConfig = useThemeConfig()
 
