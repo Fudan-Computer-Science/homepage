@@ -84,6 +84,32 @@ VS code 就不贅述了
     ```
 恭喜你完成了HydroOJ套件的安裝與測試!
 
+## 1.5 套件資料夾說明
+HydroOJ 套件資料夾結構大致如下
+```
+my-addon/
+├── package.json
+├── frontend?/
+    ├── \[a-zA-Z0-9_\]+.page.tsx?
+├── locale?/
+    ├── ko.yml?
+    ├── zh_TW.yml?
+    ├── en.yml?
+    ├── zh.yml?
+├── public?/
+├── templates?/
+    ├── <>.html?
+├── index.ts
+```
+有`?`的資料夾或檔案表示是選用的不是必須的
+- `package.json`：套件的設定檔案 (預設就會有)
+- `frontend/`：注射前端頁面檔案 (選用)
+  - `\[a-zA-Z0-9_\]+.page.tsx`：注射前端頁面檔案 (選用)
+- `locale/`：多國語系檔案 (選用)
+- `public/`：靜態資源檔案 (選用)
+- `templates/`：路由渲染前端模板檔案 (選用)
+- `index.ts`：套件主要程式碼 (預設就會有)
+
 ## 參考資料
 - [HydroOJ官方安裝文件](https://hydro.js.org/docs/Hydro/install)
 - [HydroOJ官方開發文件](https://hydro.js.org/docs/Hydro/dev/typescript)

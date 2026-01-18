@@ -1,0 +1,169 @@
+---
+sidebar_position: 4
+title : 第四章 套件基礎語法
+description: 建立HydroOJ套件
+hide_table_of_contents: true
+---
+import Img, { ImgBaseProvider } from '/src/components/ImgPack';
+
+<ImgBaseProvider base="/img/DDJv2-guide/DDJv2-addon/04-Chapter4">
+
+
+
+# <span class="chapter_title">Chapter 4. </span>
+# <span class="chapter_subtitle"> Addon Basics </span>
+
+## 1.1 套件主體`index.ts`
+HydroOJ 套件的主體檔案為 `index.ts`，這個檔案是套件的進入點， HydroOJ 會從這個檔案開始載入並執行套件的程式碼。
+詳細結構請參考附錄中的[HydroOJ 套件資料夾結構](./99-Appendix)。
+
+### I. 註冊服務
+在 `index.ts` 中，我們可以使用 HydroOJ 提供的 API 來註冊我們的服務。
+```typescript
+import {
+    Service
+} from 'hydrooj';
+
+export default class SomeService extends Service {
+    // 服務的程式碼寫在這裡 (後文標記 in service 代表此處)
+}
+```
+其中 `Service` 是 HydroOJ 提供的基礎服務類別，我們可以繼承這個類別來建立我們自己的服務`SomeService`(可以自己取名)。
+
+### II. Config 設定
+我們可以在服務中定義一個 `config` 屬性來設定服務的相關參數。
+```typescript   
+import {
+    Schema
+} from 'hydrooj';
+
+// in service
+static Config = Schema.object({
+    necessary: Schema.string().description('請輸入描述').default('預設值').required(),
+    optional: Schema.string().description('請輸入描述').default('預設值'),
+});
+```
+其中 
+- `Schema` 是 HydroOJ 提供的資料結構定義工具，我們可以使用它來定義我們的設定參數。  
+- `.default()` 用來設定參數的預設值 (選配)。
+- `.required()` 用來標記此參數為必要參數 (選配)。
+型別支援
+<Img name="00-Schema_type.png" />
+(可以在開VSC時使用`Ctrl`+`Click`來查看Schema的定義 沿著繼承型別一路看下去就會看到支援的型別)
+
+### III. 服務初始化
+我們可以在服務中定義一個 `constructor` 方法來進行服務的初始化(服務被建立時會呼叫)。
+
+```typescript
+import {
+    Context,
+} from 'hydrooj';
+
+// in service
+constructor(ctx: Context, config: ReturnType<typeof SomeService.Config>) {
+    super(ctx, 'some-service'); // 服務名稱 建議與套件名稱相同
+    // 初始化程式碼寫在這裡 in constructor
+}
+```
+其中 
+- `config` 參數是我們在前面定義的設定參數，我們可以從中取得後端超級管理員設定的值。
+- `ctx` 是 HydroOJ 提供的上下文物件，我們可以從中取得 HydroOJ 的相關服務與資源。
+
+`ctx`可謂是HydroOJ服務的核心物件 透過它可以取得HydroOJ的各種服務與資源 (例如前後置處理器等)
+
+## 1.2 ctx 介紹
+`ctx` 物件提供了許多有用的屬性和方法
+以下是一些常用的屬性和方法：
+### I. ctx.Route(page-data, RoutePath, handler, privilege?)
+用來註冊路由處理器 
+```typescript
+import {
+    PRIV
+} from 'hydrooj';
+// in constructor
+ctx.Route('manage_addons', '/manage/addons', AddonsManagerHandler, PRIV.PRIV_ALL);
+```
+其中
+- `page-data` 是前端頁面的 `data-page` 屬性值
+- `RoutePath` 是路由的 URL 路徑
+- `handler` 是處理這個路由的處理器方法
+- `privilege` 是存取這個路由所需的權限 (選配)
+
+需要建立處理器才能使用
+#### a. 建立 handler
+```typescript
+import {
+    Handler
+} from 'hydrooj';
+class AddonsManagerHandler extends Handler {
+    // 處理請求的程式碼寫在這裡 in handler
+    // @requireSudo 如果解除註解 則此處理器需要超級管理員權限才能存取
+    async get() {} // 處理 GET 請求
+    async post() {} // 處理 POST 請求
+}
+```
+其中 
+- `Handler` 是 HydroOJ 提供的基礎處理器類別，我們可以繼承這個類別來建立我們自己的處理器`AddonsManagerHandler`(可以自己取名)。
+
+而在 `get` 和 `post` 方法中 可以
+- 透過 `this.request` 來取得請求的相關資訊 像是`this.request.body`取得POST請求的內容
+- 透過 `this.response` 來設定回應的相關資訊 像是 `this.response.template` `this.response.body` 等等
+- 透過 `this.renderHTML(template, params)` 來渲染並回傳 HTML 模板給前端用戶
+關於 `POST` 請求是什麼 可以參考網路上的相關資料 (程設班官網之後或許會有相關章節介紹 應該和javascript的介紹放在一起)
+
+### II. ctx.on(event, listener)
+用來註冊事件監聽器
+```typescript
+ctx.on('event-name', (args) => {
+    // 處理事件的程式碼寫在這裡 
+});
+```
+其中 
+- `event-name` 是事件的名稱
+- `listener` 是事件發生時要執行的函式
+事件的名稱可以透過IDE的自動補全來查看有哪些事件可以監聽
+
+但IDE無法自動補全事件的細節
+像是
+`handler/before/<handlerName>` 事件會在指定的處理器執行前觸發
+`handler/after/<handlerName>` 事件會在指定的處理器執行後觸發
+`<handlerName>` 代表處理器的名稱 通常會是該頁面的`data-page`轉成BigCamelCase的形式
+可以在[HydroOJ repo ui-default中](https://github.com/hydro-dev/Hydro/blob/master/packages/ui-default)查看搜尋`ctx.Route`查看(要去掉後綴`Handler`)
+
+### 1.3 報錯
+在服務或處理器中 如果發生錯誤 可以以報錯中斷行為
+```typescript
+import {
+    UserFacingError,
+    ValidationError
+} from 'hydrooj';
+
+// in service or handler
+throw new UserFacingError('這是一個使用者可見的錯誤訊息');
+throw new ValidationError('這是一個驗證錯誤訊息');
+```
+兩個錯誤類別的差異在於
+- `UserFacingError`：這個錯誤訊息會直接顯示給使用者
+- `ValidationError`：這個錯誤訊息通常用於驗證失敗時顯示給使用者
+(其實兩者差異不大 主要是語意上的區別)
+
+而當你在服務或處理器中丟出這些錯誤時 
+會直接中斷當前的行為 後續的操作不會被執行 並且將錯誤訊息回傳給前端用戶
+像是可以在`handler/before/<handlerName>`事件中丟出錯誤來阻止處理器的執行
+詳細結構請參考附錄中的[HydroOJ 套件資料夾結構](./99-Appendix)
+
+恭喜你完成了本章的學習！
+如果有任何問題或想補充的地方 歡迎在討論區提出 或者直接PR過來 我們會盡快回覆你 謝謝！
+
+## 參考資料
+- [HydroOJ 官方開發文件](https://hydro.js.org/docs/Hydro/dev/typescript)
+- [我自己的套件 repo](https://github.com/Bryan0324/npm-packages/tree/main/hydro-plugins)
+- [GET 和 POST 請求介紹](https://developer.mozilla.org/zh-TW/docs/Web/HTTP/Reference/Methods)
+
+import Authors from '@site/src/components/DocsAuthor/AuthorCard';
+
+<Authors authors={["14thAdvancedTeachingDirector"]} size="h3" />
+
+
+
+</ImgBaseProvider>

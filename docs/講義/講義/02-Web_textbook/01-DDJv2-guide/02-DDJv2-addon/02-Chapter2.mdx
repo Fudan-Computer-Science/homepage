@@ -1,0 +1,90 @@
+---
+sidebar_position: 2
+title : 第二章 套件基礎frontend
+description: 對HydroOJ套件的基本注射html進行介紹
+hide_table_of_contents: true
+---
+import Img, { ImgBaseProvider } from '/src/components/ImgPack';
+
+<ImgBaseProvider base="/img/DDJv2-guide/DDJv2-addon/02-Chapter2">
+
+
+
+# <span class="chapter_title">Chapter 2. </span>
+# <span class="chapter_subtitle"> Addon Basics -- frontend </span>
+
+## 1.1 frontend 資料夾介紹
+在HydroOJ套件中 如果需要注射前端頁面 就需要建立`frontend`資料夾
+```
+my-addon/
+├── frontend/
+    ├── \[a-zA-Z0-9_\]+.page.tsx
+```
+其檔名格式為`\[a-zA-Z0-9_\]+.page.tsx` 
+(其中`\[a-zA-Z0-9_\]`為正規表達式 代表英文字母大小寫、數字、底線的任意組合)
+只要符合此格式的檔案 都會被HydroOJ識別為前端頁面檔案 並運行
+
+## 1.2 page.tsx 檔案介紹
+
+### I. 頁面檔案結構
+```jsx
+import { addPage, NamedPage, AutoloadPage } from '@hydrooj/ui-default';
+addPage(new AutoloadPage('SomeNameIGuess', () => {
+  console.log('This will appear on every page load!');
+}));
+addPage(new NamedPage(['homepage'], async () => {
+  console.log('This will appear on `homepage` page load!');
+}));
+```
+- `addPage`：用來注射頁面的函式
+- `AutoloadPage`：用來注射到所有頁面的頁面類別
+- `NamedPage`：用來注射到指定頁面的頁面類別
+如何查詢頁面名稱 在瀏覽器打開你想注射的頁面後 開啟開發者工具DevTools(F12) 在元素Elements標籤中 查看最外圍`<html>`標籤的`data-page`屬性 即可看到頁面名稱
+
+### II. 注射 HTML/body
+我們可以使用`document`物件來操作DOM 進行HTML/body的注射
+```jsx
+import { addPage, NamedPage } from '@hydrooj/ui-default';
+addPage(new NamedPage(['homepage'], async () => {
+  const newDiv = document.createElement('div');
+  newDiv.innerHTML = '<h1>Hello, HydroOJ!</h1>';
+  document.body.prepend(newDiv); // 將新元素注射到body的最前面
+}));
+```
+也可以使用其他DOM操作方法來進行注射 如`appendChild`、`insertBefore`等
+這裡就是js的基本DOM操作方法了 可以參考相關的js教學來學習更多 之後程設班官網應該也會有相關的教學文章
+
+:::info[其他資源]
+如果你會需要request其他資源 (如API資料等) 你可以使用`fetch`函式來進行HTTP請求
+```jsx
+import { request } from '@hydrooj/ui-default/utils/base';
+
+request.get('/hitokoto').then(response => {
+    console.log(response.data);
+});
+```
+這會向`/hitokoto`發送GET請求 並在收到回應後將回應資料輸出到控制台
+(位置是在HydroOJ伺服器的根目錄下)
+可以參考[HydroOJ的repo](https://github.com/hydro-dev/Hydro/tree/dc146085a8b4547f3ee0b54af1224e7123d0846f/packages/ui-default)
+這邊元件幾個其他會用到的套件
+
+| 套件名稱 | 作用說明 | 位置 |
+| -------- | -------- | ---- |
+| request | 用來進行HTTP請求 | `@hydrooj/ui-default/utils/base` |
+| i18n('文字的key值') | 用來進行多國語系翻譯 | `@hydrooj/ui-default/utils/base` |
+
+如果有其他想補充的資源/元件 可以在下方留言告訴我們 謝謝！
+:::
+
+## 參考資料
+- [MDN Web Docs - Document](https://developer.mozilla.org/en-US/docs/Web/API/Document)
+- [HydroOJ 官方開發文件](https://hydro.js.org/docs/Hydro/dev/typescript)
+- [我自己的套件 repo](https://github.com/Bryan0324/npm-packages/tree/main/hydro-plugins)
+
+import Authors from '@site/src/components/DocsAuthor/AuthorCard';
+
+<Authors authors={["14thAdvancedTeachingDirector"]} size="h3" />
+
+
+
+</ImgBaseProvider>
