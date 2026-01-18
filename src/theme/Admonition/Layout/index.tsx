@@ -47,22 +47,17 @@ export default function AdmonitionLayout(props: Props): ReactNode {
       if(newTitle.includes("?=spoiler"))
       {
         // it's a spoiler admonition
+        newTitle = newTitle.replace("?=spoiler","");
         return (
           <AdmonitionContainer type={type} className={className}>
             <details>
-                {newTitle.replace("?=spoiler","") || icon ? <AdmonitionHeading title={newTitle} icon={icon} /> : null}
+                {newTitle || icon ? <AdmonitionHeading title={newTitle} icon={icon} /> : null}
                 <AdmonitionContent>{children}</AdmonitionContent>
             </details>
           </AdmonitionContainer>
         );
       }
     }
-    return (
-      <AdmonitionContainer type={type} className={className}>
-        {newTitle || icon ? <AdmonitionHeading title={newTitle} icon={icon} /> : null}
-        <AdmonitionContent>{children}</AdmonitionContent>
-      </AdmonitionContainer>
-    );
   }
   return (
     <AdmonitionContainer type={type} className={className}>
