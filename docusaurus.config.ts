@@ -120,7 +120,7 @@ const config: Config = {
       // Public API key: it is safe to commit it
       apiKey: '91b65f45f548721784506eb2ed5ca5de',
 
-      indexName: 'FDCS_blog',
+      indexName: 'FDCS blog',
 
       // Optional: see doc section below
       // contextualSearch: true,
