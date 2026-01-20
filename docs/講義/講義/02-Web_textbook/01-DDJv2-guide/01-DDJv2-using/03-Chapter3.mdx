@@ -2,7 +2,6 @@
 sidebar_position: 3
 title : 第三章 DDJ-v2社群
 description: 討論與題解、私訊、部落格
-hide_table_of_contents: true
 ---
 import Img, { ImgBaseProvider } from '/src/components/ImgPack';
 
@@ -13,93 +12,15 @@ import Img, { ImgBaseProvider } from '/src/components/ImgPack';
 # <span class="chapter_title">Chapter 3. </span>
 # <span class="chapter_subtitle"> Community -- Discussions, Solutions, Private Messages, Blogs </span>
 
-## 1.1 Locale 資料夾介紹
-在HydroOJ套件中 如果需要建立多國語系 就需要建立`locale`資料夾
-```
-my-addon/
-├── locale/
-    ├── zh_TW.yml
-```
-其檔名會是語言代碼加上`.yml`副檔名 (如`zh_TW.yml`代表繁體中文)
-支援的語言代碼如下表所示
-| 語言 | 語言代碼 |
-| ---- | -------- |
-| 繁體中文 | zh_TW |
-| 簡體中文 | zh |
-| 英文 | en |
-| 韓文 | ko |
-若需支援其他語言 可對 hydroOJ repo [PR](https://github.com/hydro-dev/Hydro/pulls)
+## 1.1 
 
-### I. yml檔案結構
-```yml
-some key: 這是一段文字
-another key: 這是另一段文字
-```
-可以藉由`key`來定義不同的文字內容
-`key`通常會和`en.yml`中的value相同
+### I. 
+### II. 
 
-### II. 使用多國語系
-會在各自的章節中介紹如何使用多國語系
-
-## 1.2 Templates 資料夾介紹
-在HydroOJ套件中 如果需要渲染 HTML 就可以建立`templates`資料夾方便渲染
-
-### I. html檔案結構
-其採`nunjucks`語法來撰寫 HTML 
-使用時將傳入參數 而後渲染成最終的 HTML
-```html
-{% extends "layout/basic.html" %}
-{% block content %}
-<h1>{{ title }}</h1>
-<p>{{ message }}</p>
-{% endblock %}
-```
-其中
-- `{% extends "layout/basic.html" %}`：代表繼承自 HydroOJ 預設的 `basic.html` 模板
-- `{% block content %} ... {% endblock %}`：代表這個區塊會被注入到 `basic.html` 模板中的 `content` 區塊 *需和預設模板中的區塊名稱相同*
-- `{{ title }}` 和 `{{ message }}`：代表會被替換成傳入的參數值
-可以在 HydroOJ repo 中查看[預設模板](https://github.com/hydro-dev/Hydro/tree/master/packages/ui-default/templates)
-
-若想要覆蓋其他模板 可手動複製貼上到自己的`templates`資料夾中來覆蓋原有的模板
-
-特別的 可以通過
-```html
-{{ _('the key') }}
-```
-來使用多國語系中的文字
-
-也可以使用其他 nunjucks 語法來撰寫模板
-舉例
-```html
-{% if success and result %}
-<script>
-    const message = {{ result | dump | safe }};
-    alert('✓ success:  ' + message);
-</script>
-{% else %}
-<script>
-    const message = {{ result | dump | safe }};
-    alert('fail:  ' + message);
-</script>
-{% endif %}
-
-{% for package in packages %}
-<li>{{ package.name }} - {{ package.version }}</li>
-{% endfor %}
-```
-其中
-- `{% if success and result %} ... {% else %} ... {% endif %}`：代表條件判斷式
-- `{% for package in packages %} ... {% endfor %}`：代表迴
-- `| dump | safe`：代表將物件轉換成字串並且標記為安全的 HTML (避免 XSS)
-
-
-
-恭喜你完成了本章的學習！
-
-## 參考資料
-- [Nunjucks 官方文件](https://mozilla.github.io/nunjucks/templating.html)
-- [HydroOJ 官方開發文件](https://hydro.js.org/docs/Hydro/dev/typescript)
-- [我自己的套件 repo](https://github.com/Bryan0324/npm-packages/tree/main/hydro-plugins)
+## 1.2 
+### I. 
+#### i. 
+#### ii.
 
 
 import Authors from '@site/src/components/DocsAuthor/AuthorCard';

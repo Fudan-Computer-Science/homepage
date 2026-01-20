@@ -2,120 +2,21 @@
 sidebar_position: 1
 title : 第一章 DDJ-v2介紹
 description: 關於DDJ-v2的介紹、註冊、權限
-hide_table_of_contents: true
 ---
 # <span class="chapter_title">Chapter 1. </span>
 # <span class="chapter_subtitle"> Introduction -- Registration and Permissions </span>
 
-## 1.1 安裝 HydroOJ 系統
-在開始正式撰寫套件之前 第一件事當然是先安裝好HydroOJ系統 必竟不測試套件就無從談起 ~~(哪有人每天都一發AC的)~~
-參考[HydroOJ官方安裝文件](https://hydro.js.org/docs/Hydro/install)來完成系統的安裝
-這裡強調一些比較重要的步驟
-1. 確認系統需求
-   HydroOJ只能在Linux系統上運行 (如果是windows系統的話 可以考慮使用WSL2來安裝Linux子系統)
-2. 不需要設定網域名稱
-   如果只是用來測試套件的話 可以直接使用內網IP位址來存取系統(即預設狀態)
-:::danger[注意]
-HydroOJ 會需要管理員權限來安裝與運行 請確保你有root權限或是可以使用sudo指令
-:::
-## 1.2 開發環境設定
-眾所周知 沒有IDE的程式開發是非常痛苦的事情
-所以建議使用Visual Studio Code來進行套件的開發
-VS code 就不贅述了
 
-參考 [官方文件](https://hydro.js.org/docs/Hydro/dev/typescript)來安裝開發環境  
-詳細講一下如何安裝Node.js
-建議使用nvm來安裝Node.js 因為可以方便管理不同版本的Node.js
-1. 下載並安裝nvm    
-    1. window 系統使用[nvm-windows](https://github.com/coreybutler/nvm-windows)
-        安裝連結在release頁面 下載最新版本的nvm-setup.zip並安裝 [點此可以安裝撰寫這篇時的最新版本](https://github.com/coreybutler/nvm-windows/releases/download/1.2.2/nvm-setup.exe)
-    2. Linux 系統使用[nvm](https://github.com/nvm-sh/nvm)
-        官方下載連結在[README頁面](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating)
 
-2. 使用nvm安裝Node.js 18以上版本
-    打開終端機 輸入以下指令安裝Node.js
-    ```bash
-    nvm install 18.0.0
-    nvm use 18.0.0
-    ```
-    或最新版本
-    ```bash
-    nvm install latest
-    nvm use latest
-    ```
-    確認安裝成功
-    ```bash
-    node -v
-    ```
-    如果顯示 `v18.0.0` 這類的就表示安裝成功了
-*hydroOJ官方文件中推薦使用yarn作為套件管理工具因此建議也跟著安裝yarn*
-3. 安裝yarn
-    ```bash
-    npm install -g yarn
-    ```
+## 1.1 
 
-## 1.3 建立 HydroOJ 套件檔案
-1. 接下來在你想要的workspace資料夾中 開啟終端機 輸入以下指令來建立HydroOJ開發環境
-    ```bash
-    yarn init
-    ```
-2. 然後用VS code開啟該資料夾
-3. 接著安裝HydroOJ開發套件相依
-    ```bash
-    yarn add hydrooj -D
-    ```
-接下來就可以開始撰寫HydroOJ套件囉!
+### I. 
+### II. 
 
-## 1.4 測試套件
-撰寫完套件之後 當然要測試一下套件是否能正常運作
-在你裝好HydroOJ系統的伺服器上
-1. 把你撰寫好的套件檔案複製到HydroOJ系統的伺服器上 (推薦放`/root/addon`資料夾下)
-2. 在伺服器 bash 終端機中 進入HydroOJ系統的根目錄
-    ```bash
-    hydrooj addon add <你的套件資料夾路徑 絕對路徑>
-    ```
-3. 等待安裝完成後 重新啟動HydroOJ系統
-    ```bash
-    pm2 restart hydrooj
-    ```
-    查看log可通過
-    ```bash
-    pm2 logs hydrooj --lines 100
-    ```
-恭喜你完成了HydroOJ套件的安裝與測試!
-
-## 1.5 套件資料夾說明
-HydroOJ 套件資料夾結構大致如下
-```
-my-addon/
-├── package.json
-├── frontend?/
-    ├── \[a-zA-Z0-9_\]+.page.tsx?
-├── locale?/
-    ├── ko.yml?
-    ├── zh_TW.yml?
-    ├── en.yml?
-    ├── zh.yml?
-├── public?/
-├── templates?/
-    ├── <>.html?
-├── index.ts
-```
-有`?`的資料夾或檔案表示是選用的不是必須的
-- `package.json`：套件的設定檔案 (預設就會有)
-- `frontend/`：注射前端頁面檔案 (選用)
-  - `\[a-zA-Z0-9_\]+.page.tsx`：注射前端頁面檔案 (選用)
-- `locale/`：多國語系檔案 (選用)
-- `public/`：靜態資源檔案 (選用)
-- `templates/`：路由渲染前端模板檔案 (選用)
-- `index.ts`：套件主要程式碼 (預設就會有)
-
-## 參考資料
-- [HydroOJ官方安裝文件](https://hydro.js.org/docs/Hydro/install)
-- [HydroOJ官方開發文件](https://hydro.js.org/docs/Hydro/dev/typescript)
-- [nvm-windows](https://github.com/coreybutler/nvm-windows)
-- [nvm](https://github.com/nvm-sh/nvm)
-
+## 1.2 
+### I. 
+#### i. 
+#### ii.
 
 import Authors from '@site/src/components/DocsAuthor/AuthorCard';
 
