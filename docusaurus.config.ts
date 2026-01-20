@@ -111,6 +111,9 @@ const config: Config = {
   ],
 
   themeConfig: {
+    metadata: [
+      {name: 'algolia-site-verification', content: '4FAED7C9D2D56335'},
+    ],
     algolia: {
       // The application ID provided by Algolia
       appId: 'P2A7UCAY5O',
