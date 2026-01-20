@@ -18,6 +18,7 @@ const config: Config = {
 
   // Set the production url of your site here
   url: 'https://Fudan-Computer-Science.github.io',
+  trailingSlash: true,
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/homepage/',
@@ -111,9 +112,7 @@ const config: Config = {
   ],
 
   themeConfig: {
-    metadata: [
-      {name: 'algolia-site-verification', content: '4FAED7C9D2D56335'},
-    ],
+    trailingSlash: true,
     algolia: {
       // The application ID provided by Algolia
       appId: 'P2A7UCAY5O',
@@ -121,7 +120,7 @@ const config: Config = {
       // Public API key: it is safe to commit it
       apiKey: '91b65f45f548721784506eb2ed5ca5de',
 
-      indexName: '復旦程設班官網',
+      indexName: 'FDCS Blog',
 
       // Optional: see doc section below
       // contextualSearch: true,
@@ -130,7 +129,7 @@ const config: Config = {
       // externalUrlRegex: 'external\\.com|domain\\.com',
 
       // Optional: Replace parts of the item URLs from Algolia. Useful when using the same search index for multiple deployments using a different baseUrl. You can use regexp or string in the `from` param. For example: localhost:3000 vs myCompany.com/docs
-      /* replaceSearchResultPathname: {
+/*       replaceSearchResultPathname: {
         from: '/docs/', // or as RegExp: /\/docs\//
         to: '/',
       }, */
@@ -147,7 +146,6 @@ const config: Config = {
       // Optional: whether you want to use the new Ask AI feature (undefined by default)
       askAi: process.env.ASK_AI,
       // Optional: GitHub secret for enhanced security
-
       //... other Algolia params
     },
     giscus: {
