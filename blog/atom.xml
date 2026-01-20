@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="atom.xsl"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://Fudan-Computer-Science.github.io/homepage/blog</id>
+    <id>https://Fudan-Computer-Science.github.io/homepage/blog/</id>
     <title>復旦程式設計班 Blog</title>
     <updated>2025-12-06T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://Fudan-Computer-Science.github.io/homepage/blog"/>
+    <link rel="alternate" href="https://Fudan-Computer-Science.github.io/homepage/blog/"/>
     <subtitle>復旦程式設計班 Blog</subtitle>
     <icon>https://Fudan-Computer-Science.github.io/homepage/img/favicon.ico</icon>
     <entry>
         <title type="html"><![CDATA[旦旦解題農場第二代上線啦!]]></title>
-        <id>https://Fudan-Computer-Science.github.io/homepage/blog/new-ddj-online</id>
-        <link href="https://Fudan-Computer-Science.github.io/homepage/blog/new-ddj-online"/>
+        <id>https://Fudan-Computer-Science.github.io/homepage/blog/new-ddj-online/</id>
+        <link href="https://Fudan-Computer-Science.github.io/homepage/blog/new-ddj-online/"/>
         <updated>2025-12-06T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[關於新版解題農場的大小事]]></summary>
         <content type="html"><![CDATA[<p>關於新版解題農場的大小事</p>
@@ -19,8 +19,8 @@
 <p>原版<a href="https://dandanjudge.fdhs.tyc.edu.tw/" target="_blank" rel="noopener noreferrer" class="">解題農場</a>(Dandanjudge，以下簡稱DDJ)從2014年第五屆程式設計班開始運營，至今已九年，原版採用zero judge，由於該系統不公開程式碼(使用虛擬機，閉源)，DDJ已堪稱步入年老失修的狀態，其部分機制隨著時代的演進、解題題目的增加早已不合時宜，因此近年來學長姊積極尋覓新的落角處。</p>
 <h1>新版DDJ介紹</h1>
 <p>新版DDJ由第十四屆進階助教<a href="https://github.com/itznowob" target="_blank" rel="noopener noreferrer" class="">nowob</a>設立。 <del>如果覺得叫新版原版太麻煩，也可以考慮稱他為nowob judge。</del> 新版DDJ以青島大學Online Judge為雛型，後續幾個月將陸續開發使用者介面、優化出題功能。目前新版DDJ架設於nowob的個人網域，原網址仍為原版DDJ。</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="介面介紹">介面介紹<a href="https://fudan-computer-science.github.io/homepage/blog/new-ddj-online#%E4%BB%8B%E9%9D%A2%E4%BB%8B%E7%B4%B9" class="hash-link" aria-label="介面介紹的直接連結" title="介面介紹的直接連結" translate="no">​</a></h2>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="一般使用者學員">一般使用者(學員)<a href="https://fudan-computer-science.github.io/homepage/blog/new-ddj-online#%E4%B8%80%E8%88%AC%E4%BD%BF%E7%94%A8%E8%80%85%E5%AD%B8%E5%93%A1" class="hash-link" aria-label="一般使用者(學員)的直接連結" title="一般使用者(學員)的直接連結" translate="no">​</a></h3>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="介面介紹">介面介紹<a href="https://fudan-computer-science.github.io/homepage/blog/new-ddj-online/#%E4%BB%8B%E9%9D%A2%E4%BB%8B%E7%B4%B9" class="hash-link" aria-label="介面介紹的直接連結" title="介面介紹的直接連結" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="一般使用者學員">一般使用者(學員)<a href="https://fudan-computer-science.github.io/homepage/blog/new-ddj-online/#%E4%B8%80%E8%88%AC%E4%BD%BF%E7%94%A8%E8%80%85%E5%AD%B8%E5%93%A1" class="hash-link" aria-label="一般使用者(學員)的直接連結" title="一般使用者(學員)的直接連結" translate="no">​</a></h3>
 <p>點進去DDJ如圖一所示，中間是公告，點擊標題可查看內文。
 <img decoding="async" loading="lazy" alt="圖一" src="https://fudan-computer-science.github.io/homepage/assets/images/nj_3-1f313ae9809f0cf3067128285f055562.png" width="1899" height="562" class="img_ev3q"></p>
 <p>右上角點擊註冊後如圖二。
@@ -35,13 +35,13 @@ Email填自己常用的就好。
 <p>點擊題目標題進入題目，滑到最底下的框框可以提交程式碼(記得選擇程式語言!)如果要看大家的提交情況，在右上方的「提交資訊」。
 <img decoding="async" loading="lazy" alt="圖五" src="https://fudan-computer-science.github.io/homepage/assets/images/nj_6-528106da4428d7f436efcf2f7641ac67.png" width="1905" height="895" class="img_ev3q"></p>
 <p>競賽使用說明等12/18上學期課程結束之後再更新上來，期末考當天也會說明要如何操作。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="出題者">出題者<a href="https://fudan-computer-science.github.io/homepage/blog/new-ddj-online#%E5%87%BA%E9%A1%8C%E8%80%85" class="hash-link" aria-label="出題者的直接連結" title="出題者的直接連結" translate="no">​</a></h3>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="出題者">出題者<a href="https://fudan-computer-science.github.io/homepage/blog/new-ddj-online/#%E5%87%BA%E9%A1%8C%E8%80%85" class="hash-link" aria-label="出題者的直接連結" title="出題者的直接連結" translate="no">​</a></h3>
 <p>登入後點擊右上角的使用者名稱，會出現「後台管理」的選項，點擊後會跳轉到新介面。
 <img decoding="async" loading="lazy" alt="圖六" src="https://fudan-computer-science.github.io/homepage/assets/images/nj_7-3ec5499047c8c3682cc64fa2fcd1fcbb.png" width="388" height="393" class="img_ev3q"></p>
 <p>進入後台之後，點擊旁邊「試題」就可以看到題目了。(Admin Basic 只能看到自己的題目)
 <img decoding="async" loading="lazy" alt="圖七" src="https://fudan-computer-science.github.io/homepage/assets/images/nj_8-727be7379683ebac609c7b5809c884e1.png" width="1903" height="846" class="img_ev3q"></p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="權限說明及出題教學">權限說明及出題教學<a href="https://fudan-computer-science.github.io/homepage/blog/new-ddj-online#%E6%AC%8A%E9%99%90%E8%AA%AA%E6%98%8E%E5%8F%8A%E5%87%BA%E9%A1%8C%E6%95%99%E5%AD%B8" class="hash-link" aria-label="權限說明及出題教學的直接連結" title="權限說明及出題教學的直接連結" translate="no">​</a></h2>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="權限說明">權限說明<a href="https://fudan-computer-science.github.io/homepage/blog/new-ddj-online#%E6%AC%8A%E9%99%90%E8%AA%AA%E6%98%8E" class="hash-link" aria-label="權限說明的直接連結" title="權限說明的直接連結" translate="no">​</a></h3>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="權限說明及出題教學">權限說明及出題教學<a href="https://fudan-computer-science.github.io/homepage/blog/new-ddj-online/#%E6%AC%8A%E9%99%90%E8%AA%AA%E6%98%8E%E5%8F%8A%E5%87%BA%E9%A1%8C%E6%95%99%E5%AD%B8" class="hash-link" aria-label="權限說明及出題教學的直接連結" title="權限說明及出題教學的直接連結" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="權限說明">權限說明<a href="https://fudan-computer-science.github.io/homepage/blog/new-ddj-online/#%E6%AC%8A%E9%99%90%E8%AA%AA%E6%98%8E" class="hash-link" aria-label="權限說明的直接連結" title="權限說明的直接連結" translate="no">​</a></h3>
 <p>新版DDJ的出題權限須由管理者手動給予，目前分為以下四種權限:</p>
 <ol>
 <li class="">Super Admin : 所有權限的賦予者、可以發公告，僅有宏智老師及參與新版DDJ開發的人可持有。</li>
@@ -49,10 +49,10 @@ Email填自己常用的就好。
 <li class="">Admin Basic: 出題者，僅可管理自己的題目。任何需要此權限的人皆可以提出申請，目前僅開放原版DDJ持有出題權限的人申請，未來將研擬其他申請管道。</li>
 <li class="">Regular User: 一般使用者/學員，註冊帳號即擁有此權限</li>
 </ol>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="出題權限申請">出題權限申請<a href="https://fudan-computer-science.github.io/homepage/blog/new-ddj-online#%E5%87%BA%E9%A1%8C%E6%AC%8A%E9%99%90%E7%94%B3%E8%AB%8B" class="hash-link" aria-label="出題權限申請的直接連結" title="出題權限申請的直接連結" translate="no">​</a></h3>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="出題權限申請">出題權限申請<a href="https://fudan-computer-science.github.io/homepage/blog/new-ddj-online/#%E5%87%BA%E9%A1%8C%E6%AC%8A%E9%99%90%E7%94%B3%E8%AB%8B" class="hash-link" aria-label="出題權限申請的直接連結" title="出題權限申請的直接連結" translate="no">​</a></h3>
 <p>目前僅開放原版DDJ持有出題權限的人申請。
 點我填寫<a href="https://forms.gle/nCNzDShfhNDdxRJB6" target="_blank" rel="noopener noreferrer" class="">表單</a></p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="出題教學">出題教學<a href="https://fudan-computer-science.github.io/homepage/blog/new-ddj-online#%E5%87%BA%E9%A1%8C%E6%95%99%E5%AD%B8" class="hash-link" aria-label="出題教學的直接連結" title="出題教學的直接連結" translate="no">​</a></h3>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="出題教學">出題教學<a href="https://fudan-computer-science.github.io/homepage/blog/new-ddj-online/#%E5%87%BA%E9%A1%8C%E6%95%99%E5%AD%B8" class="hash-link" aria-label="出題教學的直接連結" title="出題教學的直接連結" translate="no">​</a></h3>
 <p>需擁有Admin或更高權限才有此功能。</p>
 <ol>
 <li class="">點擊 problem 後可以點 problem list 看到現在所有的題目，而其中的 create problem 則可以建立題目，點擊他</li>
@@ -71,8 +71,8 @@ Email填自己常用的就好。
     </entry>
     <entry>
         <title type="html"><![CDATA[ 114學年度 程設班錄取名單]]></title>
-        <id>https://Fudan-Computer-Science.github.io/homepage/blog/2025/09/13/ 114學年度 程設班錄取名單</id>
-        <link href="https://Fudan-Computer-Science.github.io/homepage/blog/2025/09/13/ 114學年度 程設班錄取名單"/>
+        <id>https://Fudan-Computer-Science.github.io/homepage/blog/2025/09/13/ 114學年度 程設班錄取名單/</id>
+        <link href="https://Fudan-Computer-Science.github.io/homepage/blog/2025/09/13/ 114學年度 程設班錄取名單/"/>
         <updated>2025-09-13T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[本學年度報名日期為 2025/6/28 至 2025/8/23 ，總報名人數為70位，錄取50位。]]></summary>
         <content type="html"><![CDATA[<p>本學年度報名日期為 2025/6/28 至 2025/8/23 ，總報名人數為70位，錄取50位。</p>
@@ -112,8 +112,8 @@ Email填自己常用的就好。
     </entry>
     <entry>
         <title type="html"><![CDATA[程設班第十四屆幹部訓練]]></title>
-        <id>https://Fudan-Computer-Science.github.io/homepage/blog/2025-14th-Committee-Members-Training</id>
-        <link href="https://Fudan-Computer-Science.github.io/homepage/blog/2025-14th-Committee-Members-Training"/>
+        <id>https://Fudan-Computer-Science.github.io/homepage/blog/2025-14th-Committee-Members-Training/</id>
+        <link href="https://Fudan-Computer-Science.github.io/homepage/blog/2025-14th-Committee-Members-Training/"/>
         <updated>2025-08-10T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[2025 8/9~8/10 程設班第十四屆幹部訓練 圓滿落幕]]></summary>
         <content type="html"><![CDATA[<p>2025 8/9~8/10 程設班第十四屆幹部訓練 圓滿落幕</p>
@@ -135,8 +135,8 @@ Email填自己常用的就好。
     </entry>
     <entry>
         <title type="html"><![CDATA[2025學科能力競賽資訊科 後記]]></title>
-        <id>https://Fudan-Computer-Science.github.io/homepage/blog/2025-academic-competence-contest</id>
-        <link href="https://Fudan-Computer-Science.github.io/homepage/blog/2025-academic-competence-contest"/>
+        <id>https://Fudan-Computer-Science.github.io/homepage/blog/2025-academic-competence-contest/</id>
+        <link href="https://Fudan-Computer-Science.github.io/homepage/blog/2025-academic-competence-contest/"/>
         <updated>2025-06-13T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[每年的學科能力競賽是各大程式競賽好手齊聚交鋒的地方，每年6月先進行校內初選後於暑假進行線上訓練，選出兩名選手代表學校參加市賽。參加資格為:(2025/6為準)確定直升復旦高中部的國三生、高一、高二生。今年共計14位選手報名參賽。]]></summary>
         <content type="html"><![CDATA[<p>每年的學科能力競賽是各大程式競賽好手齊聚交鋒的地方，每年6月先進行校內初選後於暑假進行線上訓練，選出兩名選手代表學校參加市賽。參加資格為:(2025/6為準)確定直升復旦高中部的國三生、高一、高二生。今年共計14位選手報名參賽。</p>
@@ -152,8 +152,8 @@ Email填自己常用的就好。
     </entry>
     <entry>
         <title type="html"><![CDATA[公布欄!]]></title>
-        <id>https://Fudan-Computer-Science.github.io/homepage/blog/first-announcement</id>
-        <link href="https://Fudan-Computer-Science.github.io/homepage/blog/first-announcement"/>
+        <id>https://Fudan-Computer-Science.github.io/homepage/blog/first-announcement/</id>
+        <link href="https://Fudan-Computer-Science.github.io/homepage/blog/first-announcement/"/>
         <updated>2025-06-10T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[如果有任何重要事項(開始報名、錄取榜單、比賽報名等)，都會公告在這裡!]]></summary>
         <content type="html"><![CDATA[<p>如果有任何重要事項(開始報名、錄取榜單、比賽報名等)，都會公告在這裡!</p>
@@ -171,8 +171,8 @@ Email填自己常用的就好。
     </entry>
     <entry>
         <title type="html"><![CDATA[回饋]]></title>
-        <id>https://Fudan-Computer-Science.github.io/homepage/blog/feedback-1</id>
-        <link href="https://Fudan-Computer-Science.github.io/homepage/blog/feedback-1"/>
+        <id>https://Fudan-Computer-Science.github.io/homepage/blog/feedback-1/</id>
+        <link href="https://Fudan-Computer-Science.github.io/homepage/blog/feedback-1/"/>
         <updated>2025-06-10T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[學員回饋、家長回饋、師長回饋等都會放在這裡!]]></summary>
         <content type="html"><![CDATA[<p>學員回饋、家長回饋、師長回饋等都會放在這裡!</p>
@@ -184,16 +184,16 @@ Email填自己常用的就好。
     </entry>
     <entry>
         <title type="html"><![CDATA[程設班部落格--設立初衷]]></title>
-        <id>https://Fudan-Computer-Science.github.io/homepage/blog/setting-up-blog</id>
-        <link href="https://Fudan-Computer-Science.github.io/homepage/blog/setting-up-blog"/>
+        <id>https://Fudan-Computer-Science.github.io/homepage/blog/setting-up-blog/</id>
+        <link href="https://Fudan-Computer-Science.github.io/homepage/blog/setting-up-blog/"/>
         <updated>2025-06-07T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[一個能分享程式設計冷知識、奇妙語法、資訊趨勢觀察、個人資訊科技相關作品的小小園地。]]></summary>
         <content type="html"><![CDATA[<p>一個能分享程式設計冷知識、奇妙語法、資訊趨勢觀察、個人資訊科技相關作品的小小園地。
 也開放投稿!</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="關於部落格">關於部落格<a href="https://fudan-computer-science.github.io/homepage/blog/setting-up-blog#%E9%97%9C%E6%96%BC%E9%83%A8%E8%90%BD%E6%A0%BC" class="hash-link" aria-label="關於部落格的直接連結" title="關於部落格的直接連結" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="關於部落格">關於部落格<a href="https://fudan-computer-science.github.io/homepage/blog/setting-up-blog/#%E9%97%9C%E6%96%BC%E9%83%A8%E8%90%BD%E6%A0%BC" class="hash-link" aria-label="關於部落格的直接連結" title="關於部落格的直接連結" translate="no">​</a></h2>
 <p>每次發現了超酷的程式知識卻不知道能跟誰分享嗎? 對於現在瞬息萬變的資訊發展有什麼想法嗎? 最近做了甚麼小專案想要有個地方發表，做學習歷程嗎?
 程設班部落格可以給你一個小小的地方發表! 甚至你最近<del>打mai打出了心得</del>，想投稿也可以!</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="投稿資格獎勵">投稿資格/獎勵<a href="https://fudan-computer-science.github.io/homepage/blog/setting-up-blog#%E6%8A%95%E7%A8%BF%E8%B3%87%E6%A0%BC%E7%8D%8E%E5%8B%B5" class="hash-link" aria-label="投稿資格/獎勵的直接連結" title="投稿資格/獎勵的直接連結" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="投稿資格獎勵">投稿資格/獎勵<a href="https://fudan-computer-science.github.io/homepage/blog/setting-up-blog/#%E6%8A%95%E7%A8%BF%E8%B3%87%E6%A0%BC%E7%8D%8E%E5%8B%B5" class="hash-link" aria-label="投稿資格/獎勵的直接連結" title="投稿資格/獎勵的直接連結" translate="no">​</a></h2>
 <ul>
 <li class="">投稿資格: 不限 (不是程設班的也可以，也不限校內外與年紀，歡迎歷屆學長姐投稿)</li>
 <li class="">獎勵領取資格: 僅限14屆程設班正式學員與幹部</li>
