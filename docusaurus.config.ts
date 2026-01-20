@@ -145,7 +145,8 @@ const config: Config = {
       // insights: false,
 
       // Optional: whether you want to use the new Ask AI feature (undefined by default)
-      // askAi: 'YOUR_ALGOLIA_ASK_AI_ASSISTANT_ID',
+      askAi: process.env.ASK_AI,
+      // Optional: GitHub secret for enhanced security
 
       //... other Algolia params
     },
