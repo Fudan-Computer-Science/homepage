@@ -1,8 +1,7 @@
 ---
 sidebar_position: 4
-title : 第四章 套件基礎語法
-description: 建立HydroOJ套件
-hide_table_of_contents: true
+title : 第四章 套件基礎服務
+description: 設定套件服務
 ---
 import Img, { ImgBaseProvider } from '/src/components/ImgPack';
 
@@ -21,7 +20,7 @@ HydroOJ 套件的主體檔案為 `index.ts`，這個檔案是套件的進入點�
 在 `index.ts` 中，我們可以使用 HydroOJ 提供的 API 來註冊我們的服務。
 ```typescript
 import {
-    Service
+    { Service }
 } from 'hydrooj';
 
 export default class SomeService extends Service {
@@ -31,10 +30,10 @@ export default class SomeService extends Service {
 其中 `Service` 是 HydroOJ 提供的基礎服務類別，我們可以繼承這個類別來建立我們自己的服務`SomeService`(可以自己取名)。
 
 ### II. Config 設定
-我們可以在服務中定義一個 `config` 屬性來設定服務的相關參數。
+我們可以在服務中定義一個 `config` 屬性來設定服務的相關參數 網站管理員可在後台(`/manage/config`)設定。
 ```typescript   
 import {
-    Schema
+    { Schema }
 } from 'hydrooj';
 
 // in service
@@ -46,7 +45,17 @@ static Config = Schema.object({
 其中 
 - `Schema` 是 HydroOJ 提供的資料結構定義工具，我們可以使用它來定義我們的設定參數。  
 - `.default()` 用來設定參數的預設值 (選配)。
-- `.required()` 用來標記此參數為必要參數 (選配)。
+- `.required()` 用來標記此參數為必要參數 (選配)。 // 用在必要參數上 若使用者未設定則會報錯
+這樣我們就定義了一個服務的設定參數 `necessary` 和 `optional`
+如下所示(此為`necessary`的範例)
+<Img name="01-setting_sample.png" />
+
+```typescript
+test: Schema.string().description('請輸入描述'),
+```
+這樣也可以
+會建議若無`.required()`則要加上`.default()`來避免參數為`undefined`的情況發生
+
 型別支援
 <Img name="00-Schema_type.png" />
 (可以在開VSC時使用`Ctrl`+`Click`來查看Schema的定義 沿著繼承型別一路看下去就會看到支援的型別)
@@ -56,7 +65,7 @@ static Config = Schema.object({
 
 ```typescript
 import {
-    Context,
+    { Context }
 } from 'hydrooj';
 
 // in service
@@ -70,6 +79,19 @@ constructor(ctx: Context, config: ReturnType<typeof SomeService.Config>) {
 - `ctx` 是 HydroOJ 提供的上下文物件，我們可以從中取得 HydroOJ 的相關服務與資源。
 
 `ctx`可謂是HydroOJ服務的核心物件 透過它可以取得HydroOJ的各種服務與資源 (例如前後置處理器等)
+
+:::info[apply]
+在參考其他人的套件程式碼時
+可能會看到 `apply` 方法
+```typescript
+async apply() {
+    // 程式碼寫在這裡 in apply
+}
+```
+這個方法會在服務初始化後被呼叫 其實和 `constructor` 一模一樣
+因為 `apply` 方法是舊版的寫法 現在推薦直接使用 `constructor` 來進行初始化
+也就是說 兩者擇一即可
+:::
 
 ## 1.2 ctx 介紹
 `ctx` 物件提供了許多有用的屬性和方法
@@ -129,6 +151,9 @@ ctx.on('event-name', (args) => {
 `handler/after/<handlerName>` 事件會在指定的處理器執行後觸發
 `<handlerName>` 代表處理器的名稱 通常會是該頁面的`data-page`轉成BigCamelCase的形式
 可以在[HydroOJ repo ui-default中](https://github.com/hydro-dev/Hydro/blob/master/packages/ui-default)查看搜尋`ctx.Route`查看(要去掉後綴`Handler`)
+
+### ctx.Inject(serviceName)
+施工中...
 
 ## 1.3 報錯
 在服務或處理器中 如果發生錯誤 可以以報錯中斷行為
