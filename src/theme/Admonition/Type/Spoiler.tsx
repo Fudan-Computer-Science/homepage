@@ -23,7 +23,7 @@ export default function AdmonitionTypeSpoiler(props: Props): ReactNode {
     children: props.children,
     type: props.type,
     icon: props.icon,
-    title: (<>?=spoiler {props.title}</>).props.children,
+    title: (<>{props.title}</>).props.children,
     className: props.className,
   };
   return (
@@ -31,7 +31,9 @@ export default function AdmonitionTypeSpoiler(props: Props): ReactNode {
       {...defaultProps}
       {...newprops}
       className={clsx(infimaClassName, props.className)}>
-      {props.children}
+      <details>
+        {props.children}
+      </details>
     </AdmonitionLayout>
   );
 }
