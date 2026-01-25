@@ -91,7 +91,23 @@ another key: 這是另一段文字
 - `{% for package in packages %} ... {% endfor %}`：代表迴
 - `| dump | safe`：代表將物件轉換成字串並且標記為安全的 HTML (避免 XSS)
 
+```nunjucks
+<!-- 模板中可用的內置變量 -->
+{{ user._id }}           <!-- 當前用戶 ID -->
+{{ user.uname }}         <!-- 當前用戶名 -->
+{{ user.hasPerm(perm.PERM_VIEW) }} <!-- 權限檢查 -->
 
+{{ domain._id }}         <!-- 當前域 ID -->
+{{ domain.name }}        <!-- 域名稱 -->
+
+{{ page_name }}          <!-- 當前頁面名稱 -->
+{{ UiContext.cdn_prefix }} <!-- CDN 前綴 -->
+
+{{ perm.PERM_VIEW }}     <!-- 權限常數 -->
+{{ PRIV.PRIV_EDIT_SYSTEM }} <!-- 特權常數 -->
+
+{{ _('translation_key') }} <!-- 翻譯函數 -->
+```
 
 恭喜你完成了本章的學習！
 

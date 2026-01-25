@@ -1,0 +1,277 @@
+---
+sidebar_position: 5
+title : 第五章 Context 物件介紹
+description: 介紹 HydroOJ 服務中的 Context 物件
+---
+import Img, { ImgBaseProvider } from '/src/components/ImgPack';
+
+<ImgBaseProvider base="/img/DDJv2-guide/DDJv2-addon/05-Chapter5">
+
+
+
+# <span class="chapter_title">Chapter 5. </span>
+# <span class="chapter_subtitle"> Context Object Introduction </span>
+
+## ctx.on(eventName: string, handler: Function): void
+HydroOJ 的事件系統基於 發布-訂閱（Pub/Sub）模式，允許插件在特定時機執行自定義邏輯，而無需修改核心代碼。
+參數說明
+- eventName: 事件名稱（字符串）
+- handler: 事件處理函數（可以是異步函數）
+
+事件類型
+1. Handler 生命週期事件
+- `handler/before/<HandlerClassName>`：在指定的**路徑**載入前觸發
+- `handler/after/<HandlerClassName>`：在指定的**路徑**載入後觸發
+- `handler/before/<routeName>`：在指定的**處理器**執行前觸發
+- `handler/after/<routeName>`：在指定的**處理器**執行後觸發
+
+2. 應用生命週期事件
+- `app/started`：應用啟動完成
+- `app/listen`：服務器開始監聽
+- `app/ready`：應用就緒
+
+3. 業務邏輯事件
+- `user/login`：用戶登入
+- `user/register`：用戶註冊
+- `problem/add`：新增題目
+- `record/judge`：評測記錄判定
+- `contest/end`：比賽結束
+
+4. 其他事件
+- `system/setting`：系統設置變更
+- `domain/create`：域創建
+...
+
+基礎示範
+```ts
+ctx.on('user/login', async (udoc, ip) => {
+    console.log(`用戶 ${udoc.uname} 從 ${ip} 登錄`);
+});
+```
+:::info[查詢傳入參數]
+```ts
+ctx.on('你想查的事件', async (...args) => {
+    console.log('\n=== 事件參數 ===');
+    args.forEach((arg, i) => {
+        console.log(`參數 ${i}:`, arg);
+    });
+});
+ctx.on('你想查的事件', async (...args) => {
+    console.log('參數數量:', args.length);
+    console.log('參數類型:', args.map(a => typeof a));
+    console.log('參數內容:', args);
+});
+```
+:::
+
+:::spoiler[監聽多個事件(typescript語法小教室)]
+```ts
+const events = ['user/login', 'user/logout'];
+events.forEach(event => {
+    ctx.on(event, async (udoc) => {
+        console.log(`事件: ${event}, 用戶: ${udoc.uname}`);
+    });
+});
+```
+:::
+
+
+### ctx.off(eventName: string, handler: Function): void
+用法一樣 但是是移除已註冊的事件監聽器。
+
+### ctx.once(eventName: string, handler: Function): void
+用法一樣 但是是只會執行一次的事件監聽器。
+
+
+
+### handler/before(after)
+路由名 vs Handler 名稱 事件
+路由名即該頁面的`data-page`屬性(可在瀏覽器開發者工具(按F12)中查看 會在最外層的`<html>`標籤中)
+
+假設有一個路由是`ctx.Route('contest_create', '/contest/create', ContestEditHandler)`
+- 路由名為`contest_create`
+- Handler 名稱為`ContestEditHandler`
+
+可以參閱[附錄：Handler 相關附錄](./99-Appendix.mdx#handler-相關附錄)來查看各個路由所對應的 Handler 名稱
+:::info[關於事件參數]
+可以直接傳入
+```ts
+ctx.on('handler/before/problem_detail', async (Arg) => {
+    console.log(Arg); // Arg 會是一個 Handler 物件 包含所有參數
+    // 依據範例 Arg 的類型是 ProblemDetailHandler(它繼承自 Handler 基類)
+    // ===== 可訪問的通用屬性 =====
+    Arg.user         // 當前用戶對象
+    Arg.domain       // 當前域對象
+    Arg.session      // 會話對象
+    Arg.request      // HTTP 請求對象
+    Arg.response     // HTTP 響應對象
+    Arg.args         // 解析後的請求參數
+    
+    // ===== Handler 特有的屬性 =====
+    Arg.pdoc         // 題目文檔（ProblemDetailHandler 特有）
+    Arg.tdoc         // 比賽文檔（ContestDetailHandler 特有）
+    Arg.rdoc         // 記錄文檔（RecordDetailHandler 特有）
+    
+    // ===== 可調用的方法 =====
+    Arg.checkPerm()     // 檢查權限
+    Arg.checkPriv()     // 檢查特權
+    Arg.url()           // 生成 URL
+    Arg.translate()     // 翻譯文本
+    Arg.back()          // 返回上一頁
+});
+```
+:::
+
+
+## ctx.injectUI
+```ts
+ctx.injectUI('<INJECT-POINT>', 'your_route', {
+    family: 'Properties',  // 分組
+    icon: 'settings',      // 圖標
+    text: 'Your Feature'   // 顯示文本
+});
+
+interface InjectOptions {
+    icon?: string;          // 圖標名稱
+    text?: string;          // 顯示文本
+    family?: string;        // 分組名稱
+    args?: any;             // 傳遞給路由的參數
+    displayName?: string;   // 覆蓋顯示名稱
+    checker?: Function;     // 顯示條件檢查函數
+}
+```
+參數說明
+- `<INJECT-POINT>`: 注入點名稱（字符串），例如 
+    -
+- `your_route`: 你的功能路由（字符串）即點下去後會導向的頁面路由
+    example: `/shop` `/grass-cat` 之類的
+- `options`: 一個包含以下屬性的對象：
+    - `family`: 分組名稱（字符串）
+    - `icon`: 圖標名稱（字符串）
+    - `text`: 顯示文本（字符串）
+
+### 常用注入點
+根據 HydroOJ 源碼整理：
+| 注入點 | 位置 | 用途 | 示例 |
+|------|------|------|------|
+| DomainManage | 域管理頁面 | 域設置、管理功能 | 輪播圖設置、自定義配置 |
+| ProblemAdd | 題目添加頁面 | 題目導入方式 | 從其他 OJ 導入 |
+| UserDropdown | 用戶下拉菜單 | 用戶相關功能 | 個人統計、設置 |
+| Nav | 導航欄 | 全局導航 | 新增頁面入口 |
+| ControlPanel | 控制面板區域 | 系統管理主頁 | 側旁列表 |
+| Notification | 通知區域 | 系統通知 | 警告、提示 |
+
+:::spoiler[常見注入點示例]
+1. DomainManage - 域管理頁面
+- 位置： /domain/dashboard 頁面的側邊欄
+- 常見用途：
+    - 域級別的設置
+    - 管理工具
+    - 統計信息
+```TypeScript
+ctx.injectUI('DomainManage', 'domain_swiper', {
+    family: 'Properties',  // 分組：屬性
+    icon: 'info',          // 圖標
+    text: '顯示文本'      // 顯示文本
+});
+```
+
+2. ProblemAdd - 題目添加頁面
+- 位置： /problem/create 頁面的導入選項
+- 常見用途：
+    - 題目導入方式
+    - 題目模板
+```TypeScript
+ctx.injectUI('ProblemAdd', 'problem_import_qduoj', {
+    icon: 'copy',
+    text: 'Import From QDUOJ'
+});
+```
+
+3. UserDropdown - 用戶下拉菜單
+- 位置： 頁面右上角用戶名下拉菜單
+- 常見用途：
+    - 用戶個人功能
+    - 快捷入口
+```TypeScript
+ctx.injectUI('UserDropdown', 'user_stats', {
+    icon: 'chart',
+    text: '個人統計'
+});
+```
+
+4. Nav - 導航欄
+- 位置： 頁面頂部導航欄
+- 常見用途：
+    - 全局頁面入口
+    - 重要功能入口
+```TypeScript
+ctx.injectUI('Nav', 'custom_page', {
+    icon: 'star',
+    text: '自定義頁面'
+});
+```
+:::
+
+Notification 是一個特殊的注入點，用於顯示系統級通知消息，而不是像其他注入點那樣添加 UI 元素。
+```ts
+ctx.injectUI(
+    'Notification',           // 注入點：固定為 'Notification'
+    message: string,          // 通知消息內容
+    options: {                // 配置選項
+        args?: any[],         // 消息參數（用於格式化）
+        type?: string,        // 通知類型：'info' | 'warn' | 'error' | 'success'
+    },
+    priv?: number             // 最低權限要求（可選）
+)
+```
+
+範例
+```ts
+// packages/hydrooj/src/entry/common.ts
+
+// 插件加載失敗時的通知
+app.injectUI(
+    'Notification',
+    `${loadType} load fail: {0}`,
+    { args: [pluginName], type: 'warn' },
+    PRIV.PRIV_VIEW_SYSTEM_NOTIFICATION
+);
+
+// 模板加載失敗時的通知  
+app.injectUI(
+    'Notification',
+    'Template load fail: {0}',
+    { args: [templatePath], type: 'warn' },
+    PRIV.PRIV_VIEW_SYSTEM_NOTIFICATION
+);
+
+// Addon 未找到時的通知
+app.injectUI(
+    'Notification',
+    'Addon not found: {0}',
+    { args: [addonPath], type: 'warn' },
+    PRIV.PRIV_VIEW_SYSTEM_NOTIFICATION
+);
+```
+
+## ctx.inject()
+
+## ctx.Connection()
+
+## ctx.injectUI()
+
+## ctx.plugin()
+
+## ctx.withHandlerClass(handlerName: string, callback: (HandlerClass) => void)
+參數說明
+- handlerName: 要擴展的 Handler 類名（字符串）
+- callback: 回調函數，接收 Handler 類作為參數
+
+import Authors from '@site/src/components/DocsAuthor/AuthorCard';
+
+<Authors authors={["14thAdvancedTeachingDirector"]} size="h3" />
+
+
+
+</ImgBaseProvider>
