@@ -83,80 +83,89 @@ ProblemListHandler 就是該路由(`/p`)所對應的 Handler 名稱
 
 ### 常用 Handler 名稱對照表
 
-1. 首頁與用戶相關
-| Handler 名稱 | 路由路徑 | 功能 | 常見擴展用途 |
-|---|---|---|---|
-| HomeHandler | / | 首頁 | 添加輪播圖、公告、統計信息 |
-| UserDetailHandler | /user/:uid | 用戶詳情頁 | 添加 Rating、徽章、自定義資料 |
-| UserLoginHandler | /login | 登錄頁 | 添加第三方登錄、驗證邏輯 |
-| UserRegisterHandler | /register | 註冊頁 | 自定義註冊流程、邀請碼 |
-| HomeSecurityHandler | /home/security | 安全設置 | 添加兩步驗證、設備管理 |
-| HomeSettingsHandler | /home/settings/:category | 個人設置 | 添加自定義設置項 |
+1. 首頁與用戶相關  
+
+    | Handler 名稱 | 路由路徑 | 功能 | 常見擴展用途 |
+    | --- | --- | --- | --- |
+    | HomeHandler | / | 首頁 | 添加輪播圖、公告、統計信息 |
+    | UserDetailHandler | /user/:uid | 用戶詳情頁 | 添加 Rating、徽章、自定義資料 |
+    | UserLoginHandler | /login | 登錄頁 | 添加第三方登錄、驗證邏輯 |
+    | UserRegisterHandler | /register | 註冊頁 | 自定義註冊流程、邀請碼 |
+    | HomeSecurityHandler | /home/security | 安全設置 | 添加兩步驗證、設備管理 |
+    | HomeSettingsHandler | /home/settings/:category | 個人設置 | 添加自定義設置項 |
 
 2. 題目相關
-| Handler 名稱 | 路由路徑 | 功能 | 常見擴展用途 |
-|---|---|---|---|
-| ProblemListHandler | /p | 題目列表 | 添加篩選、標籤、難度分級 |
-| ProblemDetailHandler | /p/:pid | 題目詳情 | 添加題解、討論、統計數據 |
-| ProblemEditHandler | /p/:pid/edit | 編輯題目 | 添加批量操作、模板 |
-| ProblemCreateHandler | /p/create | 創建題目 | 添加題目導入功能 |
-| ProblemSubmitHandler | /p/:pid/submit | 提交代碼 | 添加代碼模板、預處理 |
-| ProblemSolutionHandler | /p/:pid/solution | 題解列表 | 添加點贊、評論 |
-| ProblemManageHandler | /p/:pid/manage | 題目管理 | 添加批量測試數據操作 |
+
+    | Handler 名稱 | 路由路徑 | 功能 | 常見擴展用途 |
+    |---|---|---|---|
+    | ProblemListHandler | /p | 題目列表 | 添加篩選、標籤、難度分級 |
+    | ProblemDetailHandler | /p/:pid | 題目詳情 | 添加題解、討論、統計數據 |
+    | ProblemEditHandler | /p/:pid/edit | 編輯題目 | 添加批量操作、模板 |
+    | ProblemCreateHandler | /p/create | 創建題目 | 添加題目導入功能 |
+    | ProblemSubmitHandler | /p/:pid/submit | 提交代碼 | 添加代碼模板、預處理 |
+    | ProblemSolutionHandler | /p/:pid/solution | 題解列表 | 添加點贊、評論 |
+    | ProblemManageHandler | /p/:pid/manage | 題目管理 | 添加批量測試數據操作 |
 
 3. 記錄與評測相關
-| Handler 名稱 | 路由路徑 | 功能 | 常見擴展用途 |
-|---|---|---|---|
-| RecordListHandler | /record | 提交記錄列表 | 添加統計、篩選器 |
-| RecordDetailHandler | /record/:rid | 提交記錄詳情 | 添加代碼高亮、性能分析 |
-| JudgeConnectionHandler | /judge/conn | 評測機連接 | 自定義評測邏輯 |
-| JudgeFilesDownloadHandler | /judge/files | 評測文件下載 | 自定義文件處理 |
+
+    | Handler 名稱 | 路由路徑 | 功能 | 常見擴展用途 |
+    |---|---|---|---|
+    | RecordListHandler | /record | 提交記錄列表 | 添加統計、篩選器 |
+    | RecordDetailHandler | /record/:rid | 提交記錄詳情 | 添加代碼高亮、性能分析 |
+    | JudgeConnectionHandler | /judge/conn | 評測機連接 | 自定義評測邏輯 |
+    | JudgeFilesDownloadHandler | /judge/files | 評測文件下載 | 自定義文件處理 |
 
 4. 比賽相關
-| Handler 名稱 | 路由路徑 | 功能 | 常見擴展用途 |
-|---|---|---|---|
-| ContestListHandler | /contest | 比賽列表 | 添加分類、報名狀態 |
-| ContestDetailHandler | /contest/:tid | 比賽詳情 | 添加比賽公告、賽前提醒 |
-| ContestScoreboardHandler | /contest/:tid/scoreboard | 排行榜 | 添加 Rating 變化、封榜 |
-| ContestEditHandler | /contest/:tid/edit | 編輯比賽 | 添加模板、批量導入 |
-| ContestCodeHandler | /contest/:tid/code | 查看代碼 | 添加代碼對比、查重 |
+
+    | Handler 名稱 | 路由路徑 | 功能 | 常見擴展用途 |
+    |---|---|---|---|
+    | ContestListHandler | /contest | 比賽列表 | 添加分類、報名狀態 |
+    | ContestDetailHandler | /contest/:tid | 比賽詳情 | 添加比賽公告、賽前提醒 |
+    | ContestScoreboardHandler | /contest/:tid/scoreboard | 排行榜 | 添加 Rating 變化、封榜 |
+    | ContestEditHandler | /contest/:tid/edit | 編輯比賽 | 添加模板、批量導入 |
+    | ContestCodeHandler | /contest/:tid/code | 查看代碼 | 添加代碼對比、查重 |
 
 5. 作業相關
-| Handler 名稱 | 路由路徑 | 功能 | 常見擴展用途 |
-|---|---|---|---|
-| HomeworkMainHandler | /homework | 作業列表 | 添加進度追蹤 |
-| HomeworkDetailHandler | /homework/:tid | 作業詳情 | 添加提交狀態、截止提醒 |
-| HomeworkScoreboardHandler | /homework/:tid/scoreboard | 作業排行榜 | 添加完成度統計 |
+
+    | Handler 名稱 | 路由路徑 | 功能 | 常見擴展用途 |
+    |---|---|---|---|
+    | HomeworkMainHandler | /homework | 作業列表 | 添加進度追蹤 |
+    | HomeworkDetailHandler | /homework/:tid | 作業詳情 | 添加提交狀態、截止提醒 |
+    | HomeworkScoreboardHandler | /homework/:tid/scoreboard | 作業排行榜 | 添加完成度統計 |
 
 6. 討論相關
-| Handler 名稱 | 路由路徑 | 功能 | 常見擴展用途 |
-|---|---|---|---|
-| DiscussionMainHandler | /discuss | 討論列表 | 添加分類、熱門話題 |
-| DiscussionDetailHandler | /discuss/:did | 討論詳情 | 添加點贊、回覆樹 |
-| DiscussionEditHandler | /discuss/:did/edit | 編輯討論 | 添加富文本編輯器 |
-| DiscussionReplyHandler | /discuss/:did/reply | 回覆討論 | 添加 @ 提醒、表情 |
+
+    | Handler 名稱 | 路由路徑 | 功能 | 常見擴展用途 |
+    |---|---|---|---|
+    | DiscussionMainHandler | /discuss | 討論列表 | 添加分類、熱門話題 |
+    | DiscussionDetailHandler | /discuss/:did | 討論詳情 | 添加點贊、回覆樹 |
+    | DiscussionEditHandler | /discuss/:did/edit | 編輯討論 | 添加富文本編輯器 |
+    | DiscussionReplyHandler | /discuss/:did/reply | 回覆討論 | 添加 @ 提醒、表情 |
 
 7. 域管理相關
-| Handler 名稱 | 路由路徑 | 功能 | 常見擴展用途 |
-|---|---|---|---|
-| DomainDetailHandler | /domain/:domainId | 域詳情 | 添加域統計、公告 |
-| DomainEditHandler | /domain/:domainId/edit | 編輯域 | 添加自定義配置項 |
-| DomainUserHandler | /domain/:domainId/user | 域用戶管理 | 添加批量操作、角色管理 |
-| DomainRankHandler | /domain/:domainId/rank | 域排行榜 | 添加多維度排名 |
+
+    | Handler 名稱 | 路由路徑 | 功能 | 常見擴展用途 |
+    |---|---|---|---|
+    | DomainDetailHandler | /domain/:domainId | 域詳情 | 添加域統計、公告 |
+    | DomainEditHandler | /domain/:domainId/edit | 編輯域 | 添加自定義配置項 |
+    | DomainUserHandler | /domain/:domainId/user | 域用戶管理 | 添加批量操作、角色管理 |
+    | DomainRankHandler | /domain/:domainId/rank | 域排行榜 | 添加多維度排名 |
 
 8. 訓練相關
-| Handler 名稱 | 路由路徑 | 功能 | 常見擴展用途 |
-|---|---|---|---|
-| TrainingListHandler | /training | 訓練計劃列表 | 添加推薦算法 |
-| TrainingDetailHandler | /training/:tid | 訓練計劃詳情 | 添加進度可視化 |
+
+    | Handler 名稱 | 路由路徑 | 功能 | 常見擴展用途 |
+    |---|---|---|---|
+    | TrainingListHandler | /training | 訓練計劃列表 | 添加推薦算法 |
+    | TrainingDetailHandler | /training/:tid | 訓練計劃詳情 | 添加進度可視化 |
 
 9. 系統管理相關
-| Handler 名稱 | 路由路徑 | 功能 | 常見擴展用途 |
-|---|---|---|---|
-| SystemMainHandler | /manage | 系統管理主頁 | 添加儀表板組件 |
-| SystemDashboardHandler | /manage/dashboard | 系統儀表板 | 添加監控圖表 |
-| SystemSettingHandler | /manage/setting | 系統設置 | 添加自定義設置項 |
-| SystemUserImportHandler | /manage/userimport | 用戶導入 | 添加批量導入格式 |
+
+    | Handler 名稱 | 路由路徑 | 功能 | 常見擴展用途 |
+    |---|---|---|---|
+    | SystemMainHandler | /manage | 系統管理主頁 | 添加儀表板組件 |
+    | SystemDashboardHandler | /manage/dashboard | 系統儀表板 | 添加監控圖表 |
+    | SystemSettingHandler | /manage/setting | 系統設置 | 添加自定義設置項 |
+    | SystemUserImportHandler | /manage/userimport | 用戶導入 | 添加批量導入格式 |
 
 ### Handler 實例的詳細結構
 ```ts
@@ -236,6 +245,100 @@ interface UserDetailHandler extends Handler {
 }
 ```
 
+### Handler 生命週期流程圖
+```mermaid
+graph TD;
+    A["客戶端請求"] --> B["init()"] --- C>"CSRF 檢查、初始化"];
+    B --> D["__prepare()"] --- E>"內部準備（自動）"];
+    D --> F["_prepare()"] --- G>"用戶自定義準備（下劃線開頭）"];
+    F --> H["prepare()"] --- I>"主準備階段"];
+    H --> J["get() / post()"] --- K>"處理請求"];
+    J --> L["postXxx()"] --- M>"POST 操作（如果有 operation 參數）"];
+    L --> N["after()"] --- O>"後處理"];
+    N --> P["cleanup()"] --- Q>"清理資源"];
+    P --- R["響應發送給客戶端"];
+
+    S["如果出錯"] --> T["onerror(error)"] --- U>"錯誤處理"];
+```
+
+### 渲染機制流程圖
+```mermaid
+graph TD
+    A["Handler 執行"] --> B["設置 this.response"]
+    B --> B1["body 數據"]
+    B --> B2["template 模板"]
+    B --> B3["type 類型"]
+    B --> B4["redirect 重定向"]
+    B1 --> C["Handler 結束"]
+    B2 --> C
+    B3 --> C
+    B4 --> C
+    C --> D["渲染引擎選擇"]
+    D -->|有 redirect?| E["重定向"]
+    D -->|有 template?| F["模板渲染"]
+    D -->|JSON 請求?| G["JSON 響應"]
+    D -->|其他| H["直接返回 body"]
+    E --> I["發送給客戶端"]
+    F --> I
+    G --> I
+    H --> I
+```
+
+## template 模板系統相關附錄
+模板引擎使用 Nunjucks
+```ts
+// 來源: packages/ui-default/backendlib/template.ts
+export class TemplateService extends Service {
+  constructor(ctx: Context) {
+    super(ctx, 'template');
+    
+    // 設置 Nunjucks 環境
+    const env = new Nunjucks(Loader);
+    
+    // 註冊過濾器
+    env.addFilter('json', JSON.stringify);
+    env.addFilter('translate', (str) => this.translate(str));
+    
+    // 註冊全局變量
+    env.addGlobal('UiContext', UiContext);
+    env.addGlobal('formatDate', formatDate);
+  }
+  
+  // 渲染模板
+  render(name: string, context: any) {
+    return this.env.render(name, context);
+  }
+}
+```
+
+模板上下文
+```ts
+// Handler 渲染時自動注入的上下文
+const templateContext = {
+  // Handler 相關
+  handler: this,           // Handler 實例
+  user: this.user,         // 當前用戶
+  domain: this.domain,     // 當前域
+  
+  // 請求相關
+  request: this.request,   // 請求對象
+  args: this.args,         // URL 參數
+  
+  // 響應數據
+  ...this.response.body,   // 響應體數據
+  
+  // UI 上下文
+  UiContext: this.UiContext,  // UI 配置
+  
+  // 輔助函數
+  url: this.url.bind(this),          // URL 生成
+  _: this.translate.bind(this),      // 翻譯函數
+  formatDate: (date) => ...,         // 日期格式化
+  avatar: (hash) => ...,             // 頭像 URL
+};
+```
+
+
 ## Service 服務相關附錄
 
 ### 如何查詢 Service 服務名稱
@@ -253,7 +356,7 @@ export class MongoService extends Service {
 
 這樣就可以知道服務註冊名稱`db`對應的服務類型`MongoService`
 
-### 常用 Handler 名稱對照表
+### 常用 Service 名稱對照表
 
 | 服務註冊名稱 | 服務類型/實例 (TypeScript 類型)  | 功能描述 |
 |---|---|---|
@@ -268,6 +371,73 @@ export class MongoService extends Service {
 | check | CheckService | 檢查服務 |
 | template | TemplateService | 模板服務 |
 | scoreboard | ScoreboardService | 排行榜服務 |
+
+## 事件相關附錄
+
+### 事件系統架構圖
+```mermaid
+graph TD
+    B["ctx.emit('event', data)"]
+    B --> C["事件總線廣播"]
+    C --> D["所有監聽器接收"]
+    D --> E["監聽器方式"]
+    E --> F["ctx.on()"]
+    E --> G["@subscribe()"]
+    F --> H["執行監聽器回調函數"]
+    G --> H
+```
+所以只要查`ctx.emit`就可以找到事件名字了
+
+### 事件類型
+1. Handler 生命週期事件
+- `handler/before/<HandlerClassName>`：在指定的**處理器**執行前觸發
+- `handler/after/<HandlerClassName>`：在指定的**處理器**執行後觸發
+- `handler/before/<routeName>`：在指定的**路徑**載入前觸發
+- `handler/after/<routeName>`：在指定的**路徑**載入後觸發
+
+2. 應用生命週期事件
+- `app/started`：應用啟動完成
+- `app/listen`：服務器開始監聽
+- `app/ready`：應用就緒
+
+3. 業務邏輯事件
+- `user/login`：用戶登入
+- `user/register`：用戶註冊
+- `problem/add`：新增題目
+- `record/judge`：評測記錄判定
+- `contest/end`：比賽結束
+
+4. 其他事件
+- `system/setting`：系統設置變更
+- `domain/create`：域創建
+
+## 未歸檔
+### storage
+```ts
+// packages/hydrooj/src/model/storage.ts
+class StorageModel { /* ... */ }
+global.Hydro.model.storage = StorageModel;
+export default StorageModel;
+```
+```ts
+// 方式 1: 直接使用（推薦）
+await storage.put(path, file);
+
+// 方式 2: 通過 global
+await global.Hydro.model.storage.put(path, file);
+
+// 方式 3: 導入
+import StorageModel from 'hydrooj/src/model/storage';
+await StorageModel.put(path, file);
+```
+- 常用 API
+    - `storage.put()` - 上傳文件
+    - `storage.get()` - 下載文件
+    - `storage.del()` - 刪除文件
+    - `storage.signDownloadLink()` - 生成下載鏈接
+    - `storage.list()` - 列出文件
+    - `storage.exists()` - 檢查文件是否存在
+
 
 import Authors from '@site/src/components/DocsAuthor/AuthorCard';
 

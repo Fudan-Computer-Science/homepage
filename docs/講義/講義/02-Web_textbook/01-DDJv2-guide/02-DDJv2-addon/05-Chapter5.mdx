@@ -42,6 +42,9 @@ HydroOJ 的事件系統基於 發布-訂閱（Pub/Sub）模式，允許插件在
 - `domain/create`：域創建
 ...
 
+尋找事件名稱請參閱[附錄：事件相關附錄](../Appendix/#事件相關附錄)
+
+
 基礎示範
 ```ts
 ctx.on('user/login', async (udoc, ip) => {
@@ -92,7 +95,7 @@ events.forEach(event => {
 - 路由名為`contest_create`
 - Handler 名稱為`ContestEditHandler`
 
-可以參閱[附錄：Handler 相關附錄](./99-Appendix#handler-相關附錄)來查看各個路由所對應的 Handler 名稱
+可以參閱[附錄：Handler 相關附錄](../Appendix#handler-相關附錄)來查看各個路由所對應的 Handler 名稱
 :::info[關於事件參數]
 可以直接傳入
 ```ts
@@ -289,7 +292,7 @@ ctx.inject(['db'], (c) => {
   };
 });
 ```
-常用服務可參閱[附錄：常用服務列表](./99-Appendix#Service-服務相關附錄)
+常用服務可參閱[附錄：常用服務列表](../Appendix#Service-服務相關附錄)
 
 ## ctx.Route()
 ```ts
@@ -301,7 +304,7 @@ ctx.Route(
   PRIV.PRIV_XXX      // 特權檢查（可選）
 )
 ```
-關於路由可參閱[附錄：Handler 相關附錄](./99-Appendix#handler-相關附錄)
+關於路由可參閱[附錄：Handler 相關附錄](../Appendix#handler-相關附錄)
 範例
 ```ts
 // 來源: packages/hydrooj/src/handler/problem.ts
@@ -372,7 +375,7 @@ ctx.withHandlerClass('ProblemDetail', (ProblemDetailHandler) => {
 });
 ```
 
-可以參閱[附錄：Handler 相關附錄](./99-Appendix#handler-相關附錄)來查看各個路由所對應的 Handler 名稱 
+可以參閱[附錄：Handler 相關附錄](../Appendix#handler-相關附錄)來查看各個路由所對應的 Handler 名稱 
 和[剛剛的小節](#handler/before\(after\))一樣的概念
 
 
