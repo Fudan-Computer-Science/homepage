@@ -20,10 +20,10 @@ HydroOJ 的事件系統基於 發布-訂閱（Pub/Sub）模式，允許插件在
 
 事件類型
 1. Handler 生命週期事件
-- `handler/before/<HandlerClassName>`：在指定的**路徑**載入前觸發
-- `handler/after/<HandlerClassName>`：在指定的**路徑**載入後觸發
-- `handler/before/<routeName>`：在指定的**處理器**執行前觸發
-- `handler/after/<routeName>`：在指定的**處理器**執行後觸發
+- `handler/before/<HandlerClassName>`：在指定的**處理器**執行前觸發
+- `handler/after/<HandlerClassName>`：在指定的**處理器**執行後觸發
+- `handler/before/<routeName>`：在指定的**路徑**載入前觸發
+- `handler/after/<routeName>`：在指定的**路徑**載入後觸發
 
 2. 應用生命週期事件
 - `app/started`：應用啟動完成
@@ -256,22 +256,130 @@ app.injectUI(
 ```
 
 ## ctx.inject()
+用於安全地訪問服務。它確保只有在所需服務可用時才執行代碼，避免服務未就緒導致的錯誤。
+```ts
+ctx.inject(
+  ['service1', 'service2', ...],  // 依賴列表
+  (c) => {                          // 回調函數
+    // c.service1 和 c.service2 已就緒
+    // 可以安全使用
+  }
+)
+```
+像是
+```ts
+ctx.inject(['db'], (c) => {
+    // 確保 db 已初始化
+    c.db.collection('user').find(); // 安全
+});
+```
 
-## ctx.Connection()
+### inject 的返回值和清理
+```ts
+ctx.inject(['db'], (c) => {
+  // 設置定時任務
+  const interval = setInterval(() => {
+    console.log('Periodic task');
+  }, 1000);
+  
+  // 返回清理函數
+  return () => {
+    clearInterval(interval);
+    console.log('Cleanup done');
+  };
+});
+```
+常用服務可參閱[附錄：常用服務列表](./99-Appendix#Service-服務相關附錄)
 
-## ctx.injectUI()
+## ctx.Route()
+```ts
+ctx.Route(
+  'route_name',      // 路由名稱  (即 data-page 屬性)
+  '/path/:param',    // URL 路徑（支持參數）
+  HandlerClass,      // Handler 類
+  PERM.PERM_XXX,     // 權限檢查（可選）
+  PRIV.PRIV_XXX      // 特權檢查（可選）
+)
+```
+關於路由可參閱[附錄：Handler 相關附錄](./99-Appendix#handler-相關附錄)
+範例
+```ts
+// 來源: packages/hydrooj/src/handler/problem.ts
+export async function apply(ctx: Context) {
+  // 1. 基本路由（只有權限檢查）
+  ctx.Route(
+    'problem_main',           // 路由名稱
+    '/p',                     // URL: /p
+    ProblemMainHandler,       // Handler 類
+    PERM.PERM_VIEW_PROBLEM    // 需要查看題目權限
+  );
 
-## ctx.plugin()
+  // 2. 帶 URL 參數的路由
+  ctx.Route(
+    'problem_detail',         // 路由名稱
+    '/p/:pid',               // URL: /p/1000, /p/P1000
+    ProblemDetailHandler     // Handler 類
+    // 無權限檢查（在 Handler 內部處理）
+  );
+
+  // 3. 帶操作的路由
+  ctx.Route(
+    'problem_submit',
+    '/p/:pid/submit',
+    ProblemSubmitHandler,
+    PERM.PERM_SUBMIT_PROBLEM
+  );
+
+  // 4. 多級路徑
+  ctx.Route(
+    'problem_file_download',
+    '/p/:pid/file/:filename',
+    ProblemFileDownloadHandler
+  );
+}
+```
+至於 Handler 類的實作 是下一章節的內容
+
 
 ## ctx.withHandlerClass(handlerName: string, callback: (HandlerClass) => void)
 參數說明
 - handlerName: 要擴展的 Handler 類名（字符串）
 - callback: 回調函數，接收 Handler 類作為參數
+可以擴展現有 Handler 的方法甚至覆蓋
+1. 擴展(或覆蓋)方法
+```ts
+ctx.withHandlerClass('ContestDetail', (ContestDetailHandler) => {
+  const originalGet = ContestDetailHandler.prototype.get;
+  
+  // 包裝原方法
+  ContestDetailHandler.prototype.get = async function(...args) {
+    console.log('Before contest detail get');
+    const result = await originalGet.apply(this, args);
+    console.log('After contest detail get');
+    return result;
+  };
+});
+```
+2. 新增方法
+```ts
+ctx.withHandlerClass('ProblemDetail', (ProblemDetailHandler) => {
+    // 添加新方法到 ProblemDetailHandler
+    ProblemDetailHandler.prototype.customMethod = async function() {
+        // 可以訪問 this (Handler 實例)
+        const { domainId } = this.args;
+        return `Custom logic for domain ${domainId}`;
+    };
+});
+```
+
+可以參閱[附錄：Handler 相關附錄](./99-Appendix#handler-相關附錄)來查看各個路由所對應的 Handler 名稱 
+和[剛剛的小節](#handler/before\(after\))一樣的概念
+
+
+
 
 import Authors from '@site/src/components/DocsAuthor/AuthorCard';
 
 <Authors authors={["14thAdvancedTeachingDirector"]} size="h3" />
-
-
 
 </ImgBaseProvider>

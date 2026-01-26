@@ -236,7 +236,38 @@ interface UserDetailHandler extends Handler {
 }
 ```
 
+## Service 服務相關附錄
 
+### 如何查詢 Service 服務名稱
+可以在 HydroOJ repo (或你要查的addon)中搜尋服務註冊代碼範例
+```ts
+// 示例 1: MongoService
+// 來源: packages/hydrooj/src/service/db.ts
+export class MongoService extends Service {
+    constructor(ctx: Context, private config: MongoConfig = {}) {
+        super(ctx, 'db');  // ← 註冊為 'db'
+        //         ^^^^ 這就是服務名稱
+    }
+}
+```
+
+這樣就可以知道服務註冊名稱`db`對應的服務類型`MongoService`
+
+### 常用 Handler 名稱對照表
+
+| 服務註冊名稱 | 服務類型/實例 (TypeScript 類型)  | 功能描述 |
+|---|---|---|
+| db | MongoService | MongoDB 數據庫操作服務 |
+| server | WebService | HTTP 服務 |
+| setting | SettingService | 系統設置服務 |
+| loader | Loader | 加載器服務 |
+| worker | WorkerService | 工作線程服務 |
+| i18n | I18nService | 國際化服務 |
+| oauth | OauthModel | OAuth 認證模型 |
+| api | ApiService | API 服務 |
+| check | CheckService | 檢查服務 |
+| template | TemplateService | 模板服務 |
+| scoreboard | ScoreboardService | 排行榜服務 |
 
 import Authors from '@site/src/components/DocsAuthor/AuthorCard';
 
