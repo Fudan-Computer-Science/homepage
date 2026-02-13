@@ -1,0 +1,666 @@
+---
+sidebar_position: 6
+title : "string字串"
+description: ''
+---
+
+# 字串string
+## char
+不知道各位還記不記得在資料型態時學過一種叫做 **字元型態** ? 也就是**char** !!!
+但由於基本上沒用過，大家對他的了解僅止於知道而已，但在進入`string`前，最好要先熟悉**char**!!
+首先就是 **ASCII碼** 表 (看下方)
+使用的是十進制，清楚的表示每個數字(`int`)對應到的字元(`char`)
+再來我們就用幾個範例讓大家理解如何使用:
+```cpp=
+#include <iostream>
+#include <string>
+using namespace std;
+int main() {
+    int a = 65;
+    char c = a;        // 65在ASCII中對應到的是A
+    cout << c << '\n'; // 輸出A
+
+    int d = c;         // A在ASCII中對應到的是65
+    cout << d << '\n'; // 輸出65
+
+    int e = 'B' - c;   // 由於B對應到的是66，A對應到的是65，66-65=1
+    cout << e << '\n'; // 輸出1
+
+    return 0;
+}
+```
+
+
+
+![螢幕擷取畫面 2025-11-11 215527](https://hackmd.io/_uploads/HJkOxpgeZe.png)
+  
+  
+  
+## (進入正題string) 這是什麼?能吃嗎??
+`string`就像是加強版的`char arr[]`，提供了更多的功能去使用!
+![螢幕擷取畫面 2025-09-29 184348](https://hackmd.io/_uploads/HJ3gQyO2gg.png)
+(**圖片從隔壁偷來的 哇哈哈:D**)
+在使用`string`時，必須引入標頭檔`<string>`:
+```cpp=
+#include<string>
+```
+## 宣告方式
+最基本的就和變數一樣，只是資料型態換成了string，此外也多了一些初始化方式:
+```cpp=
+#include<iostream>
+#include <string>
+using namespace std;
+int main(){
+    string st1;                    //空字串
+
+    string str2 = "Hello World";  // 把str2初始化為某字串
+
+    string str3("Hello World");  // 把str3初始化為某字串
+
+    string str4(str3);          //把str4初始化為str3，str4為Hello World。
+
+    string str5(9, 'A');       //把str5初始為9個A，str5為AAAAAAAAA。
+
+    string str6(str2, 6, 2);  //把str6初始化為str2的第6項往後2項(包含自身)，str6為Wo。 (這裡都是0_based)
+
+    return 0;
+}
+```
+:::warning
+```cpp=
+string str[10];
+```
+這樣寫的意思是開一個名為`str`的陣列，長度為10，每一格存放的東西的型態為string
+而不是大小為 10 的 str 字串
+:::
+## 輸入
+---
+### cin
+```cpp=
+#include <iostream>
+#include <string>
+using namespace std;
+int main() {
+    string s;
+    cin >> s;
+    return 0;
+}
+```
+這樣輸入不會截取到空格
+例如輸入
+
+```css
+123 456 789
+```
+那麼s只會截取到123
+即 s=`123`
+如果想要輸入包含空格的話，那就要使用`getline`了
+### getline
+如果想截取包含空格的資訊(拿上方的例子即讓s=`123 456 789`)
+則要使用getline
+```cpp=
+#include <iostream>
+#include <string>
+using namespace std;
+int main() {
+    string s;
+    getline(cin, s);
+    return 0;
+}
+```
+如果getline前有cin，則需使用cin.ignore()(建議擺在cin正下方)
+用法如下:
+```cpp=
+#include <iostream>
+#include <string>
+using namespace std;
+int main() {
+    int n;
+    cin >> n;
+    cin.ignore();
+    string s;
+    getline(cin, s);
+    return 0;
+}
+```
+:::info
+:::spoiler getline的真身
+get line，可以直接理解為抓取(get)一整行(line)
+他的原形為
+```cpp
+getline(輸入流, 目的地, 停止字元)
+```
+輸入流基本上只會用到cin，目的地就是你要輸入給誰，停止字元就是他遇到誰會停，不打則為預設'\n'
+例如
+```cpp
+string str;
+getline(cin, str, 'c');
+```
+
+輸入`AaBbCcDd`時`str=AaBbC`
+:::
+
+
+:::info
+:::spoiler cin.ignore()的真身
+cin.ignore的功能是忽略掉一些輸入
+他的原形為
+```cpp
+cin.ignore(int a, char ch)
+```
+其中a代表最多忽略幾個、ch代表遇到哪個字元時停止(停止ignore，即繼續讀取)，而這兩個條件只要一個成立就會結束igonre了
+例如
+```cpp
+string str;
+cin.ignore(3, 's');
+cin >> str;
+```
+輸入`abcd`時str=`d`
+輸入`asdf`時str=`df`
+
+當你打`cin.ignore()`會預設為`cin.ignore(1, EOF)`(EOF為End Of File)，即忽略一個字元的輸入
+放在cin下面的意義就是把cin完按的那個enter鍵('\n'字元)忽略掉
+:::
+## 比較 and 修改
+### 判斷
+可以使用一整個字串進行比較(搭配邏輯運算子)、修改
+```cpp=
+#include <iostream>
+#include <string>
+using namespace std;
+int main(){
+    string a = "123",b = "123";
+    if(a == "123")
+        cout << 1;  //此行會執行。
+    if(a == b)
+        cout << 1;  //此行會執行。
+    return 0;
+}
+```
+### 索引
+這部分就跟陣列一樣，是0-based(從0開始)
+```cpp=
+#include <iostream>
+#include <string>
+using namespace std;
+int main(){
+    string s = "0123456789";
+    cout << s[9] << '\n';        //輸出 9。
+    for(int i = 0; i < 10; i++)
+        cout << s[i] << ' ';     //輸出 0 1 2 3 4 5 6 7 8 9。
+    return 0;
+}
+```
+與陣列相同，也可以進行比較或修改
+```cpp=
+#include <iostream>
+#include <string>
+using namespace std;
+int main(){
+    string s = "0123456789";
+    s[8] = '0';    //將原本為數字8的位置變成0
+    cout << s;     //輸出0123456709
+    if(s[9] == '9'){
+        cout << 1; //此行會執行
+    }
+    return 0;
+}
+```
+:::warning
+使用[]存取的為一個字元，資料型態為 **char**  
+因此在進行稍作的時候必須使用**單引號' 　'**
+否則會編譯錯誤喔!!!!
+:::
+### 加法
+可以使用`+`或`+=`將想要的東西加在字串後方(沒有減、乘、除，更沒有取餘數)，把字串接在一起，要注意順序，在左邊的會靠左。
+```cpp=
+#include <iostream>
+#include <string>
+using namespace std;
+int main() {
+    string str1 = "drink";
+    string str2 = "water";
+    cout << str1 + str2; // 輸出drinkwater
+    str1 += str2;
+    cout << str1; // 輸出drinkwater
+    return 0;
+}
+```
+### 比較大小 owob
+如果兩個字串比較大小，會從最左邊開始根據每個字元的 **ASCII碼** 去做比較直到符合以下其中之一種情況
+* 兩個對應字元的 **ASCII碼** 不相等，則將其比較的結果做為字串間比較的結果。
+* 找不到任何差異，但有一個字串的字元數比另一個字串還多，則較長的字串較大。
+* 找不到任何差異，並且字串長度相同，則字串相等。
+
+ex:
+```cpp=
+#include <iostream>
+#include <string>
+using namespace std;
+int main() {
+    string str1 = "12345";
+    string str2 = "12345";
+    string str3 = "123";
+    string str4 = "456";
+    if (str1 == str2) {
+        cout << 1; //此行會執行
+    }
+    if (str1 > str3) {
+        cout << 1; //此行會執行
+    }
+    if (str4 > str3) {
+        cout << 1; //此行會執行
+    }
+    if (str4 > str1) {
+        cout << 1; //此行會執行
+    }
+    return 0;
+}
+```
+
+
+:::warning
+:::spoiler **既然可以比較，就可以sort (之後會教)**
+```cpp=
+#include <algorithm>
+#include <iostream>
+#include <string>
+using namespace std;
+int main() {
+    string arr[3] = {"wlps", "drinkwater", "eedwang"};
+    sort(arr, arr + 3);
+    for (int i = 0; i < 3; i++){
+        cout << arr[i] << '\n';
+    }
+}
+```
+輸出為
+```css
+drinkwater
+eedwang
+wlps
+```
+這是在一個陣列中對好多個`string`去做`sort`，其實也可以對一個`string`做`sort`:
+```cpp=
+#include <algorithm>
+#include <iostream>
+#include <string>
+using namespace std;
+int main() {
+    string s = "drinkwater";
+    sort(s.begin(), s.end());
+    for (int i = 0; i < 10; i++) {
+        cout << s[i];
+    }
+}
+```
+輸出為:
+```css
+adeiknrrtw
+```
+:::
+## 內建函式
+### .size()/.length()
+會得到字串的大小(長度)
+```cpp=
+#include <iostream>
+#include <string>
+using namespace std;
+int main() {
+    string s = "drinkwater";
+    cout << s.size() << ' ' << s.length(); //輸出10 10
+}
+```
+這兩個東西可以說是完全一樣的
+
+### to_string
+將其他型態轉化為string型態
+```cpp=
+#include <iostream>
+#include <string>
+using namespace std;
+int main() {
+    int a = 114514;
+    double d = 114.514;
+    string str1 = to_string(a); //string str1="114514"
+    string str2 = to_string(d); //string str1="114.514000"
+    cout << str1; //輸出114514
+    cout << str2; //輸出114.514000
+}
+```
+### stoi() / stod() / stoll() / stoull()
+將string轉化成其他型態
+* stoi() -> 轉換成`int`型態
+* stod() -> 轉換成`double`型態
+* stoll() -> 轉換成`long long`型態
+* stoull() -> 轉換成`unsigned long long`型態
+```cpp=
+#include <iostream>
+#include <string>
+using namespace std;
+int main() {
+    string a = "64645";
+    cout << stoi(a) - 645; //輸出64000;
+}
+```
+:::warning
+**使用 stoi() / stod() / stoll() / stoull() 函式時，如果字串內有非數字之字元，會發生錯誤
+如果字串內數字超過欲轉換型態之範圍，也會發生錯誤**
+:::
+### .find()
+如果找到該字元(串)，則回傳最前面的位置(0-based)，否則回傳`string::npos` (int 形態下會溢位為`-1`)
+:::spoiler `string::npos` 是啥
+呼叫.find()時的回傳值實際上不是int型態，而是一個叫size_t的資料型態，而string::npos代表size_t的最大值，代表不存在的位置(他是一個常數，由當前的位元系統決定，每台電腦不一定一樣)
+:::
+用法
+str.find(目標字串)
+str.find(目標字串,起始位置)  (起始位置記得也是0-based喔!!!)
+目標可以是char或string變數
+ex:
+```cpp=
+#include <iostream>
+#include <string>
+using namespace std;
+int main() {
+    string a = "abcdeee";
+
+    cout << a.find('a') << '\n'; // 輸出0
+
+    cout << a.find("cde") << '\n'; // 輸出2
+
+    cout << a.find("e") << '\n'; // 輸出4
+
+    cout << a.find("z") << '\n'; // 輸出string::npos，在64位元系統下size_t最大值為2^64-1(18446744073709551615)
+
+    int f = a.find("z");
+    cout << f << '\n'; // 輸出-1，因為string::npos在int會自動溢位成-1
+
+    cout << a.find('d', 4) << '\n'; // 輸出string::npos(2^64-1)
+
+    cout << a.find('d', 3) << '\n'; // 輸出3
+
+    cout << a.find("abc", 0) << '\n'; //輸出0
+
+    cout << a.find("abc", 1) << '\n'; //輸出string::npos(2^64-1)
+
+    if (a.find(" ") == -1) {
+        cout << 1 << '\n'; // 此行會執行
+    }
+
+    return 0;
+}
+```
+### toupper() / tolower()
+將該字元轉為大寫/小寫(若非英文字母則相同)
+ex:
+```cpp=
+#include <algorithm>
+#include <iostream>
+#include <string>
+using namespace std;
+int main() {
+    string a = "Aa.Bb.Cc";
+
+    for (int i = 0; i < a.length(); i++) {
+        a[i] = tolower(a[i]);
+    }
+    cout << a << '\n';      // 輸出aa.bb.cc。
+
+    for (int i = 0; i < a.length(); i++) {
+        a[i] = toupper(a[i]);
+    }
+    cout << a << '\n';      // 輸出AA.BB.CC。
+
+    a[0] = tolower(a[3]);
+    cout << a << '\n';      // 輸出bA.BB.CC
+    return 0;
+}
+```
+### .insert() / .erase()
+.insert(位置,字串)
+插入字串
+```cpp=
+#include <iostream>
+#include <string>
+using namespace std;
+int main() {
+    string s = "asd";
+    string i = "56";
+    s.insert(0, i);    // 或s.insert(0,"56")
+    cout << s << '\n'; // 輸出56asd
+    s.insert(2, "ab");
+    cout << s << '\n'; // 輸出56abasd
+    return 0;
+}
+```
+.erase(位置,數量)
+移除字串
+```cpp=
+#include <iostream>
+#include <string>
+using namespace std;
+int main() {
+    string s = "456789";
+    s.erase(0, 2);     // 從第0個開始往後刪除2個
+    cout << s << '\n'; // 輸出6789
+    s.erase(1, 2);     // 從第1個開始往後刪除2個
+    cout << s << '\n'; // 輸出69
+    return 0;
+}
+```
+
+## stringstream 
+要使用必須先引入函式庫\<sstream\> (請不要 `#include<stringstream>`)
+```cpp=
+#include <sstream>
+```
+    
+### 甚麼時候會用到?
+1. 數字 ⇄ 字串的轉換
+2. 把一整行字串分段
+    
+(其實還有更多用法，可以自己去學owob)
+    
+簡單來說，**stringstream = 把字串當作輸入輸出的工具，用來轉換數字與字串、拆字串、或組字串。**
+
+### 宣告&&初始化
+```cpp=
+#include <iostream>
+#include <sstream>
+#include <string>
+using namespace std;
+int main() {
+    string s = "123abc";
+    stringstream ss1;    // 宣告名為ss1的 stringstream
+    stringstream ss2(s); // 初始化名為ss2的stringstream 為 123abc
+    return 0;
+}
+```
+如果想將已經使用過的stringstream初始化為空的話，可以:
+```cpp=
+#include <iostream>
+#include <sstream>
+#include <string>
+using namespace std;
+int main() {
+    stringstream ss("1258");
+
+    ss.clear();
+    ss.str("");
+    //這兩行會使ss初始化為空
+    
+    return 0;
+}
+```
+$ \color{#fa7a02}{兩行都要打} $
+
+若沒有打 `s.str("")`，`sstream` 結尾的 EOF 不會被清除
+
+若沒有打 `ss.clear()` 雖然可以正常輸入輸出，但原先的字串還是會保留在 `sstream` 中，造成記憶體的消耗
+### 輸入&輸出
+```cpp=
+#include<iostream>
+#include<string>
+#include<sstream>
+using namespace std;
+
+int main () {
+    stringstream ss;
+    int n = 114514;
+    string str;
+    
+    ss << n;
+    ss >> str;
+    
+    cout << str;   //輸出114514。
+}
+```
+簡單來說
+`<<`就是將`string或int`輸入進`stringstream`裡
+`>>`就是將`stringstream`輸出到`string或int`裡 
+    
+    
+### 1.數字 ⇄ 字串的轉換 
+ex1(string轉int)
+```cpp=
+#include <iostream>
+#include <sstream>
+#include <string>
+using namespace std;
+int main() {
+    string s="1 10 100 1000";
+    stringstream ss;
+    int a,sum=0;
+
+    ss<<s; //將 s 輸入進 ss裡
+    
+    while(ss>>a){ //當ss不為空，就輸出一段到a裡(依照空格分段)
+        sum+=a;
+    }
+    cout<<sum;
+    return 0;
+}
+```
+ex2(int轉string)
+```cpp=
+#include <iostream>
+#include <sstream>
+#include <string>
+using namespace std;
+int main() {
+    string s;
+    stringstream ss;
+
+    for(int i=1;i<=5;i++){
+        ss<<i; //將i輸入進ss裡
+    }
+
+    ss>>s; //將ss輸出進s裡
+
+    cout<<s; //輸出為12345
+
+    return 0;
+}
+```    
+### 2. 把一整行字串分段
+當我們用`getline`讀入了大量資料後，卻不確定總共有幾組，就可以使用`stringstream`去做拆分存取並計算有幾組: 
+```cpp=
+#include <iostream>
+#include <sstream>
+#include <string>
+using namespace std;
+int arr[1000000];
+int main() {
+    string s;
+    stringstream ss;
+    int n = 0, a;
+
+    getline(cin, s);
+    ss << s;
+    while (ss >> a) {
+        arr[n] = a;
+        n++;
+    }
+    cout << "這筆資料總共有" << n << "筆，分別是:\n";
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << ' ';
+    }
+    return 0;
+}
+```
+輸入
+```css=
+114514 87 9487 520 314
+```
+輸出
+```css=
+這筆資料總共有5筆，分別是:
+114514 87 9487 520 314
+```
+
+## 一些例題
+a003: 提款卡密碼
+
+a010: 聖經密碼
+
+a012. Johnny B. Goode
+
+a013: You can say that again!
+
+a102: 字串操作練習
+
+a168: 箱子裡面是什麼
+
+a188: 數字翻轉
+
+a199: 文字獄(一)
+
+a202: 文字獄(二)
+
+a205: 文字獄(三)
+
+a228: pJ Count! Count! Count!
+
+a240: 秘密差 (APCS 106/03/04)
+
+a241: 2019 Forbes
+
+a251: 多元選修好難喔
+
+a261: Neko我婆#ΦωΦ
+
+a423: 光頭學英文
+
+a450: 成為數學genius
+
+a467: 二則運算
+
+a533: pC Sentence Compressor
+
+a578: 文字獄(四)
+
+a711: ahoy!! 我想要警告
+
+a747: 都不揪
+
+a832: 蘿莉圖真香
+
+a872: 神奇的字串(2): 強迫症辛苦Coding日常
+
+a877: 迴文針
+
+a878: 好想海底撈____________________________月
+
+a892: 用Code寫Code?
+
+b166: 改作文
+
+b172: 等式(1)
+
+b174: 等式(2)
+
+b183: 密碼
+
+b184: 我的字典沒有困難!!!
+                          
+--- 

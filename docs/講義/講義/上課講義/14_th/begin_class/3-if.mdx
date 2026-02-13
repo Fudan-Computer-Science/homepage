@@ -1,0 +1,181 @@
+---
+sidebar_position: 3
+title : "if/else 選擇性敘述"
+description: ''
+---
+
+
+## if/else
+```cpp！
+if(判斷條件) {
+    程式碼 //當條件成立時執行。
+}
+```
+也可以加入else ,變成
+```cpp!
+if(判斷條件A){
+    程式碼...//當條件A成立時執行
+}else if(判斷條件B){ 
+    程式碼...//當if不成立才進行判斷條件B,且B也成立才執行
+}else{
+    程式碼...//當所有都不成立直接執行
+}
+```
+
+
+先判斷最初的` if `是否成立
+再一步步往下排查
+值得注意的是
+` else if `可以有多個
+但` else `卻能只有一個
+並且他們都必須在前面先有` if `的情況下才有效
+並且只要有其中一個成立了，後面的`else if`或是`else`便就不會執行，有就是:
+```cpp=
+#include <iostream>
+using namespace std;
+int main(){
+    if(判斷條件A){
+        //程式碼(若成立則執行)
+    }
+    else if(判斷條件B){
+        //程式碼(A不成立但B成立時執行)
+    }
+    else if(判斷條件C){
+        //程式碼(A不成立且B不成立時但C成立執行)
+    }
+    else{
+        //程式碼(上述條件皆不成立時執行)
+    }
+}
+```
+
+而如果是使用多個` if `
+則每個` if `都會被判斷
+互不干擾
+不像` else if `那樣只要其中之一成立
+便不再判斷
+### 範例 
+ex1:
+```cpp=
+#include <iostream>
+using namespace std;
+int main() {
+    if (1 < 2) {
+        cout << "1 < 2"; // 1<2成立故會執行 輸出 1 < 2
+    }
+    if (1 > 2) { 
+        cout << "1 > 2"; // 1>2不成立故不執行
+    } 
+}
+```
+ex2:
+```cpp=
+#include <iostream>
+using namespace std;
+int main() {
+    // 例子1
+
+    if (2 > 1) {
+        cout << "2 > 1" << '\n'; // 輸出2 > 1。
+    } 
+    else if (3 > 1) {
+        cout << "3 > 1" << '\n'; // 不輸出。
+    }
+
+    // 例子2
+
+    if (1 > 2) {
+        cout << "1 > 2" << '\n'; // 不輸出。
+    } 
+    else if (3 > 1) {
+        cout << "3 > 1" << '\n'; // 輸出3 > 1。
+    } 
+    else if (4 > 1) {
+        cout << "4 > 1" << '\n'; // 不輸出。
+    }
+
+    return 0;
+}
+```
+ex3:
+```cpp=
+#include<iostream>
+using namespace std;
+int main(){
+    if(1 > 2){
+        cout << "1 > 2" << '\n';  //不輸出。
+    }
+    else if(3 > 4){
+        cout << "3 > 4" << '\n';  //不輸出。
+    }
+    else {
+        cout << "else" << '\n';   //輸出else。
+    }
+    return 0;
+}
+```
+### 搭配邏輯運算子
+如果我在一個`if`想要判斷兩個條件是否都成立或其中一個成立該怎麼做呢?
+還記得在前面學過邏輯運算子嗎?這裡就是最常使用到的地方~
+```cpp=
+#include<iostream>
+using namespace std;
+int main(){
+    int n;
+    cin >> n;
+    if(n > 10 && n % 3 == 0){     //n大於10 並且 n除3餘0。
+        cout << n << "是3的倍數且大於10" << '\n'; 
+    }
+    if(n > 10 || n % 3 == 0){     //n大於10 或是 n除3餘0。
+        cout<< n << "是3的倍數或大於10" << '\n';
+    }
+    return 0;
+}
+```
+以下是幾種輸入分別結果:
+```css=
+輸入:3
+3是3的倍數或大於10
+
+輸入:11
+11是3的倍數或大於10
+
+輸入:12
+12是3的倍數且大於10
+12是3的倍數或大於10
+
+輸入:1
+(沒有輸出)
+```
+:::info
+#### if的`()`裡面真的只能放`a==b`這類判斷式嗎?
+**其實還可以放很多東西!像是執行式、數字等等**
+if會根據`()`裡面的東西回傳的是`true(1)`或是`false(0)`去決定執不執行，如果是`true`就執行接下來的程式，如果是`false`就不執行
+像是放執行式:
+```cpp=
+#include<iostream>
+using namespace std;
+int main(){
+    int n;
+    if(cin>>n){ //如果執行cin>>n成功就回傳true
+        cout<<n<<'\n';
+    }
+}
+```
+又或是放數字:
+```cpp=
+#include<iostream>
+using namespace std;
+int main(){
+    if(0){ //由於在布林值0是false，所以會回傳false
+        cout<<"false";
+    }
+    else if(1){ //其他數字的布林值都是true，所以會回傳true
+        cout<<"true";
+    }
+}
+```
+
+:::
+
+---

@@ -1,0 +1,78 @@
+---
+sidebar_position: 1
+title : "C++程式的基礎架構"
+description: ''
+---
+
+## C++程式的基礎架構
+### 基本程式例子:
+
+
+```cpp=
+#include <iostream> // 標頭檔，引入函數庫
+int main(){// 主程式碼
+    std::cout << "Hello, world" << std::endl; // 輸出
+    return 0; // 回傳值
+}
+```
+---
+### 標準程式庫標頭檔
+標頭檔決定了你可以使用哪些函式、類別、物件,引入不同的函式庫,能讓你的程式碼有不同的用途
+
+例如:
+```cpp=
+#include <iostream> //提供輸入輸出功能，如 cin / cout。
+#include <stdio.h> //提供使用 scanf / printf 等等。
+```
+
+### 主程式(主函式)
+每個C++程式都會有至少一個的函式，且必須包含名為main的主程式。
+```cpp=
+int main(){
+    //程式內容
+}
+```
+
+### 命名空間
+命名空間就像是一個識別編號或分類櫃子但實際上，std 幾乎包含了所有常用 C++ 標準庫功能。
+當程式中有很多功能或來自不同來源的函式、變數，可能會不小心取到相同的名字，這時就需要命名空間來幫忙分類與區隔。
+
+```cpp=
+#include <iostream>
+using namespace std; //一般習慣加在標頭檔後
+```
+如果沒有加入這一行,後面的每一個`cin` `cout`都要寫成`std::cin` 跟 `std::cout`
+
+所以一開始的例子如果加入命名空間,也可以寫成
+```cpp=
+#include <iostream>
+using namespace std;
+int main(){
+    cout << "Hello, world" << endl; //cout前面不用加上std:: 因為第二行加入了命名空間std
+    return 0;
+}
+```
+
+### 輸入輸出
+輸入:`cin`
+輸出:`cout`
+他們是被定義在 `std // 命名空間` 、`iostream// `函式庫之下的，所以必須要引入該函式空間和命名空間才能使用。
+再看回剛剛的程式碼
+```cpp=
+#include <iostream>
+using namespace std;
+int main(){
+    cout << "Hello, world" << endl; 
+    cout << 'c';
+    return 0;
+}
+```
+使用`" "`來包字串，`' '`用來包字元
+而後面的`endl`又是幹嘛的呢?
+它會讓你的輸出換行，所以程式輸出結果為
+```css
+Hello, world
+c
+```
+### 回傳值
+`return 0;` 可以理解為回傳一個值,告訴電腦程式已經執行完畢(return還有其他用法,但那是之後的事情了),在編譯器中如果沒有`return 0;`也會自動結束程式(包含DanDanJudge)，但最好還是養成習慣寫，有些如果沒寫會無法編譯。(本人沒有遇過 也從不寫 但還是呼籲寫一下)

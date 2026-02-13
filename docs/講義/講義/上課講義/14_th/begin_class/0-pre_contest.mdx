@@ -1,0 +1,535 @@
+---
+sidebar_position: 0
+title : "14th初階入班考題"
+description: ''
+---
+
+## 14th初階入班考題
+**考題順序並沒有按照難度排列~ 請盡力作答!不會的也請猜一下吧~**
+**祝大家考試順利~**
+
+---
+
+### 1.
+執行以下程式:
+
+```cpp=
+#include <iostream>
+using namespace std;
+int main(){
+    double a = 0.1;
+    double b = 0.2;
+    double c = 0.3;
+    if(a + b == c){
+        cout << "=";
+    } else {
+        cout << "!=";
+    }
+    return 0;
+}
+```
+
+請問會輸出?
+**( A )0
+( B )未定義行為
+( C )=
+( D )!=
+( E )編譯錯誤**
+
+答案:D
+----
+### 2.
+執行以下程式:
+```cpp=
+#include<iostream>
+using namespace std;
+int main(){
+	int loli = 0;
+	for(int i = 1; i < 100; i++){
+ 	   if(i % 15 == 0) continue;
+ 	   loli += i;
+	}
+	cout << loli;
+	return 0;
+} 
+```
+以下哪個選項最接近輸出值？
+**( A )5000
+( B )4950
+( C )4600
+( D )4800
+( E )114514**
+
+答案:C
+----
+### 3.
+執行以下程式:
+```cpp=
+#include<iostream>
+using namespace std;
+int main(){
+	int gura = 2;
+	int peko = 279;
+	gura = peko-2
+	peko = gura-2
+	cout << gura << peko;
+	return 0;
+} 
+```
+請問會輸出什麼？
+**( A )277 275
+( B )279 277
+( C )277275
+( D )279277
+( E )編譯錯誤**
+
+答案:E
+-----
+### 4.
+$下列哪一個是合法的變數名稱？$
+ **( A )2value
+ ( B )value_2
+ ( C )value-2
+ ( D )int**
+ 
+答案:B
+---
+### 5.
+執行以下程式:
+```cpp=
+#include<iostream>
+using namespace std;
+int main(){
+	int a=0,b=7;
+	for(int i=0;i<100;i++){
+		a++; 
+		b+=a-i;
+	}     
+	if(a%3==1&&b%3==1){
+		if(!(a%2==1)&&!(b%2==0)){
+			cout<<"油";
+		}
+		else{
+			cout<<"好油";
+		}
+	}
+	else{
+		if(!(a%2==1)&&!(b%2==0)){
+			cout<<"太油了";
+		}
+		else{
+			cout<<"超級油";
+		}
+	}
+	return 0;
+} 
+```
+請問會輸出什麼?
+**( A )油
+( B )好油
+( C )太油了
+( D )超級油
+( E )編譯錯誤**
+
+答案:C
+----
+### 6.
+執行以下程式:
+```cpp=
+#include<iostream>
+using namespace std;
+int main(){
+	int arr[8]={1,9,8,9,0,6,0,4};
+	int a=0;
+	for(int i=0;i<7;i++){
+		if(arr[i]>arr[i+1]){
+			a+=arr[i];
+		}
+		else{
+			a+=arr[i+1];
+		}
+	}
+	cout<<a;
+	return 0;
+} 
+```
+請問會輸出什麼?
+**( A )17
+( B )37
+( C )52
+( D )57
+( E )編譯錯誤**
+
+答案:C
+---
+### 7.
+執行以下程式:
+```cpp=
+#include<iostream>
+using namespace std;
+int main(){
+	int a=100,c=0;
+	while(a!=0){
+		if(a%3==0){
+			a-=2;
+			c+=1;
+		}
+		if(a%2==0){
+			a-=1;
+			c+=2;
+		}
+		c+=3;
+		a--;
+	}
+	cout<<c;
+	return 0;
+} 
+```
+請問會輸出什麼?
+**( A )126
+( B )186
+( C )196
+( D )206
+( E )無限迴圈?!**
+
+答案:B
+---
+### 8.
+執行以下程式:
+```cpp=
+#include <iostream>
+using namespace std;
+int main()
+{
+    int a=139,b=39;
+    if(a%3==0||b%3!=0){
+        cout<<"\\OwO";
+    }
+    else{
+        cout<<"\"OuO";
+    }
+    return 0;
+}
+```
+請問會輸出什麼?
+**( A )\\\\OwO
+( B )\\OwO
+( C )\\\"OuO
+( D )\"OuO
+( E )編譯錯誤**
+
+答案:D
+---
+### 9.
+執行以下程式:
+```cpp=
+#include<iostream>
+using namespace std;
+int main(){
+	int arr[10]={8,4,3,7,9,1,2,6,5,0};
+	for(int i=5;i>0;i--){
+		for(int j=0;j<i;j++){
+			if(arr[j]>arr[j+1]){
+				int temp=arr[j];
+				arr[j]=arr[j+1];
+				arr[j+1]=temp;
+			} 
+		}
+	}
+	for(int i=9;i>5;i--){
+		for(int j=5;j<i;j++){
+			if(arr[j]>arr[j+1]){
+				int temp=arr[j];
+				arr[j]=arr[j+1];
+				arr[j+1]=temp;
+			} 
+		}
+	}
+	for(int i=0;i<10;i++){
+		cout<<arr[i]<<" "; 
+	}	 
+	return 0;
+} 
+```
+請問會輸出什麼?
+**( A )0 1 2 3 4 5 6 7 8 9
+( B )1 3 4 7 8 0 2 5 6 9
+( C )1 3 4 7 8 9 0 2 5 6
+( D )9 8 7 4 3 1 6 5 2 0
+( E )編譯錯誤**
+
+答案:B
+---
+### 10.
+執行以下程式:
+```cpp=
+#include<iostream>
+using namespace std;
+int main(){
+	int a=208,b=8,c=0;
+	while(true){
+		if(a==b){
+			break;
+		}
+		a-=5;
+		b+=3;
+		c++;
+	}
+	cout<<c;
+	return 0;
+} 
+```
+請問會輸出什麼?
+**( A )23
+( B )24
+( C )25
+( D )26
+( E )無限迴圈?!**
+
+答案:C
+----
+### 11.
+執行以下程式:
+```cpp=
+#include <iostream>
+using namespace std;
+int main(){
+    int a=100,b=30;
+    do{
+        a=a-3;
+        b=b+3;
+    }while(a>b);
+    cout<<b-a;
+}
+```
+請問會輸出什麼?
+**( A )3
+( B )2
+( C )1
+( D )0
+( E )編譯錯誤**
+
+答案:B
+---
+### 12.
+```cpp=
+#include<iostream>
+using namespace std;
+int main(){
+	int evernight = 0;
+	for(int i = 0; i < 10; i++){
+ 	   for(int j = i; j < 10; j++){
+			evernight++;
+		}
+	} 
+	cout << evernight;
+	return 0;
+} 
+```
+請問會輸出什麼?
+**( A )55
+( B )45
+( C )100
+( D )10
+( E )編譯錯誤**
+
+答案:A
+---
+### 13.
+執行以下程式:
+```cpp=
+#include<iostream>
+using namespace std;
+int main(){
+	int NakiriAyame = 10;
+	while(NakiriAyame--){
+   	    if(NakiriAyame % 2 == 0)
+                continue;
+    	    cout << "NakiriAyame ";
+	}
+	return 0;
+} 
+```
+請問會輸出幾次"NakiriAyame"?
+**( A )5
+( B )4
+( C )10
+( D )無限迴圈
+( E )編譯錯誤**
+
+答案:A
+---
+### 14.
+執行以下程式:
+```cpp=
+#include<iostream>
+using namespace std;
+int main(){
+	int cpp = 5, cmm = 10;
+	while(cpp++ < cmm--);
+	cout << cpp << " " << cmm;
+	return 0;
+} 
+```
+輸出為？
+**( A )10 5
+( B )9 6
+( C )7 8
+( D )8 7
+( E )編譯錯誤**
+
+答案:B
+---
+### 15.
+執行以下程式:
+```cpp=
+#include<iostream>
+using namespace std;
+int main(){
+	int hsr[5] = {1, 2, 3, 4, 5};
+	int sum = 0;
+	for(int i = 0; i < 5; i++){
+ 		sum += hsr[4 - i];
+	}
+	cout << sum;
+	return 0;
+} 
+```
+輸出為？
+**( A )15
+( B )10
+( C )5
+( D )0
+( E )編譯錯誤**
+
+答案:A
+---
+### 16.
+執行以下程式:
+```cpp=
+#include<iostream>
+using namespace std;
+int main(){
+	int Rokudenashi = 10;
+	for(int i = 0; i < 5; i++){
+ 	   Rokudenashi += (i % 2 == 0) ? 1 : -1;
+	}
+	cout << Rokudenashi;
+	return 0;
+} 
+```
+輸出為？
+**( A )13
+( B )11
+( C )12
+( D )10
+( E )編譯錯誤**
+
+答案:B
+---
+### 17.
+執行以下程式:
+```cpp=
+#include<iostream>
+using namespace std;
+int main(){
+	int evernight = 1, cyrene = 2, elysia = 3;
+	if(evernight < cyrene < elysia){
+ 	   cout << "HUH";
+	} else {
+ 	   cout << "huh";
+	}
+	return 0;
+} 
+```
+輸出為？
+**( A )HUH
+( B )huh
+( C )編譯錯誤
+( D )未定義行為**
+
+答案:A
+---
+### 18.
+執行以下程式:
+```cpp=
+#include<iostream>
+using namespace std;
+int main(){
+	int Yorushika = 0;
+	for(int i = 0; i < 10; i++){
+		if(i % 3 == 0)
+			Yorushika += i;
+		else if(i % 3 == 1)
+			Yorushika -= i;
+	}
+	cout << Yorushika;
+	return 0;
+}
+```
+輸出為?
+**( A )3
+( B )5
+( C )6
+( D )9
+( E )編譯錯誤**
+
+答案:C
+---
+### 19.
+執行以下程式:
+```cpp=
+#include<iostream>
+using namespace std;
+int main(){
+	int a=0,b=2;
+	for(int i=0;i<100;i++){
+		a++;
+		if(a==b){
+			b+=3;
+		}
+	}
+	(a==100)?(b==100)?cout<<"dowo":cout<<"owob":(b==100)?cout<<"nowob":cout<<"dowon";
+	return 0;
+}
+```
+會輸出甚麼?
+**( A )dowo
+( B )owob 
+( C )nowob
+( D )dowon
+( E )編譯錯誤**
+
+答案:B
+--- 
+### 20.
+復旦程設班教的是哪一個呢?
+**( A )Assembly  
+( B )Bash  
+( C )C  
+( D )CSS  
+( E )Blockly  
+( F )SQL  
+( G )JavaScript  
+( H )HTML  
+( I )Scratch  
+( J )Julia  
+( K )Kotlin  
+( L )Perl  
+( M )MATLAB  
+( N )NakiriAyame  
+( O )C#  
+( P )peko  
+( Q )Java  
+( R )Rust  
+( S )Swift  
+( T )TypeScript  
+( U )C++  
+( V )valorant  
+( W )Lua  
+( X )Python  
+( Y )Ruby  
+( Z )Go(Golang)**
+
+答案:U
+----

@@ -1,0 +1,220 @@
+---
+sidebar_position: 5
+title : "array陣列"
+description: ''
+---
+
+
+# array陣列
+
+
+
+----
+## 什麼時候會使用到陣列?
+如果要同時儲存很多的資料，又或是不確定要儲存幾筆的時候，就使用陣列吧!
+
+---
+## 宣告與初始化
+宣告的方式大致上和變數相同，前面放內容物的資料型態，接著命名，最後加上陣列的大小，就像是這樣:
+```cpp=
+int arr[10]; //長度為10,名稱為arr,每一格型態為int的陣列
+char a[100]; //長度為100,名稱為a,每一格型態為char的陣列
+bool b[200]; //長度為200,名稱為b,每一格型態為bool的陣列
+```
+而對其初始化的方式如下:
+```cpp=
+int arr1[6]={1,2,3,4,5,6};
+int arr2[7]={1,2,3,4,5}; //arr2[7]={1,2,3,4,5,0,0}
+int arr3[]={1,2,3,4,5,6};
+int arr4[8]={}; //全都是0
+```
+
+****
+:::info
+好用的靜態陣列OwO
+什麼是靜態陣列?
+如果在```int main()```之上就先宣告了陣列，他會在編譯時就先開好，因此可以開較大(在DDJ約可以開到$10^7$)。(跟全域變數的宣告方式一樣)
+```cpp=
+int arr[10000];
+int main(){
+    //code
+}
+```
+:::
+:::warning
+如果是靜態陣列:
+```cpp=
+#include<iostream>
+using namespace std;
+int arr[10];
+int main(){
+    //code
+}
+```
+**此時這個arr陣列的每一格項都會是0**
+那如果放在`main`裡面呢?
+```cpp=
+#include<iostream>
+using namespace std;
+int main(){
+    int arr[5];
+}
+```
+**此時這個arr的內容物會是殘值(亂碼)!!**
+:::
+---
+## 存取
+
+我們可以將陣列想像成一排櫃子，每個櫃子只存取一個東西，每次可以對某一格進行操作。
+:::warning
+**注意!!!陣列是** **0-based  !!!** 
+**也就是第一項為arr[0]，而非arr[1]!!!**
+所以```int arr[5]```的範圍為```arr[0]~arr[4]```!!!
+:::
+```cpp=
+#include<iostream>
+using namespace std;
+int main(){
+    int arr[5]={2,4,3,5,1};
+}
+```
+
+
+|arr[0]|arr[1]|arr[2]|arr[3]|arr[4]|
+| -------- | -------- | -------- |--|--|
+|   **2**   | **4**  | **3**   |**5**|**1**|
+### 賦值方式
+#### 手動賦值
+```cpp=
+#include<iostream>
+using namespace std;
+int arr[5];
+int main(){
+    int n=3;
+    arr[0]=5;
+    arr[n]=1;
+    arr[4]=n;
+    int sum=arr[0]+arr[1]+arr[2]+arr[3]+arr[4];
+    cout<<arr[0]<<' '<<arr[1]<<' '<<arr[2]<<' '<<arr[3]<<' '<<arr[4];
+    cout<<'\n'<<sum;
+}
+```
+輸出
+```css
+5 0 1 0 2
+8
+```
+#### 迴圈賦值
+```cpp=
+#include<iostream>
+using namespace std;
+int arr[1000000];
+int main(){
+    int n;
+    cin>>n;
+    for(int i=0;i<n;i++){
+        arr[i]=i;
+    }
+    for(int i=0;i<n;i++){
+        cout<<arr[i]<<' ';
+    }
+}
+```
+輸入
+```css=
+10
+```
+輸出
+```css=
+0 1 2 3 4 5 6 7 8 9
+```
+## 二維陣列
+既然都有了一維的陣列，那當然也有二維陣列!
+二維陣列可以想像成在原來的一排櫃子上又多加了好幾排的櫃子，也可以理解為從直線(一維陣列)變成了平面(二維陣列)。
+### 宣告
+```cpp=
+int arr[2][3];
+```
+基本上就是在原來的一維陣列後再加上一個大小，而`arr[2][3]`代表有2行(橫) 列(直)，前面的2是縱坐標，後面的3是橫坐標。(注意不管哪一個都是 **0-based** )
+![螢幕擷取畫面 2025-08-09 223646](https://hackmd.io/_uploads/rJzZAC4_gg.png)
+
+### 初始化
+```cpp=
+int arr[2][3]={
+    {1,2,3},
+    {4,5,6}
+};
+int a[3][4]={};//全部初始化為0
+```
+### 手動賦值
+```cpp=
+#include<iostream>
+using namespace std;
+int arr[2][3]={};
+int main(){
+    arr[0][0]=3;
+    /*
+      3 0 0
+      0 0 0
+    */
+    arr[0][2]=5;
+    /*
+      3 0 5
+      0 0 0
+    */
+}
+```
+### 迴圈賦值、輸出
+```cpp=
+#include<iostream>
+using namespace std;
+int arr[4][5];
+int main(){
+    int a=0;
+    for(int i=0;i<4;i++){
+        for(int j=0;j<5;j++){
+             arr[i][j]=a;
+            a++;
+        }
+    }
+    for(int i=0;i<4;i++){
+        for(int j=0;j<5;j++){
+            cout<<arr[i][j]<<' ';
+        }
+        cout<<'\n';
+    }
+}
+```
+輸出
+```css
+0 1 2 3 4
+5 6 7 8 9
+10 11 12 13 14
+15 16 17 18 19
+```
+### 迴圈輸入
+```cpp=
+#include<iostream>
+using namespace std;
+int arr[5][6];
+int main(){
+    for(int i=0;i<5;i++){
+        for(int j=0;j<6;j++){
+            cin>>arr[i][j];
+        }
+    }
+}
+```
+----
+既然有二維陣列，那當然也有三維、四維等，那最多可以開到幾維呢?
+其實基本上沒有限制，只要記憶體ok就行。
+
+----
+## 例題
+[a069: I Love You 3000](https://dandanjudge.fdhs.tyc.edu.tw/ShowProblem?problemid=a069)
+[a707: 期中考加油](https://dandanjudge.fdhs.tyc.edu.tw/ShowProblem?problemid=a707)
+[a959: P1 交叉比對](https://dandanjudge.fdhs.tyc.edu.tw/ShowProblem?problemid=a959)
+[b017: 遍地錢錢！(easy version)](https://dandanjudge.fdhs.tyc.edu.tw/ShowProblem?problemid=b017)
+[b162: 大十字&九宮格!](https://dandanjudge.fdhs.tyc.edu.tw/ShowProblem?problemid=b162)
+[a830: 排雷](https://dandanjudge.fdhs.tyc.edu.tw/ShowProblem?problemid=a830)
+[a685: D. 拿餐大作戰](https://dandanjudge.fdhs.tyc.edu.tw/ShowProblem?problemid=a685)

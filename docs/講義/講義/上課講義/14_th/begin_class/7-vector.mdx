@@ -1,0 +1,179 @@
+---
+sidebar_position: 7
+title : "Vector 向量"
+description: ''
+---
+
+
+## Vector
+### vector是什麼？
+vector 是 C++ 標準模板庫（STL）中一種動態陣列容器。
+與一般的陣列（array）不同，vector 不用預設大小（當然如果你想要預設的話也可以），其大小可以自由增長或縮小。
+在使用`vector`前，必須引入標頭檔`<vector>`:
+```cpp=
+#include <vector>
+```
+
+### 宣告
+```cpp=
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+int main() {
+    vector<資料型態> 名稱;
+    vector<int> v1;              // 空的 vector
+    vector<int> v2(5);           // 大小為 5，元素預設為 0 (注意是用小括號！)
+    vector<int> v3(5, 10);       // 大小為 5，每個元素都是 10
+    vector<int> v4 = {1, 2, 3};  // 使用初始化列表
+    vector<string> v5 = {"不知道", "要打", "什麼"};
+
+    return 0;
+}
+```
+### 常用操作
+### .begin() / .end()
+語法：`v.begin()` & `v.end()`
+用途：`.begin()` 指向第一元素；`.end()` 指向最後元素之後的位置
+!!!它們是 迭代器 (iterator)，不是數字，也不是值，
+而是類似「指標（pointer）」的物件，用來走訪（iterate）整個容器。
+```cpp=
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+int main() {
+    vector<int> v;
+    v.push_back(20);
+    v.push_back(30);
+    v.push_back(10);
+    for(int i = 0; i < 3; i++){
+        cout << v[i] << ' ';
+    }
+    cout << '\n';
+    sort(v.begin(), v.end());
+    for(int i = 0; i < 3; i++){
+        cout << v[i] << ' ';
+    }
+}
+```
+:::spoiler 輸出
+`20 30 10`
+`10 20 30`
+:::
+
+### .push_back() & .pop_back()
+語法：`v.push_back(x)` & `v.pop_back()`
+用途：將元素新增到 vector 尾端/將 vector 最尾端的元素移除
+```cpp=
+#include <iostream>
+#include <vector>
+using namespace std;
+int main() {
+    vector<int> v(3);
+    v.push_back(10);
+    v.push_back(20);
+    for(int i= 0; i < 5; i++) cout << v[i] << ' ';
+    cout<<'\n';
+    v.pop_back();
+    for(int i= 0; i < 4; i++) cout << v[i] << ' ';       
+}
+```
+:::spoiler 輸出
+`0 0 0 10 20`
+`0 0 0 10`
+:::
+另外 vector 支援「陣列式存取」：
+```
+v[i];       // 快速存取，但不檢查越界
+v.at(i);    // 檢查越界，若超出範圍會給提示
+```
+```cpp=
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+
+int main() {
+    vector<int> v2(3);
+    v2.push_back(10);
+    v2.push_back(20);
+    cout << v2[6];
+    cout << v2.at(6);
+    
+    return 0;
+}
+//前者輸出 528729134(亂碼)
+//後者輸出 terminate called after throwing an instance of 'std::out_of_range'
+
+
+```
+
+### .size() & .capacity()
+語法：`v.size()` / `v.capacity()`
+用途：取得目前 `vector` 裡實際有多少個元素 / 顯示目前分配給 vector 的記憶體所能容納的元素上限，若存取時超出原本預留的空間則會擴大預留空間（可能變為2倍）
+```cpp=
+#include <iostream>
+#include <vector>
+using namespace std;
+int main() {
+    vector<int> v(5);
+    v.push_back(10);
+    v.push_back(20);
+    cout << v.size() << ' ';
+    cout << v.capacity(); 
+}
+```
+:::spoiler 輸出
+`7 10`
+:::
+### .resize()
+語法：`v.resize(n, x)`
+用途：調整 `v.size()` 為 n（會影響元素數量）
+若 n 大於原本 size()，會新增元素 x（沒預設則為0）。
+若 n 小則會刪除尾端元素。
+```cpp=
+#include <iostream>
+#include <vector>
+using namespace std;
+int main() {
+    vector<int> v = {1,2};
+    v.resize(4); // v = {1,2,0,0}
+    v.resize(1); // v = {1}
+}
+```
+### .reserve()
+語法：`v.reserve(n)`
+用途：將 `v.capacity()` 擴到至少 n，避免逐次 push_back 時頻繁 reallocate（重新配置記憶體），用於已知要插入大量元素時，可顯著提升效能。
+```cpp=
+#include <iostream>
+#include <vector>
+using namespace std;
+int main() {
+    vector<int> v;
+    v.reserve(1000); // 預留1000個元素空間
+}
+```
+### .empty()
+判斷 vector 是否為空, 回傳 `true` / `false`
+```cpp=
+#include <iostream>
+#include <vector>
+using namespace std;
+int main() {
+    vector<int> v;
+    vector<int> v2;
+    v2.push_back(10);
+    v2.push_back(20);
+    cout << v.empty() << '  ' << v2.empty();
+    
+    return 0;
+}
+```
+:::info
+:::spoiler 輸出
+`1 0`
+:::
+
