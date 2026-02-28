@@ -20,3 +20,9 @@
     page: https://bryan0324.github.io/
 AdvancedTeachingAssistant:
   name: nowob
+  image_url: https://github.com/itznowob.png
+  page: true
+  socials:
+    github: https://github.com/itznowob
+    page: https://itznowob.github.io/
+  
