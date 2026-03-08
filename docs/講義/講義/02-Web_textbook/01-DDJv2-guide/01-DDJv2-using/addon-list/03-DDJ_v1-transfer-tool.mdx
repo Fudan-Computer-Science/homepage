@@ -1,0 +1,31 @@
+---
+sidebar_position: 3
+title : DDJ/Zerojudge 搬題工具
+description: 內含 zjson 格式轉 markdown 格式的搬題工具，以及撰寫此套件遇到的 debug 經驗分享。
+---
+# 套件連結
+[npm 套件連結](https://www.npmjs.com/package/zj-to-hydro)
+[GitHub 套件連結](https://github.com/Miyun-owo/zj-to-hydro)
+
+使用說明 README 都有寫很清楚了，故使用方式不在此贅述。
+
+# debug 心路歷程
+
+## 乾貨
+### TypeScript 型別
+- `any vs unknown` 的差異，以及為什麼 `unknown` 更安全
+- Optional ? 
+- instanceof 做型別收窄才能安全存取屬性
+
+### 例外處理設計
+- 抓到 bug 了! try catch 和 bug 隱身術
+
+- 自定義 Error class
+
+### debug 技巧
+- log 鬼打牆? 用 `node -e` 模擬模組
+- package.json 的 type 設定問題
+
+### 讀 code 的能力
+- 追 import 、 export
+- 閱讀 Code Review
