@@ -1,0 +1,49 @@
+---
+sidebar_position: 3
+title : DDJ/Zerojudge 搬題工具
+description: 內含 zjson 格式轉 markdown 格式的搬題工具，以及撰寫此套件遇到的 debug 經驗分享。
+---
+
+## 套件連結
+[npm 套件連結](https://www.npmjs.com/package/zj-to-hydro)
+
+[GitHub 套件連結](https://github.com/Miyun-owo/zj-to-hydro)
+
+使用說明 README 都有寫很清楚了，故使用方式不在此贅述。
+
+## 乾貨
+
+### TypeScript 語法小教室
+- `any vs unknown` 的差異
+    1. `any` 是任意型別，也沒有型別檢查。型別檢查是 ts 有但 js 沒有的東西，可以防止一些設定問題。
+    但如果要繞過玄學型別 bug 的話可以暫時使用。 
+    (好像很多 AI 很喜歡 any，但一出錯就很難發現是型別問題，尤其用在資料讀取的地方。你永遠不知道使用者會塞什麼奇怪東西給你)
+    
+    2. `unknown` 叫作未知型別，有型別檢查。在使用之前要使用 `typeof` 語法來檢查型別，也可以做到強轉型態。
+- 可選型別 `?`
+    在這個 repo 的 index.ts 中，有 `static zjUrl?: string;` 這句。其中的「問號」就是所謂的可選型別。
+    我們可以假設現在有一張問卷，要填寫國籍、性別和年齡，其中，性別和年齡都可以跳過不作答。
+    在這個情況下，性別和年齡就是可選型別。
+    `static zjUrl?: string;` 這樣寫是讓 `zjUrl` 這個變數變成可選。
+
+- instanceof 做型別收窄才能安全存取屬性
+
+### 例外處理設計
+- 抓到 bug 了! try catch 和 bug 隱身術
+
+- 自定義 Error class
+
+### debug 技巧
+- log 鬼打牆? 用 `node -e` 模擬模組
+- package.json 的 type 設定問題
+- 追 import 、 export
+- 閱讀 Code Review
+
+
+【致謝】謝謝 giver 及草貓協助本套件 Code Review
+
+### 參考資料
+1. [任意型別 VS. 未知型別 (any VS. unknown)](https://ithelp.ithome.com.tw/m/articles/10316225)
+2. [TypeScript — 可選屬性及型別 Undefined/ Null](https://juifengchi.medium.com/typescript-%E5%8F%AF%E9%81%B8%E5%B1%AC%E6%80%A7%E5%8F%8A%E5%9E%8B%E5%88%A5-undefined-null-2ed45cfaa1fe)
+3. [物件的型別——介面](https://willh.gitbook.io/typescript-tutorial/basics/type-of-object-interfaces)
+4. [typescript基础之typeof与instanceOf的区别](https://blog.csdn.net/hhbbeijing/article/details/132452353)
