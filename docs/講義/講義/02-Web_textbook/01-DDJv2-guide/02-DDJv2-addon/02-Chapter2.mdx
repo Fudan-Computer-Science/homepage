@@ -53,26 +53,199 @@ addPage(new NamedPage(['homepage'], async () => {
 也可以使用其他DOM操作方法來進行注射 如`appendChild`、`insertBefore`等
 這裡就是js的基本DOM操作方法了 可以參考相關的js教學來學習更多 之後程設班官網應該也會有相關的教學文章
 
-:::info[其他資源]
-如果你會需要request其他資源 (如API資料等) 你可以使用`fetch`函式來進行HTTP請求
-```jsx
-import { request } from '@hydrooj/ui-default/utils/base';
+## 1.3 HTTP 請求 (Request API)
 
-request.get('/hitokoto').then(response => {
+如果你需要向伺服器請求資源或API資料 可以使用`request`函式來進行HTTP請求
+
+### I. 基本用法
+
+```jsx
+import { request } from '@hydrooj/ui-default';
+
+// GET 請求
+request.get('/api/endpoint').then(response => {
     console.log(response.data);
 });
+
+// POST 請求
+request.post('/api/endpoint', { key: 'value' }).then(response => {
+    console.log(response.data);
+});
+
+// PUT 請求
+request.put('/api/endpoint', { key: 'value' });
+
+// DELETE 請求
+request.delete('/api/endpoint');
 ```
-這會向`/hitokoto`發送GET請求 並在收到回應後將回應資料輸出到控制台
-(位置是在HydroOJ伺服器的根目錄下)
-可以參考[HydroOJ的repo](https://github.com/hydro-dev/Hydro/tree/dc146085a8b4547f3ee0b54af1224e7123d0846f/packages/ui-default)
-這邊元件幾個其他會用到的套件
 
-| 套件名稱 | 作用說明 | 位置 |
-| -------- | -------- | ---- |
-| request | 用來進行HTTP請求 | `@hydrooj/ui-default/utils/base` |
-| i18n('文字的key值') | 用來進行多國語系翻譯 | `@hydrooj/ui-default/utils/base` |
+### II. 進階選項
 
-如果有其他想補充的資源/元件 可以在下方留言告訴我們 謝謝！
+```jsx
+// 帶有自定義標頭
+request.get('/api/data', {
+    headers: { 'X-Custom-Header': 'value' }
+});
+
+// 處理錯誤
+request.get('/api/data')
+    .then(res => console.log('成功:', res.data))
+    .catch(err => console.log('錯誤:', err.message));
+
+// 使用 async/await
+async function fetchData() {
+    try {
+        const response = await request.get('/api/data');
+        console.log(response.data);
+    } catch (error) {
+        console.error('請求失敗:', error);
+    }
+}
+```
+
+## 1.4 對話框 (Dialog API)
+
+HydroOJ 提供多種對話框元件來彰顯使用者訊息或請求使用者操作
+
+### I. Alert / Confirm / Prompt
+
+```jsx
+import { alert, confirm, prompt } from '@hydrooj/ui-default';
+
+// 簡單提示
+alert('這是一個提示訊息');
+
+// 確認對話框（返回 boolean）
+confirm('確定要刪除嗎？').then(yes => {
+    if (yes) {
+        console.log('使用者按下確認');
+    }
+});
+
+// 輸入對話框（返回輸入值或 null）
+prompt('請輸入內容:').then(value => {
+    if (value !== null) {
+        console.log('使用者輸入了:', value);
+    }
+});
+```
+
+### II. 高級對話框
+
+```jsx
+import { Dialog, ActionDialog, InfoDialog } from '@hydrooj/ui-default';
+
+// 訊息対話框
+new InfoDialog({
+    title: '訊息',
+    message: '這是一個訊息對話框'
+}).show();
+
+// 帶有動作按鈕的對話框
+new ActionDialog({
+    $body: document.createElement('div'),
+    onAction: (val) => {
+        console.log('使用者選擇了:', val);
+    }
+}).show();
+```
+
+## 1.5 通知系統 (Notification API)
+
+在頁面上方顯示簡短的通知訊息
+
+```jsx
+import { Notification } from '@hydrooj/ui-default';
+
+// 成功通知
+Notification.success('操作成功！');
+
+// 錯誤通知
+Notification.error('操作失敗！');
+
+// 警告通知
+Notification.warning('請注意！');
+
+// 資訊通知
+Notification.info('這是一個資訊通知');
+```
+
+## 1.6 多國語系 (i18n)
+
+在前端代碼中使用多國語系字符串
+
+```jsx
+import { i18n } from '@hydrooj/ui-default';
+
+// 獲取翻譯文本
+const message = i18n('homepage');
+console.log(message); // 對應當前語言的翻譯
+
+// 帶有參數的翻譯（如果支援）
+const greeting = i18n('greeting', { name: 'Alice' });
+```
+
+## 1.7 頁面系統進階用法
+
+### I. 頁面生命週期
+
+```jsx
+import { NamedPage } from '@hydrooj/ui-default';
+
+const page = new NamedPage(
+    'problem_detail',
+    async (pageName) => {
+        console.log('頁面載入前執行');
+    },
+    async (pageName) => {
+        console.log('頁面載入後執行');
+    }
+);
+```
+
+### II. 多頁面匹配
+
+```jsx
+import { NamedPage } from '@hydrooj/ui-default';
+
+// 在多個頁面上運行相同的代碼
+addPage(new NamedPage(['homepage', 'problem_list', 'contest_list'], () => {
+    console.log('在主頁或列表頁上運行');
+}));
+```
+
+### III. 懶加載模塊
+
+```jsx
+import { NamedPage } from '@hydrooj/ui-default';
+
+// 指定模塊名稱以進行懶加載
+const page = new NamedPage(
+    'heavy_page',
+    'my_heavy_module',  // 模塊名稱
+    async (pageName) => {
+        console.log('懶加載的模塊執行');
+    }
+);
+```
+
+:::info[其他可用資源]
+
+以下是 `@hydrooj/ui-default` 中一些其他常用的函式
+
+| 套件名稱 | 作用說明 |
+| -------- | -------- |
+| `request` | 用來進行HTTP請求(GET/POST/PUT/DELETE) |
+| `i18n(key)` | 用來進行多國語系翻譯 |
+| `Dialog / ActionDialog / InfoDialog` | 對話框元件 |
+| `Notification.success() / error() / warning() / info()` | 通知訊息 |
+| `delay(ms)` | 延遲指定毫秒數 |
+| `pjax(url)` | PJAX 導航（無整頁刷新） |
+| `tpl / rawHtml` | HTML 模板處理 |
+| `getTheme()` | 獲取當前主題 |
+
+詳細的 API 參考請查看[附錄：前端 API 完整參考](../Appendix#前端-api-完整參考)
+
 :::
 
 ## 參考資料

@@ -1,0 +1,384 @@
+---
+sidebar_position: 9
+title : 第九章 Handler 進階
+description: 深入了解 Handler 的進階功能與最佳實踐
+---
+import Img, { ImgBaseProvider } from '/src/components/ImgPack';
+
+<ImgBaseProvider base="/img/DDJv2-guide/DDJv2-addon/09-Chapter9">
+
+# <span class="chapter_title">Chapter 9. </span>
+# <span class="chapter_subtitle"> Handler Advanced </span>
+
+## 9.1 Handler 類的完整生命週期
+
+```typescript
+import { Handler, Context } from 'hydrooj';
+
+export class MyHandler extends Handler {
+    // 初始化（在 Handler 建立時）
+    constructor(ctx: Context) {
+        super(ctx);
+    }
+
+    // 中間件檢查（所有 HTTP 方法前都會執行）
+    async prepare() {
+        // 執行初始檢查、權限驗證等
+        // 可以拋出異常終止請求
+    }
+
+    // HTTP 方法
+    async get() {
+        // 處理 GET 請求
+    }
+
+    async post() {
+        // 處理 POST 請求前的通用邏輯（如權限檢查）
+        this.checkPriv(PRIV.PRIV_USER_PROFILE);
+    }
+
+    // 特定操作
+    async postCreate() {
+        // 處理 POST 請求且 _operation=create
+    }
+
+    async postDelete() {
+        // 處理 POST 請求且 _operation=delete
+    }
+
+    // 清理（請求結束時）
+    async cleanup() {
+        // 清理資源等
+    }
+}
+```
+
+## 9.2 HTTP 方法與操作
+
+### 基本 HTTP 方法
+
+```typescript
+class ProblemHandler extends Handler {
+    // GET /problem
+    async get() {
+        this.response.body = { problems: [] };
+    }
+
+    // POST /problem
+    async post() {
+        // 先執行通用檢查
+        this.checkPriv(PRIV.PRIV_USER_PROFILE);
+    }
+
+    // POST /problem?_operation=create
+    async postCreate() {
+        const { title, content } = this.args;
+        // 建立邏輯
+        this.response.body = { message: '建立成功' };
+    }
+
+    // POST /problem?_operation=delete
+    async postDelete() {
+        const { id } = this.args;
+        // 刪除邏輯
+        this.response.body = { message: '刪除成功' };
+    }
+
+    // PUT /problem/:id
+    async put() {
+        const { id } = this.args;
+        // 更新邏輯
+    }
+
+    // DELETE /problem/:id
+    async delete() {
+        const { id } = this.args;
+        // 刪除邏輯
+    }
+
+    // PATCH /problem/:id
+    async patch() {
+        const { id } = this.args;
+        // 部分更新
+    }
+}
+```
+
+## 9.3 參數驗證與裝飾器
+
+### 使用 @param 裝飾器
+
+```typescript
+import { Handler, param, Types } from 'hydrooj';
+
+class UserHandler extends Handler {
+    @param('username', Types.Username)
+    @param('email', Types.Email)
+    @param('age', Types.Int, true)  // 第三個參數為 true 表示可選
+    async post(username: string, email: string, age?: number) {
+        // username 和 email 已驗證
+        console.log(username, email, age);
+        this.response.body = { success: true };
+    }
+}
+```
+
+### 常用參數類型
+
+| 類型 | 說明 | 示例 |
+|------|------|------|
+| `Types.Username` | 用戶名 | `alice` |
+| `Types.Email` | 郵箱 | `user@example.com` |
+| `Types.Uname` | 用戶名（允許中文） | `用戶名` |
+| `Types.Password` | 密碼（需最少6字符） | `pass123` |
+| `Types.Name` | 名稱 | `Alice Smith` |
+| `Types.Title` | 標題 | `My Title` |
+| `Types.Content` | 內容（長文本） | `...` |
+| `Types.Markdown` | Markdown 內容 | `# Title\n...` |
+| `Types.Int` | 整數 | `123` |
+| `Types.Float` | 浮點數 | `3.14` |
+| `Types.ObjectId` | MongoDB ObjectId | `ObjectId(...)` |
+| `Types.Range` | 範圍 (start, stop) | `[0, 10]` |
+| `Types.ProblemId` | 題目 ID | `P1000` |
+| `Types.String` | 任意字符串 | `any text` |
+| `Types.Boolean` | 布爾值 | `true`/`false` |
+
+### 自定義參數驗證
+
+```typescript
+import { Handler } from 'hydrooj';
+
+class MyHandler extends Handler {
+    async get() {
+        // 手動獲取和驗證參數
+        const { username } = this.args;
+        
+        // 驗證
+        if (!username || username.length < 3) {
+            throw new Error('Username must be at least 3 characters');
+        }
+        
+        this.response.body = { username };
+    }
+}
+```
+
+## 9.4 權限與特權檢查
+
+```typescript
+import { Handler, PERM, PRIV } from 'hydrooj';
+
+class AdminHandler extends Handler {
+    async get() {
+        // 檢查權限（域級別，基於用戶角色）
+        this.checkPerm(PERM.PERM_EDIT_DOMAIN);
+
+        // 檢查特權（系統級別，只有超級管理員）
+        this.checkPriv(PRIV.PRIV_EDIT_SYSTEM);
+
+        // 自定義檢查
+        if (this.user._id !== 1) {
+            throw new PermissionError('Only user 1 allowed');
+        }
+    }
+}
+```
+
+## 9.5 回應與重定向
+
+### 設定回應
+
+```typescript
+class ResponseHandler extends Handler {
+    async get() {
+        // 返回 JSON
+        this.response.body = { data: 'value' };
+
+        // 返回 HTML（使用模板）
+        this.response.template = 'my_template.html';
+        this.response.body = { title: 'Page Title' };
+
+        // 返回文本
+        this.response.type = 'text/plain';
+        this.response.body = 'Plain text response';
+
+        // 返回文件
+        this.response.type = 'application/octet-stream';
+        this.response.body = fs.createReadStream('/path/to/file');
+
+        // 設定狀態碼
+        this.response.status = 201;  // Created
+        this.response.body = { id: newItemId };
+    }
+}
+```
+
+### 重定向
+
+```typescript
+class RedirectHandler extends Handler {
+    async get() {
+        // 簡單重定向
+        this.response.redirect = '/new/path';
+
+        // 重定向到路由
+        this.response.redirect = this.url('problem_main');
+
+        // 重定向到路由並帶參數
+        this.response.redirect = this.url('problem_detail', { pid: 'P1000' });
+
+        // 返回上一頁
+        this.back();
+    }
+}
+```
+
+## 9.6 異常處理
+
+```typescript
+import { BadRequestError, NotFoundError, ForbiddenError } from 'hydrooj';
+
+class ErrorHandler extends Handler {
+    async get() {
+        const { id } = this.args;
+
+        // 不存在錯誤
+        if (!itemExists(id)) {
+            throw new NotFoundError('Item not found');
+        }
+
+        // 無權限
+        if (!userCanAccess(id)) {
+            throw new ForbiddenError('Access denied');
+        }
+
+        // 無效請求
+        if (!isValid(id)) {
+            throw new BadRequestError('Invalid format');
+        }
+
+        this.response.body = { item: getItem(id) };
+    }
+}
+```
+
+## 9.7 事件與擴展
+
+### 監聽 Handler 事件
+
+```typescript
+// 在 apply 函數中
+export async function apply(ctx: Context) {
+    // 在 Handler 執行前
+    ctx.on('handler/before/problem_detail', async (handler) => {
+        console.log('Before problem detail:', handler.args);
+        // 可以修改 handler 的屬性
+        handler.user.customField = 'value';
+    });
+
+    // 在 Handler 執行後
+    ctx.on('handler/after/problem_detail', async (handler) => {
+        console.log('After problem detail');
+        // 可以修改回應
+        if (handler.response.body) {
+            handler.response.body.custom = 'field';
+        }
+    });
+}
+```
+
+### 擴展現有 Handler
+
+```typescript
+export async function apply(ctx: Context) {
+    // 擴展 ProblemDetailHandler
+    ctx.withHandlerClass('ProblemDetailHandler', (ProblemDetailHandler) => {
+        const originalGet = ProblemDetailHandler.prototype.get;
+
+        // 包裝原方法
+        ProblemDetailHandler.prototype.get = async function(...args) {
+            console.log('Intercepted get');
+            
+            // 可以執行自定義邏輯
+            const startTime = Date.now();
+            
+            // 調用原方法
+            const result = await originalGet.apply(this, args);
+            
+            console.log(`Took ${Date.now() - startTime}ms`);
+            return result;
+        };
+
+        // 新增自定義方法
+        ProblemDetailHandler.prototype.custom = async function() {
+            return 'Custom method result';
+        };
+    });
+}
+```
+
+## 9.8 完整示例
+
+```typescript
+import { Handler, param, Types, PRIV } from 'hydrooj';
+
+// 用戶評論 Handler
+class CommentHandler extends Handler {
+    @param('content', Types.Content)
+    async get(content?: string) {
+        // 列出評論
+        const comments = await this.ctx.db.collection('comments')
+            .find({})
+            .toArray();
+        
+        this.response.body = { comments };
+    }
+
+    async post() {
+        // 通用檢查
+        this.checkPriv(PRIV.PRIV_USER_PROFILE);
+    }
+
+    @param('content', Types.Content)
+    async postCreate(content: string) {
+        // 建立評論
+        const { insertedId } = await this.ctx.db.collection('comments')
+            .insertOne({
+                author: this.user._id,
+                content,
+                createdAt: new Date()
+            });
+
+        this.response.status = 201;
+        this.response.body = { id: insertedId };
+    }
+
+    @param('id', Types.ObjectId)
+    async postDelete(id: ObjectId) {
+        // 刪除評論
+        const result = await this.ctx.db.collection('comments')
+            .deleteOne({ _id: id, author: this.user._id });
+
+        if (result.deletedCount === 0) {
+            throw new NotFoundError('Comment not found or access denied');
+        }
+
+        this.response.body = { success: true };
+    }
+}
+
+export async function apply(ctx: Context) {
+    // 註冊路由
+    ctx.Route('comment', '/comment', CommentHandler);
+}
+```
+
+## 參考資料
+- [HydroOJ 官方 Handler 文檔](https://hydro.js.org/docs/Hydro/dev/handler)
+- [HydroOJ 源碼 - Handler](https://github.com/hydro-dev/Hydro/tree/master/packages/hydrooj/src/handler)
+
+import Authors from '@site/src/components/DocsAuthor/AuthorCard';
+
+<Authors authors={["14thAdvancedTeachingDirector"]} size="h3" />
+
+</ImgBaseProvider>

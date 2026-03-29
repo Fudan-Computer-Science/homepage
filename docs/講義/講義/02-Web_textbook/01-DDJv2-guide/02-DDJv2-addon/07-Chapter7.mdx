@@ -1,0 +1,232 @@
+---
+sidebar_position: 7
+title : 第七章 UI 注射
+description: 在 HydroOJ UI 中注射新的頁面元素和導航項目
+---
+import Img, { ImgBaseProvider } from '/src/components/ImgPack';
+
+<ImgBaseProvider base="/img/DDJv2-guide/DDJv2-addon/07-Chapter7">
+
+# <span class="chapter_title">Chapter 7. </span>
+# <span class="chapter_subtitle"> UI Injection </span>
+
+## 7.1 UI 注射介紹
+
+UI 注射（UI Injection）是在不修改 HydroOJ 核心代碼的情況下，向現有的 UI 介面中添加新的元素、導航鏈接、按鈕等功能的一種方式。
+
+使用 `ctx.injectUI()` 可以在指定的注射點（UI Location）添加新的 UI 元素。
+
+## 7.2 基本語法
+
+```typescript
+ctx.injectUI(
+    target: string,           // 注射目標位置
+    routeName: string,        // 路由名稱
+    args?: Record<string, any>,  // 附加參數
+    ...permPrivChecker        // 權限/特權檢查
+);
+```
+
+### 參數說明
+- **target**: 注射點名稱，例如 `'Nav'`、`'DomainManage'` 等
+- **routeName**: 點擊該 UI 元素後要導向的路由名稱
+- **args**: 可選的配置對象，包含顯示文本、圖標等
+- **permPrivChecker**: 可選的權限或特權檢查，多個檢查時都必須滿足
+
+## 7.3 常用注射點
+
+### Nav - 頂部導航欄
+
+在頁面頂部導航欄中添加新的導航連結。
+
+```typescript
+import { Context } from 'hydrooj';
+
+export async function apply(ctx: Context) {
+    ctx.injectUI('Nav', 'my_custom_page', {
+        prefix: 'mycustom',    // i18n key 前綴
+        before: 'ranking'      // 在 'ranking' 前插入
+    });
+}
+```
+
+**args 選項：**
+
+| 選項 | 說明 | 類型 |
+|------|------|------|
+| `prefix` | i18n 前綴(用於查找顯示文本) | `string` |
+| `before` | 在指定元素前插入 | `string` |
+| `query` | 動態構建查詢參數的函數 | `(handler) => Record` |
+
+### UserDropdown - 用戶下拉菜單
+
+在頁面右上角用戶名下拉菜單中添加選項。
+
+```typescript
+ctx.injectUI(
+    'UserDropdown',
+    'user_profile_custom',
+    (handler) => ({
+        icon: 'book',           // SemanticUI 圖標名稱
+        displayName: 'Profile', // 顯示文本
+        uid: handler.user._id.toString(),  // 用戶 ID 參數
+    }),
+    PRIV.PRIV_USER_PROFILE  // 僅登入用戶可見
+);
+```
+
+### DomainManage - 域管理側邊欄
+
+在域管理頁面的側邊欄中添加選項。
+
+```typescript
+ctx.injectUI('DomainManage', 'domain_my_settings', {
+    family: 'My Plugin',   // 分組標題
+    icon: 'sliders',       // SemanticUI 圖標
+}, PERM.PERM_EDIT_DOMAIN);  // 僅域管理員可見
+```
+
+### ControlPanel - 系統管理面板
+
+在系統管理面板中添加選項（僅系統管理員可見）。
+
+```typescript
+ctx.injectUI(
+    'ControlPanel',
+    'manage_my_addon',
+    {
+        family: 'Addons',
+        icon: 'puzzle'
+    },
+    PRIV.PRIV_EDIT_SYSTEM  // 僅系統管理員可見
+);
+```
+
+### ProblemAdd - 題目添加選項
+
+在題目列表頁面的"新增題目"下拉按鈕中添加導入選項。
+
+```typescript
+ctx.injectUI('ProblemAdd', 'problem_import_custom', {
+    icon: 'download',
+    text: 'Import From Custom Format',
+});
+```
+
+## 7.4 權限與特權檢查
+
+使用權限和特權檢查來控制 UI 元素的可見性。
+
+```typescript
+import { PERM, PRIV } from 'hydrooj';
+
+// 只有域管理員可見
+ctx.injectUI('DomainManage', 'route1', {}, PERM.PERM_EDIT_DOMAIN);
+
+// 只有系統管理員可見
+ctx.injectUI('ControlPanel', 'route2', {}, PRIV.PRIV_EDIT_SYSTEM);
+
+// 只有已登入用戶可見
+ctx.injectUI('UserDropdown', 'route3', {}, PRIV.PRIV_USER_PROFILE);
+
+// 需要同時滿足多個條件
+ctx.injectUI(
+    'DomainManage',
+    'route4',
+    {},
+    PERM.PERM_EDIT_DOMAIN,     // AND
+    PRIV.PRIV_EDIT_SYSTEM      // AND
+);
+
+// 自定義檢查函數
+ctx.injectUI(
+    'Nav',
+    'route5',
+    {},
+    (handler) => handler.user._id > 0  // 例：檢查用戶 ID
+);
+```
+
+## 7.5 完整示例
+
+建立一個包含多個 UI 注射的套件：
+
+```typescript
+// index.ts
+import { Context, PERM, PRIV } from 'hydrooj';
+import { BlogUserHandler, BlogDetailHandler } from './handlers';
+
+export async function apply(ctx: Context) {
+    // 註冊路由
+    ctx.Route('blog_main', '/blog/:uid', BlogUserHandler);
+    ctx.Route('blog_detail', '/blog/:uid/:did', BlogDetailHandler, PRIV.PRIV_USER_PROFILE);
+
+    // 在用戶下拉菜單中添加選項
+    ctx.injectUI(
+        'UserDropdown',
+        'blog_main',
+        (handler) => ({
+            icon: 'book',
+            displayName: 'Blog',
+            uid: handler.user._id.toString()
+        }),
+        PRIV.PRIV_USER_PROFILE  // 只有已登入用戶可見
+    );
+
+    // 在頂部導航欄中添加連結
+    ctx.injectUI('Nav', 'blog_main', {
+        prefix: 'blog',
+        before: 'ranking'
+    });
+
+    // 在域管理中添加選項
+    ctx.injectUI('DomainManage', 'blog_manage', {
+        family: 'Blog',
+        icon: 'book'
+    }, PERM.PERM_EDIT_DOMAIN);
+
+    // 載入多國語系
+    ctx.i18n.load('zh_TW', {
+        'blog': '部落格',
+        'blog_main': '部落格',
+        'blog_manage': '管理部落格',
+    });
+
+    ctx.i18n.load('en', {
+        'blog': 'Blog',
+        'blog_main': 'Blog',
+        'blog_manage': 'Manage Blog',
+    });
+}
+```
+
+## 7.6 常用 SemanticUI 圖標
+
+| 圖標名稱 | 用途 |
+|---------|------|
+| `star` | 收藏/重要 |
+| `book` | 文檔/部落格 |
+| `settings` | 設定 |
+| `sliders` | 配置 |
+| `chart` | 統計/圖表 |
+| `download` | 下載/導入 |
+| `upload` | 上傳 |
+| `trash` | 刪除 |
+| `edit` | 編輯 |
+| `lock` | 安全/鎖定 |
+| `plug` | 插件 |
+| `puzzle` | 功能/擴展 |
+| `bell` | 通知 |
+| `envelope` | 郵件/訊息 |
+
+完整列表請參考 [SemanticUI 圖標文檔](https://semantic-ui.com/elements/icon.html)
+
+## 參考資料
+- [HydroOJ 官方開發文件](https://hydro.js.org/docs/Hydro/dev/typescript)
+- [SemanticUI 圖標](https://semantic-ui.com/elements/icon.html)
+
+import Authors from '@site/src/components/DocsAuthor/AuthorCard';
+
+<Authors authors={["14thAdvancedTeachingDirector"]} size="h3" />
+
+</ImgBaseProvider>

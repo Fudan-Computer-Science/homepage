@@ -397,48 +397,332 @@ graph TD
 
 2. 應用生命週期事件
 - `app/started`：應用啟動完成
-- `app/listen`：服務器開始監聽
-- `app/ready`：應用就緒
+## Service 服務相關附錄
 
-3. 業務邏輯事件
-- `user/login`：用戶登入
-- `user/register`：用戶註冊
-- `problem/add`：新增題目
-- `record/judge`：評測記錄判定
-- `contest/end`：比賽結束
+HydroOJ 提供許多內置服務，可以通過 `ctx.inject()` 進行依賴注入。
 
-4. 其他事件
-- `system/setting`：系統設置變更
-- `domain/create`：域創建
+### 常用服務列表
 
-## 未歸檔
-### storage
-```ts
-// packages/hydrooj/src/model/storage.ts
-class StorageModel { /* ... */ }
-global.Hydro.model.storage = StorageModel;
-export default StorageModel;
+| 服務名稱 | 說明 | 使用方式 |
+|---------|------|--------|
+| `db` | MongoDB 數據庫連接 | `ctx.db.collection(...)` |
+| `storage` | 文件存儲服務 | `await storage.put(path, file)` |
+| `bus` | 事件總線 | `ctx.on(eventName, handler)` |
+| `problemModel` | 題目模型 | `await ProblemModel.get(...)` |
+| `userModel` | 用戶模型 | `await UserModel.getById(...)` |
+| `documentModel` | 文檔模型 | `await DocumentModel.add(...)` |
+| `domainModel` | 域模型 | `await DomainModel.getById(...)` |
+| `mail` | 郵件服務 | `await mail.sendMail(...)` |
+| `server` | 伺服器配置 | `server.config` |
+
+### 依賴注入範例
+
+```typescript
+export async function apply(ctx: Context) {
+    // 等待 db 和 storage 服務就緒
+    ctx.inject(['db', 'storage'], (c) => {
+        // c.db 和 c.storage 現在已就緒
+        const db = c.db;
+        const storage = c.storage;
+        
+        // 可以設置定時任務
+        const timer = setInterval(async () => {
+            const docs = await db.collection('items').find({}).toArray();
+            console.log('Found', docs.length, 'items');
+        }, 60000);
+        
+        // 返回清理函數（插件卸載時會調用）
+        return () => {
+            clearInterval(timer);
+            console.log('Cleanup done');
+        };
+    });
+}
 ```
-```ts
-// 方式 1: 直接使用（推薦）
-await storage.put(path, file);
 
-// 方式 2: 通過 global
-await global.Hydro.model.storage.put(path, file);
+## 前端 API 完整參考
 
-// 方式 3: 導入
-import StorageModel from 'hydrooj/src/model/storage';
-await StorageModel.put(path, file);
+注：這些 API 需要在 `frontend/*.page.tsx` 中導入使用。
+
+### 頁面系統
+
+```typescript
+import { Page, NamedPage, AutoloadPage, addPage } from '@hydrooj/ui-default';
+
+// 在所有頁面運行
+addPage(new AutoloadPage('MyAutoload', () => {
+    console.log('Running on every page');
+}));
+
+// 在特定頁面運行
+addPage(new NamedPage('problem_detail', () => {
+    console.log('Running on problem detail page');
+}));
+
+// 在多個頁面運行
+addPage(new NamedPage(['problem_detail', 'problem_main'], () => {
+    console.log('Running on problem pages');
+}));
 ```
-- 常用 API
-    - `storage.put()` - 上傳文件
-    - `storage.get()` - 下載文件
-    - `storage.del()` - 刪除文件
-    - `storage.signDownloadLink()` - 生成下載鏈接
-    - `storage.list()` - 列出文件
-    - `storage.exists()` - 檢查文件是否存在
 
+### 對話框與通知
+
+```typescript
+import { 
+    Dialog, 
+    ActionDialog, 
+    InfoDialog, 
+    ConfirmDialog,
+    alert, 
+    confirm, 
+    prompt,
+    Notification 
+} from '@hydrooj/ui-default';
+
+// 簡單提示
+alert('This is an alert');
+confirm('Are you sure?');
+prompt('Please enter:', 'default value');
+
+// 通知
+Notification.success('Success!');
+Notification.error('Error!');
+Notification.warning('Warning!');
+Notification.info('Info!');
+
+// 高級對話框
+new InfoDialog({
+    title: 'Information',
+    message: 'This is information'
+}).show();
+```
+
+### HTTP 請求
+
+```typescript
+import { request } from '@hydrooj/ui-default';
+
+// GET
+const res = await request.get('/api/data');
+console.log(res.data);
+
+// POST
+const res = await request.post('/api/data', { key: 'value' });
+
+// PUT、DELETE、PATCH
+await request.put('/api/data', { key: 'value' });
+await request.delete('/api/data');
+await request.patch('/api/data', { key: 'value' });
+
+// 錯誤處理
+try {
+    const res = await request.get('/api/data');
+} catch (error) {
+    console.error('Request failed:', error.message);
+}
+```
+
+### 多國語系
+
+```typescript
+import { i18n } from '@hydrooj/ui-default';
+
+// 獲取翻譯文本
+const text = i18n('key');
+console.log(text);
+
+// 替換模板
+import { substitute } from '@hydrooj/ui-default';
+const result = substitute('Hello, {0}!', ['World']);
+// 結果: 'Hello, World!'
+```
+
+### 工具函數
+
+```typescript
+import {
+    delay,
+    secureRandomString,
+    getTheme,
+    downloadFile,
+    uploadFiles,
+    pjax,
+    tpl,
+    rawHtml,
+    base64,
+    mongoId,
+    zIndexManager,
+    getAvailableLangs,
+    loadReactRedux
+} from '@hydrooj/ui-default';
+
+// 延遲
+await delay(1000);  // 延遲 1 秒
+
+// 生成隨機字符串
+const token = secureRandomString(32);
+
+// 獲取主題
+const theme = getTheme();  // 'light' 或 'dark'
+
+// 下載文件
+downloadFile('/api/download', 'filename.txt');
+
+// 上傳文件
+const files = await uploadFiles();
+
+// PJAX 導航（無整頁刷新）
+pjax('/new/path');
+
+// HTML 模板
+const html = tpl`<div>${variable}</div>`;
+
+// 原始 HTML（避免轉義）
+const html = rawHtml('<strong>Bold</strong>');
+
+// Base64 編碼/解碼
+const encoded = base64.encode('hello');
+const decoded = base64.decode(encoded);
+
+// 生成 MongoDB ObjectId
+const id = mongoId();
+
+// 獲取可用的語言
+const langs = getAvailableLangs();  // ['zh_TW', 'en', ...]
+```
+
+## 常見錯誤與解決方案
+
+### 1. 模塊找不到
+
+**錯誤：** `Cannot find module '@hydrooj/ui-default'`
+
+**解決：** 確保在 `package.json` 中正確安裝了依賴
+```json
+{
+  "peerDependencies": {
+    "hydrooj": "*"
+  }
+}
+```
+
+### 2. Handler 方法未執行
+
+**錯誤：** Handler 的方法沒有被調用
+
+**可能原因：**
+- 路由名稱拼寫錯誤
+- Handler 類繼承錯誤
+- 權限檢查失敗
+
+**解決：** 
+```typescript
+// 檢查路由註冊
+ctx.Route('correct_name', '/path', MyHandler);
+
+// 檢查 Handler 繼承
+class MyHandler extends Handler {
+    async get() {
+        // 實現邏輯
+    }
+}
+```
+
+### 3. 模板變量未渲染
+
+**錯誤：** `{{ variable }}` 在模板中顯示為空
+
+**可能原因：**
+- 傳入的數據缺少該字段
+- 變量名拼寫不正確
+- 模板繼承錯誤
+
+**解決：**
+```typescript
+class MyHandler extends Handler {
+    async get() {
+        this.response.template = 'my_template.html';
+        this.response.body = {
+            variable: 'Value'  // 確保名稱與模板中的變量匹配
+        };
+    }
+}
+```
+
+### 4. UI 注射不顯示
+
+**錯誤：** UI 注射的元素沒有出現在頁面上
+
+**可能原因：**
+- 注射點名稱錯誤
+- 路由名稱不存在
+- 權限檢查未通過
+
+**解決：**
+```typescript
+// 確認注射點名稱
+ctx.injectUI('Nav', 'correct_route', {
+    prefix: 'my_addon'
+});
+
+// 檢查路由是否存在
+ctx.Route('my_addon_page', '/my/page', MyHandler);
+
+// 檢查權限設置
+import { PRIV } from 'hydrooj';
+ctx.injectUI('UserDropdown', 'route', {}, PRIV.PRIV_USER_PROFILE);
+```
+
+## 最佳實踐建議
+
+1. **命名規範**
+   - 路由名以插件名開頭，並用下劃線分隔
+   - 集合名以 `插件名.` 開頭
+   - i18n key 使用小寫並用下劃線分隔
+
+2. **型別安全**
+   - 總是為集合定義 TypeScript 接口
+   - 使用 `@param` 裝飾器驗證輸入
+
+3. **錯誤處理**
+   - 捕捉所有 async 操作的異常
+   - 使用適當的 HTTP 狀態碼
+
+4. **性能優化**
+   - 為常用查詢建立索引
+   - 使用分頁避免一次載入過多數據
+   - 緩存不常變化的數據
+
+5. **代碼組織**
+   - 將 Handler 類分離到不同文件
+   - 使用模型層封裝數據庫邏輯
+   - 提取公共邏輯到工具函數
+
+## 更新日誌
+
+### 章節結構
+- 第 0 章：介紹（基礎概念）
+- 第 1 章：安裝與設定
+- 第 2 章：前端基礎
+- 第 3 章：多國語系與模板
+- 第 4 章：服務基礎
+- 第 5 章：Context 物件
+- 第 6 章：Handler 基礎
+- **第 7 章：UI 注射（新增）**
+- **第 8 章：數據庫與模型（新增）**
+- **第 9 章：Handler 進階（新增）**
+- 附錄：架構與參考
+
+### 最近更新
+- 新增 UI 注射完整指南（第 7 章）
+- 新增數據庫與模型部分（第 8 章）
+- 新增 Handler 進階用法（第 9 章）
+- 擴展前端 API 文檔（第 2 章）
+- 增加模板系統複雜用法（第 3 章）
+- 新增常見錯誤與解決方案
+- 新增最佳實踐建議
 
 import Authors from '@site/src/components/DocsAuthor/AuthorCard';
 
 <Authors authors={["14thAdvancedTeachingDirector"]} size="h3" />
+

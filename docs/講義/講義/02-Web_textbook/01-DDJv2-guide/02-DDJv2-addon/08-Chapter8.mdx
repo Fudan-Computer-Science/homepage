@@ -1,0 +1,352 @@
+---
+sidebar_position: 8
+title : 第八章 數據庫與模型
+description: 使用 HydroOJ 的數據庫服務和內建模型
+---
+import Img, { ImgBaseProvider } from '/src/components/ImgPack';
+
+<ImgBaseProvider base="/img/DDJv2-guide/DDJv2-addon/08-Chapter8">
+
+# <span class="chapter_title">Chapter 8. </span>
+# <span class="chapter_subtitle"> Database and Models </span>
+
+## 8.1 數據庫概述
+
+HydroOJ 使用 MongoDB 作為其數據庫。套件可以通過 `ctx.db` 直接訪問 MongoDB 連接，或使用 HydroOJ 提供的高級模型封裝。
+
+### 訪問數據庫的兩種方式
+
+1. **高級模型層**（推薦）：使用 HydroOJ 提供的 DocumentModel 等
+2. **直接數據庫訪問**：使用 `ctx.db` 進行低級 MongoDB 操作
+
+## 8.2 直接數據庫訪問
+
+### 基本用法
+
+```typescript
+import { Context } from 'hydrooj';
+
+export async function apply(ctx: Context) {
+    // 示例：保存書籤數據
+    const coll = ctx.db.collection('my-addon.bookmarks');
+    
+    // 插入
+    await coll.insertOne({
+        owner: userId,
+        problemId: 'P1000',
+        note: '這是一個書籤'
+    });
+    
+    // 查詢
+    const bookmark = await coll.findOne({ owner: userId, problemId: 'P1000' });
+    console.log(bookmark);
+    
+    // 更新
+    await coll.updateOne(
+        { _id: bookmark._id },
+        { $set: { note: '更新的備註' } }
+    );
+    
+    // 刪除
+    await coll.deleteOne({ _id: bookmark._id });
+}
+```
+
+### 宣告集合類型
+
+為了获得 TypeScript 类型提示，需要先定義集合的文檔類型：
+
+```typescript
+import { ObjectId } from 'mongodb';
+
+// 定義文檔結構
+interface BookmarkDoc {
+    _id: ObjectId;
+    owner: number;              // 用戶 ID
+    problemId: string;          // 題目 ID
+    domainId: string;           // 域 ID
+    note: string;               // 用戶備註
+    createdAt: Date;            // 創建時間
+}
+
+// 註冊到 Hydro 的 Collections 介面
+declare module 'hydrooj' {
+    interface Collections {
+        'my-addon.bookmarks': BookmarkDoc;
+    }
+}
+
+// 現在 ctx.db.collection() 會返回正確類型的集合
+export async function apply(ctx: Context) {
+    const coll = ctx.db.collection('my-addon.bookmarks');
+    // coll 現在具有 BookmarkDoc 的完整類型提示
+}
+```
+
+### 常用操作
+
+**查詢（Queries）**
+
+```typescript
+// 查詢單個文檔
+const doc = await coll.findOne({ owner: userId });
+
+// 查詢多個文檔
+const docs = await coll.find({ owner: userId }).toArray();
+
+// 條件查詢
+const docs = await coll.find({
+    owner: userId,
+    createdAt: { $gte: new Date('2024-01-01') }
+}).toArray();
+
+// 計數
+const count = await coll.countDocuments({ owner: userId });
+
+// 分頁
+const page = await coll
+    .find({ owner: userId })
+    .limit(10)
+    .skip(page * 10)
+    .toArray();
+
+// 排序
+const docs = await coll
+    .find({ owner: userId })
+    .sort({ createdAt: -1 })  // -1 為降序，1 為升序
+    .toArray();
+```
+
+**原子更新（Atomic Updates）**
+
+```typescript
+import { ObjectId } from 'mongodb';
+
+// 遞增計數
+await coll.updateOne(
+    { _id: new ObjectId() },
+    { $inc: { views: 1 } }  // views 加 1
+);
+
+// 新增元素到陣列
+await coll.updateOne(
+    { _id: new ObjectId() },
+    { $push: { comments: 'new comment' } }
+);
+
+// 移除元素
+await coll.updateOne(
+    { _id: new ObjectId() },
+    { $pull: { comments: 'old comment' } }
+);
+
+// 批量更新
+await coll.updateMany(
+    { owner: userId },
+    { $set: { status: 'active' } }
+);
+```
+
+### 索引與 TTL
+
+```typescript
+// 建立索引以加快查詢
+await coll.createIndex({ owner: 1, problemId: 1 });  // 複合索引
+await coll.createIndex({ createdAt: 1 });            // 單一索引
+await coll.createIndex({ unique: true }, { unique: true });  // 唯一索引
+
+// 建立 TTL 索引（文檔會在指定時間後自動刪除）
+// 30天後自動刪除
+await coll.createIndex(
+    { createdAt: 1 },
+    { expireAfterSeconds: 30 * 24 * 60 * 60 }
+);
+```
+
+## 8.3 內建模型
+
+HydroOJ 提供了許多內建的模型來操作系統數據。
+
+### DocumentModel
+
+用於操作通用文檔（如問題、比賽、記錄等）。
+
+```typescript
+import { DocumentModel } from 'hydrooj';
+
+// 新增文檔
+const docId = await DocumentModel.add(
+    'system',        // domainId
+    'content...',    // 文檔內容
+    userId,          // owner
+    100,             // docType
+    null,            // 文檔 ID（null = 自動生成）
+    null,            // parentType
+    null             // parentId
+);
+
+// 獲取文檔
+const doc = await DocumentModel.get('system', 100, docId);
+
+// 更新文檔
+await DocumentModel.update('system', 100, docId, {
+    content: 'updated content'
+});
+
+// 刪除文檔
+await DocumentModel.delete('system', 100, docId);
+```
+
+### UserModel
+
+用於操作用戶數據。
+
+```typescript
+import { UserModel } from 'hydrooj';
+
+// 按 ID 獲取用戶
+const user = await UserModel.getById('system', userId);
+
+// 按用戶名獲取用戶
+const user = await UserModel.getByUname('system', 'alice');
+
+// 查詢用戶
+const users = await UserModel.find('system', {}).toArray();
+
+// 更新用戶
+await UserModel.update('system', userId, {
+    $set: { bio: 'My bio' }
+});
+```
+
+### ProblemModel
+
+用於操作題目數據。
+
+```typescript
+import { ProblemModel } from 'hydrooj';
+
+// 獲取題目
+const problem = await ProblemModel.get('domain_id', 'P1000');
+
+// 獲取所有題目
+const problems = await ProblemModel.find('domain_id', {}).toArray();
+
+// 統計字段
+const count = await ProblemModel.count('domain_id', {});
+```
+
+### DomainModel
+
+用於操作域（在線法官中的一個獨立實例）。
+
+```typescript
+import { DomainModel } from 'hydrooj';
+
+// 獲取域
+const domain = await DomainModel.getById(domainId);
+
+// 查詢域
+const domains = await DomainModel.find({}).toArray();
+```
+
+## 8.4 完整示例：建立書籤系統
+
+```typescript
+// index.ts
+import { Context, Handler, PRIV } from 'hydrooj';
+import { ObjectId } from 'mongodb';
+
+interface BookmarkDoc {
+    _id: ObjectId;
+    owner: number;
+    problemId: string;
+    domainId: string;
+    note: string;
+    createdAt: Date;
+}
+
+declare module 'hydrooj' {
+    interface Collections {
+        'bookmark.items': BookmarkDoc;
+    }
+}
+
+// 獲取書籤集合
+function getBookmarkColl(ctx: Context) {
+    return ctx.db.collection('bookmark.items');
+}
+
+// Handler：列出用戶的書籤
+class BookmarkListHandler extends Handler {
+    async get() {
+        const coll = getBookmarkColl(this.ctx);
+        const bookmarks = await coll
+            .find({ owner: this.user._id })
+            .sort({ createdAt: -1 })
+            .toArray();
+        
+        this.response.body = { bookmarks };
+    }
+}
+
+// Handler：添加書籤
+class BookmarkAddHandler extends Handler {
+    async post() {
+        const { problemId, note } = this.args;
+        const coll = getBookmarkColl(this.ctx);
+        
+        // 檢查是否已存在
+        const existing = await coll.findOne({
+            owner: this.user._id,
+            problemId,
+            domainId: this.domainId
+        });
+        
+        if (existing) {
+            throw new Error('Bookmark already exists');
+        }
+        
+        // 新增書籤
+        await coll.insertOne({
+            owner: this.user._id,
+            problemId,
+            domainId: this.domainId,
+            note,
+            createdAt: new Date()
+        });
+        
+        this.response.body = { success: true };
+    }
+}
+
+export async function apply(ctx: Context) {
+    // 建立索引
+    ctx.inject(['db'], async (c) => {
+        const coll = c.db.collection('bookmark.items');
+        await coll.createIndex({ owner: 1, domainId: 1 });
+        await coll.createIndex({ owner: 1, problemId: 1 });
+    });
+
+    // 註冊路由
+    ctx.Route('bookmark_list', '/bookmark', BookmarkListHandler, PRIV.PRIV_USER_PROFILE);
+    ctx.Route('bookmark_add', '/bookmark/add', BookmarkAddHandler, PRIV.PRIV_USER_PROFILE);
+
+    // 載入多國語系
+    ctx.i18n.load('zh_TW', {
+        'bookmark': '書籤',
+        'bookmark_list': '書籤列表',
+    });
+}
+```
+
+## 參考資料
+- [MongoDB 官方文檔](https://docs.mongodb.com/manual/)
+- [HydroOJ 官方開發文件](https://hydro.js.org/docs/Hydro/dev/typescript)
+- [HydroOJ 源碼 - Models](https://github.com/hydro-dev/Hydro/tree/master/packages/hydrooj/src/model)
+
+import Authors from '@site/src/components/DocsAuthor/AuthorCard';
+
+<Authors authors={["14thAdvancedTeachingDirector"]} size="h3" />
+
+</ImgBaseProvider>

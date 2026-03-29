@@ -38,12 +38,55 @@ another key: 這是另一段文字
 `key`通常會和`en.yml`中的value相同
 
 ### II. 使用多國語系
-會在各自的章節中介紹如何使用多國語系
+
+#### 在 Handler 中使用多國語系
+
+```typescript
+import { Handler, Types } from 'hydrooj';
+
+class MyHandler extends Handler {
+    async get() {
+        // 獲取當前語言的翻譯
+        const title = this.ctx.i18n.load(this.user.preferredLanguage).gettext('my_page_title');
+        this.response.body = { title };
+    }
+}
+```
+
+#### 在 index.ts 中載入多國語系
+
+```typescript
+import { Context } from 'hydrooj';
+
+export async function apply(ctx: Context) {
+    // 載入中文翻譯
+    ctx.i18n.load('zh_TW', {
+        'my_page_title': '我的頁面',
+        'welcome_message': '歡迎使用！',
+    });
+    
+    // 載入英文翻譯
+    ctx.i18n.load('en', {
+        'my_page_title': 'My Page',
+        'welcome_message': 'Welcome!',
+    });
+}
+```
+
+#### 前端中使用多國語系
+
+```jsx
+import { i18n } from '@hydrooj/ui-default';
+
+// 獲取當前語言的翻譯
+const title = i18n('my_page_title');
+console.log(title);  // 根據用戶語言顯示相應翻譯
+```
 
 ## 1.2 Templates 資料夾介紹
 在HydroOJ套件中 如果需要渲染 HTML 就可以建立`templates`資料夾方便渲染
 
-### I. html檔案結構
+### I. 模板檔案結構與基礎
 其採`nunjucks`語法來撰寫 HTML 
 使用時將傳入參數 而後渲染成最終的 HTML
 ```html
@@ -61,53 +104,112 @@ another key: 這是另一段文字
 
 若想要覆蓋其他模板 可手動複製貼上到自己的`templates`資料夾中來覆蓋原有的模板
 
-特別的 可以通過
-```html
-{{ _('the key') }}
-```
-來使用多國語系中的文字
+### II. 多國語系在模板中的使用
 
-也可以使用其他 nunjucks 語法來撰寫模板
-舉例
+可以通過以下方式在模板中使用多國語系文字
+```html
+{{ _('the key') }}             <!-- 簡單翻譯 -->
+{{ _('greeting', { name: name }) }} <!-- 帶參數的翻譯 -->
+```
+
+### III. 高級 Nunjucks 語法
+
+**條件判斷**
 ```html
 {% if success and result %}
 <script>
     const message = {{ result | dump | safe }};
     alert('✓ success:  ' + message);
 </script>
+{% elif error %}
+<p class="error">{{ error }}</p>
 {% else %}
-<script>
-    const message = {{ result | dump | safe }};
-    alert('fail:  ' + message);
-</script>
+<p>請稍候</p>
 {% endif %}
+```
 
+**迴圈**
+```html
 {% for package in packages %}
 <li>{{ package.name }} - {{ package.version }}</li>
 {% endfor %}
-```
-其中
-- `{% if success and result %} ... {% else %} ... {% endif %}`：代表條件判斷式
-- `{% for package in packages %} ... {% endfor %}`：代表迴
-- `| dump | safe`：代表將物件轉換成字串並且標記為安全的 HTML (避免 XSS)
 
+<!-- 帶索引的迴圈 -->
+{% for item in items %}
+<div>第 {{ loop.index }} 項: {{ item }}</div>
+{% endfor %}
+```
+
+**過濾器**
+```html
+{{ value | upper }}           <!-- 轉換為大寫 -->
+{{ value | lower }}           <!-- 轉換為小寫 -->
+{{ value | abs }}             <!-- 絕對值 -->
+{{ array | length }}          <!-- 陣列長度 -->
+{{ object | dump }}           <!-- 轉換為字串 -->
+{{ html_string | safe }}      <!-- 標記為安全的 HTML -->
+```
+
+**設定變數**
+```html
+{% set myVar = 'Hello' %}
+<p>{{ myVar }}</p>
+
+{% set myArray = [1, 2, 3] %}
+{% for item in myArray %}
+  <span>{{ item }}</span>
+{% endfor %}
+```
+
+**模板中可用的內置變量**
 ```nunjucks
-<!-- 模板中可用的內置變量 -->
+<!-- 使用者相關 -->
 {{ user._id }}           <!-- 當前用戶 ID -->
 {{ user.uname }}         <!-- 當前用戶名 -->
+{{ user.email }}         <!-- 當前用戶郵箱 -->
 {{ user.hasPerm(perm.PERM_VIEW) }} <!-- 權限檢查 -->
 
+<!-- 域相關 -->
 {{ domain._id }}         <!-- 當前域 ID -->
 {{ domain.name }}        <!-- 域名稱 -->
+{{ domain.owner }}       <!-- 域擁有者 -->
 
+<!-- 頁面相關 -->
 {{ page_name }}          <!-- 當前頁面名稱 -->
 {{ UiContext.cdn_prefix }} <!-- CDN 前綴 -->
 
+<!-- 常數 -->
 {{ perm.PERM_VIEW }}     <!-- 權限常數 -->
 {{ PRIV.PRIV_EDIT_SYSTEM }} <!-- 特權常數 -->
 
+<!-- 翻譯函數 -->
 {{ _('translation_key') }} <!-- 翻譯函數 -->
 ```
+
+### IV. 在 Handler 中使用模板
+
+```typescript
+import { Handler } from 'hydrooj';
+
+class MyPageHandler extends Handler {
+    async get() {
+        // 指定要使用的模板
+        this.response.template = 'my_page.html';
+        
+        // 傳入參數 會被注入到模板中
+        this.response.body = {
+            title: '我的頁面',
+            message: '歡迎訪問！',
+            items: ['項目1', '項目2', '項目3'],
+            success: true
+        };
+    }
+}
+
+// 然後在 my_page.html 模板中使用這些參數
+```
+
+
 
 恭喜你完成了本章的學習！
 
