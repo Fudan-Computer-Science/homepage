@@ -185,7 +185,7 @@ const config: Config = {
           label: '講義',
         },
         // {to: '/blog', label: '部落格', position: 'left'},
-        {to: 'https://dandanjudge-v2.fdhs.tyc.edu.tw/', label: '旦旦解題網', position: 'left'},
+        {to: 'https://dandanjudge-v2.fdhs.tyc.edu.tw/', label: '旦旦解題網', position: 'left', target: '_self'},
         {to: '/Calendar', label: '行事曆', position: 'right'},
         {to: '/games', label: '神奇小遊戲(?', position: 'right'},
         {
