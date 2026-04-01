@@ -2,7 +2,6 @@
 sidebar_position: 6
 title : 第六章 管理辦法
 description: 幹部域題目、題解品質管理、其他細項管理
-hide_table_of_contents: true
 ---
 import Img, { ImgBaseProvider } from '/src/components/ImgPack';
 
@@ -45,112 +44,10 @@ import Img, { ImgBaseProvider } from '/src/components/ImgPack';
 3. 幹部測試(功能測試、相容性測試等)
     - <span class="red_warning">試一定要實際操作套件並確認功能正常 幹部要負責測試套件 而不是單純看文件</span>
     - 如果有問題但覺得套件有潛力可以回報給開發組協助修正
-4. fork 套件到DDJ-v2的套件倉庫
-    具體流程(由網管操作)
-    1. fork 該套件到[DDJ-v2組織](https://github.com/ddj-v2)
-    2. 記得要確定workflows有開啟(fork下來的倉庫預設是關閉的)
-    附圖
-    3. 修改並增加CI/CD流程以符合DDJ-v2的要求(由網管操作)
-        1. 修改套件的`package.json`
-            - package name改為`@ddj-v2/套件名稱`
-            - repository改為DDJ-v2組織下的倉庫
-            ```json
-            {
-                "name": "@ddj-v2/套件名稱",
-                "repository": {
-                    "type": "git",
-                    "url": "https://github.com/ddj-v2/套件名稱.git"
-                }
-            }
-            ```
-            - 在console裡安裝 CI/CD 所需套件
-            ```sh
-            npm install -D semantic-release @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/github @semantic-release/npm
-            ```
-        2. 建立設定 檔`.releaserc`，內容如下
-            ```json
-            {
-                "branches": ["main"],
-                "plugins": [
-                    "@semantic-release/commit-analyzer",
-                    "@semantic-release/release-notes-generator",
-                    "@semantic-release/npm",
-                    "@semantic-release/github"
-                ]
-            }
-            ``` 
-        3. `.npmignore`
-        ```sh
-        # 排除所有隱藏檔案與資料夾
-        .*
-        !/.npmignore
-
-        # 排除 CI 與開發工具設定
-        .github/
-        .vscode/
-        node_modules/
-        *.log
-
-        # 排除測試與原始碼 (如果你的 build 結果在 dist/ 或 lib/)
-        test/
-        tests/
-        src/
-        __tests__/
-        jest.config.js
-        tsconfig.json
-
-        # 排除 semantic-release 可能產生的檔案
-        release.config.js
-        .releaserc
-        ```
-        4. github action `.github/workflows/publish.yml`
-```yaml
-name: Release
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  release:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write    # 寫入 Git 標籤與 Release
-      issues: write      # 讓 semantic-release 在 Issue 留言
-      pull-requests: write
-      id-token: write    # 關鍵：啟用 OIDC Trusted Publishing
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '24'
-          # Required so npm CLI targets the correct registry and can perform OIDC auth
-          registry-url: 'https://registry.npmjs.org'
-      - run: npm install -g npm@latest # 點睛之筆 更新 npm 版本 github action 預設的 npm 版本過舊 會導致 publish 失敗 我被坑了好久
-      - run: npm install
-      - run: npm ci
-      - run: npx semantic-release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-```
-    4. 在正式啟用CI/CD前要先自己手動發布一次(由網管操作)
-    ```sh
-    # 用復旦程設班帳號登入
-    npm login
-    npm publish --access public
-    # 建立對應 npm 現有版本的 Tag
-    git tag v1.0.0
-    # 推送到遠端
-    git push origin v1.0.0
-    ```
-    5. 在DDJ-v2版本README中標明原作者與套件來源
-    6. 在DDJ-v2版本README中標明該套件的功能與使用方法(如果沒有的話)
-    7. 現在 commit 時只要按照規範提交即可
-        推進 Minor 版本的 commit message 範例
-        - feat: 新增一個功能之類的
-4. 通過審核後加入DDJ-v2
+4. fork套件到DDJ-v2的套件倉庫
+    具體流程由網管操作(可看[附錄](./99-Appendix#fork套件到DDJ-v2的套件倉庫)中的說明)
+    
+5. 通過審核後加入DDJ-v2
 
 加入DDJ-v2請使用[hydrooj-addon-manager](./addon-list/hydrooj-addon-manager)進行安裝與管理套件
 
