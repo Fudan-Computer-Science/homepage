@@ -4,10 +4,14 @@ import type { Parent, Literal } from 'unist';
 type TextNode = Literal & { value: string };
 type ParentNode = Parent & { children: Array<any> };
 
+function isCodeLikeParent(parent: ParentNode | null): boolean {
+  return parent?.type === 'code' || parent?.type === 'inlineCode';
+}
+
 export default function remarkSpoiler() {
   return (tree: ParentNode) => {
-    visit(tree, 'text', (node: TextNode, index: number | null, parent: ParentNode | null) => {
-      if (!parent) return;
+    visit(tree, 'text', (node: TextNode, index: number | null | undefined, parent: ParentNode | null) => {
+      if (!parent || isCodeLikeParent(parent)) return;
       const value = (node.value || '').toString();
       if (!value || value.indexOf('||') === -1) return;
 
