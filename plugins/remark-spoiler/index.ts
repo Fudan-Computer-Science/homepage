@@ -5,7 +5,11 @@ type TextNode = Literal & { value: string };
 type ParentNode = Parent & { children: Array<any> };
 
 function isCodeLikeParent(parent: ParentNode | null): boolean {
-  return parent?.type === 'code' || parent?.type === 'inlineCode';
+  if (!parent) return false;
+  if (parent.type === 'code' || parent.type === 'inlineCode') return true;
+
+  const tagName = (parent as ParentNode & { tagName?: string }).tagName;
+  return tagName === 'code' || tagName === 'pre';
 }
 
 export default function remarkSpoiler() {
