@@ -5,7 +5,7 @@ description: "參照與指標"
 ---
 
 # <span class="chapter_title">Chapter 7. </span>
-# <span class="chapter_subtitle"> Reference and Pointer </span>
+# <span class="chapter_subtitle"> References and Pointers </span>
 
 ## 7-1 參照
 ### 直切主題

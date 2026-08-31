@@ -12,12 +12,10 @@ hide_table_of_contents: true
 
 ## [<span class="table_font">Chapter 4 ----- Loops</span>](./Chapter4.md)  
 
-## [<span class="table_font">Chapter 5 ----- Array and String</span>](./Chapter5.md) 
+## [<span class="table_font">Chapter 5 ----- Arrays and Strings</span>](./Chapter5.md) 
 
 ## [<span class="table_font">Chapter 6 ----- Functions</span>](./Chapter6.md)  
 
-## [<span class="table_font">Chapter 7 ----- Reference and Pointer</span>](./Chapter7.md)  
+## [<span class="table_font">Chapter 7 ----- References and Pointers</span>](./Chapter7.md)  
 
-
-###### 舊版連結 https://drive.google.com/file/d/16Di_TsV1gDvJ63pJVB_XAk5B9lYfYuet/preview
-
+##### pdf版講義 https://drive.google.com/file/d/10fqNqzs9g-qzE72HjQ8QtJ96_6KSVWAY/preview

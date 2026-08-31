@@ -5,7 +5,7 @@ description: "陣列與字串"
 ---
 
 # <span class="chapter_title">Chapter 5. </span>
-# <span class="chapter_subtitle"> Array and String </span>
+# <span class="chapter_subtitle"> Arrays and Strings</span>
 
 
 ## 5-1 一維陣列  

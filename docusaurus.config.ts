@@ -223,8 +223,8 @@ const config: Config = {
               href: 'https://github.com/Fudan-Computer-Science',
             },
             {
-              label: '第十四屆IG',
-              href: 'https://www.instagram.com/fdcs_114/',
+              label: '第十五屆IG',
+              href: 'https://www.instagram.com/fdcs__115/',
             },
             {
               label: 'Facebook 粉專',
