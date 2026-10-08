@@ -132,6 +132,8 @@ title : 新增套件方法
     git tag v1.0.0
     # 推送到遠端
     git push origin v1.0.0
+    # 讓 github action 可以 publish 套件
+    npm trust github <套件名稱> --allow-publish --repo ddj-v2/<套件名稱> --file publish.yml
     ```
     5. 在DDJ-v2版本README中標明原作者與套件來源
     6. 在DDJ-v2版本README中標明該套件的功能與使用方法(如果沒有的話)
