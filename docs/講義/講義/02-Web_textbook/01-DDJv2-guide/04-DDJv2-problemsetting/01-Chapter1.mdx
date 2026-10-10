@@ -1,0 +1,54 @@
+---
+sidebar_position: 01
+title : 第一章 傳統題
+---
+
+# HydroOj 暨 Dandanjudge-v2 出題教學
+
+## 傳統題
+
+首先在 config.yaml 中可已指定本題的全域記憶體配置以及時限，語法如下：
+
+
+```yaml
+time: 2s
+memory: 64mb
+```
+
+若不指定，預設值為1s, 256mb。
+
+### 測資點配置
+
+你可以先上傳測資檔，
+
+接下來可以指定自子任務，HydroOj 提供兩層嵌套：子任務以及子測資，其中外層「子任務」可以設定自己的時限、記憶體限制、以及配分，而子任務內部的測資配分則會由 hydrooj 自己平均配置。
+
+如果不指定時限及記憶體的話，則會以前面的全域設定為準。
+
+語法如下：
+
+```yaml
+subtasks:
+- time: 1s
+  score: 10
+  if: []
+  id: 1
+  type: sum
+  cases:
+  - input: 1.in
+    output: 1.out
+- time: 1s
+  score: 10
+  if: [1] # 代表 必須要 id 為 1 的子任務通過後此子任務才會算分
+  id: 2
+  type: sum # 代表本子任務的配分方式，sum為所有測資得分加總、min為最小值、max為最大值。
+  cases: # 測資檔案
+  - input: 2-1.in
+    output: 2-1.out
+    input: 2-2.in
+    output: 2-2.out
+```
+
+### 嚴格比對
+
+如果要嚴格比對，請勿使用 `CheckerType` 為 `default` 中的 `Ignore trailing space and enter.` ，請使用 `CheckerType` 中的 `testlib` ，並選取 `Preset`、`fcmp`。

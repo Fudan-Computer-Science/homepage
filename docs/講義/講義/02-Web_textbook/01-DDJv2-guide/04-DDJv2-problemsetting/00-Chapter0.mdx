@@ -1,0 +1,59 @@
+---
+sidebar_position: 01
+title : 第零章 通用
+---
+
+# HydroOj 暨 Dandanjudge-v2 出題教學
+
+## 通用
+
+首先就先點選 Create Problem 吧！
+
+你會看到好幾個欄位：
+
+- pid: 即題目代碼，一個題目在HydroOj會有兩種表示方式----流水號(ID)以及自己定義的代碼(pid)，在ddj-v2的命名規則如下：
+  - ddj-v1 舊題目：照舊(`aXXX`, `bXXX`)
+  - 初階班上課題目/作業：`cXXX`
+  - 進階班上課題目/作業：`dXXX`
+  - apcs 歷屆考古題：`apcsXXX`
+  - 期中、期末考：`bscXXX`、`advXXX`
+- title: 你的題目標題
+- hidden: 勾選是否隱藏此題目(未出好題目之前可以先勾選)
+- tags: 標籤
+- difficulty: 難度初始值，之後會按照使用者答題情況自動調整
+
+最下方有個大欄位，便是題目的敘述區，使用 [markdown](https://github.com/adam-p/markdown-here/wiki/markdown-cheatsheet) 語言，如 `hackmd` 一般可使用 `html` 語法。
+
+如果要上傳圖片，可以點選上方工具欄。
+
+範例測資的「上\`\`\`」旁需要加上`input1`, `output1`, `input2`...等。
+
+例如：
+
+````markdown
+```input1
+
+// code here
+
+```
+````
+
+
+接下來你會被帶到 files 頁，你可以上傳測資檔(`XX.in`, `XX.out`)，如果檔名相同，HydroOj 會自動歸為同一測資，此部分等下會再介紹。
+
+接下來可以到 Judge Config 頁面，裡面可以設置裁判機，HydroOj 的 grader 設定會以 `config.yaml` 檔案中的設定為準。
+
+## 題目種類
+
+HydroOj 支援以下題目種類：
+
+- 傳統題 (由標準輸入流讀入測資並輸出答案)
+- 交互題
+- 客觀題 (選擇 / 填充題)
+
+題目種類可以以設置介面選擇或是在 config.yaml 中指定:
+
+```yaml
+type: default / interactive / objective
+```
+
