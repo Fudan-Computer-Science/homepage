@@ -1,9 +1,11 @@
 ---
-sidebar_position: -1
-title : "目次"
-description: ""
+title : "入班考講義"
+description: "你的第一份C++講義!"
 hide_table_of_contents: true
 ---
+
+# 目錄
+
 ## [<span class="table_font">Chapter 1 ----- Welcome to C++</span>](./Chapter1.mdx)
 
 ## [<span class="table_font">Chapter 2 ----- Variables and Data Types</span>](./Chapter2.mdx)
