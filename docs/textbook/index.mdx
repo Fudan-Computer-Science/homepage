@@ -1,0 +1,14 @@
+---
+sidebar_position: -999
+title: '目錄'
+description: '歷屆程設班的智慧結晶'
+---
+
+import DocCardList from '@theme/DocCardList';
+import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
+
+<DocCardList 
+  items={useCurrentSidebarCategory().items.filter(item => 
+    item.docId !== 'index' && !item.docId?.endsWith('/index')
+  )} 
+/>
