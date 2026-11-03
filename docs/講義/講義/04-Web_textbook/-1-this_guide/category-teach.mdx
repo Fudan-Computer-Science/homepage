@@ -1,0 +1,30 @@
+---
+sidebar_position: 1
+title: category 目錄撰寫和設定指南
+---
+
+# _category_.json
+可以自動生成目錄
+範例：
+```json
+{
+  "label": "本網站頁面撰寫指南",
+  "position": -1,
+  "link": {
+    "type": "generated-index",
+    "description": "本網站頁面撰寫指南!",
+    "slug": "/講義/講義/Web_textbook/this_web_guide"
+  }
+}
+```
+# index.md
+可以手動撰寫目錄
+範例：
+```mdx
+# 這是目錄
+
+底下和自動生成一致(選配)
+import DocCardList from '@theme/DocCardList';
+
+<DocCardList />
+```
