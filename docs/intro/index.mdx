@@ -137,3 +137,13 @@ tags: [introduction]
 | YTP少年圖靈計畫【線上初賽】| 8月中 | |
 | YTP少年圖靈計畫【實體決賽】| 8月中 | |
 
+## 其他介紹
+
+import DocCardList from '@theme/DocCardList';
+import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
+
+<DocCardList 
+  items={useCurrentSidebarCategory().items.filter(item => 
+    item.docId !== 'index' && !item.docId?.endsWith('/index')
+  )} 
+/>

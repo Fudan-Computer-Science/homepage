@@ -31,13 +31,13 @@ import a9_competition_result from "@site/static/img/main_screen/A9CompetitionRes
 import a10_bulletin_board from "@site/static/img/main_screen/A10BulletinBoard";
 
 const cardsData: CardProps[] = [
-  { text: "關於程式設計班", link: "/homepage/docs/category/關於我們/", img: A1Code},
+  { text: "關於程式設計班", link: "/homepage/docs/intro/", img: A1Code},
   { text: "加入我們", link: "/homepage/docs/category/招生專區/", img: a2_register_now},
   { text: "FAQ", link: "/docs/InGrid/FAQ", img: a3_faq},
   { text: "部落格", link: "/blog", img: a4_blog},
   { text: "ddj網站手冊", link: "/docs/category/ddj-v2-網站手冊", img: a5_ddj},
   // { text: "旦旦解題網", link: "https://dandanjudge.fdhs.tyc.edu.tw/", img: a5_ddj},
-  { text: "入班考講義", link: "/homepage/docs/category/入班考講義", img: a6_intro_textbook},
+  { text: "入班考講義", link: "/docs/textbook/Beginner_textbook/", img: a6_intro_textbook},
   { text: "課堂講義", link: "/homepage/docs/category/歷屆講義", img: a7_textbook},
   { text: "聯絡我們", link: "/docs/InGrid/ConnectUs", img: a8_contect_us},
   {text: "競賽成果", link: "/docs/InGrid/CompetitionResult", img: a9_competition_result},
